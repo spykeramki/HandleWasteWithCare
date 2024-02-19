@@ -9,7 +9,8 @@ public class GarbageManager : MonoBehaviour
         GLASS,
         OIL,
         ORGANIC,
-        RADIOACTIVE
+        RADIOACTIVE,
+        NONE
     }
 
     [SerializeField]
