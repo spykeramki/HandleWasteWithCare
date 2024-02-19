@@ -16,6 +16,8 @@ public class PlayerCtrl : MonoBehaviour
 
     private bool isHealthDecreasing = false;
 
+    private EquipStationCtrl.EquipData _playerEquipData;
+
     public float BioHazardLevel
     {
         get { return bioHazardLevel; }
@@ -68,5 +70,11 @@ public class PlayerCtrl : MonoBehaviour
             StartCoroutine("ReduceHealthSlowly");
             isHealthDecreasing=false;
         }
+    }
+
+    public void SetPlayerEquipment(EquipStationCtrl.EquipData equipData )
+    {
+        _playerEquipData = equipData;
+        //set player equip
     }
 }
