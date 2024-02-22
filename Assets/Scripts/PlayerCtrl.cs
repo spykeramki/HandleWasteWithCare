@@ -11,6 +11,17 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField]
     private float radiationLevel = 0;
 
+    [SerializeField]
+    private PlayerInventorySystem playerInventorySystem;
+
+    [SerializeField]
+    private Transform cameraTransform;
+
+    public PlayerInventorySystem PlayerInventory
+    {
+        get { return playerInventorySystem; }
+    }
+
     private float _healthToReduceForEachLevelOfRadiation = 0.1f;
     private float _healthToReduceForEachLevelOfBioHazardEffect = 0.2f;
 
@@ -49,6 +60,23 @@ public class PlayerCtrl : MonoBehaviour
         {
             StopCoroutine("ReduceHealthSlowly");
             isHealthDecreasing = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        RaycastHit hit;
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 10f))
+            {
+                //Debug.DrawRay(cameraTransform.position, cameraTransform.forward, Color.green);
+                if (hit.collider.tag == "Garbage")
+                {
+                    GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
+                    playerInventorySystem.AddItemToInventory(garbageCtrl);
+                }
+            }
         }
     }
 

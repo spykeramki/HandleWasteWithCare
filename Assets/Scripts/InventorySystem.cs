@@ -12,7 +12,7 @@ public class InventorySystem : MonoBehaviour
         public int count;
     }
 
-    protected Dictionary<string, InventoryItemData> itemsData;
+    protected Dictionary<string, InventoryItemData> itemsData = new Dictionary<string, InventoryItemData>();
 
     public virtual void AddItem(InventoryItemData itemData)
     {
@@ -24,7 +24,7 @@ public class InventorySystem : MonoBehaviour
         }
         else if(itemData.containerCtrl != null)
         {
-            ManageItemAdditionToInventory("CONTAINER", itemData);
+            ManageItemAdditionToInventory(GarbageManager.GarbageType.NONE.ToString(), itemData);
         }
     }
 
@@ -38,6 +38,7 @@ public class InventorySystem : MonoBehaviour
         {
             InventoryItemData inventoryItemData = itemsData[enumString];
             inventoryItemData.count += itemData.count;
+            itemsData[enumString] = inventoryItemData;
         }
     }
 
@@ -50,7 +51,7 @@ public class InventorySystem : MonoBehaviour
         }
         else if (itemData.containerCtrl != null)
         {
-            ManageItemRemovalToInventory("CONTAINER", itemData);
+            ManageItemRemovalToInventory(GarbageManager.GarbageType.NONE.ToString(), itemData);
         }
     }
 
@@ -69,7 +70,7 @@ public class InventorySystem : MonoBehaviour
     }
 
 
-    protected Dictionary<string, InventoryItemData> GetInventoryItemsData()
+    public Dictionary<string, InventoryItemData> GetInventoryItemsData()
     {
         return itemsData;
     }

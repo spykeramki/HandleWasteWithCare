@@ -15,6 +15,15 @@ public class GameManager : MonoBehaviour
 
     public PlayerLocation playerLocation = PlayerLocation.BASE;
 
+    [SerializeField]
+    private PlayerCtrl playerCtrl;
+    public PlayerCtrl PlayerCtrl { get { return playerCtrl; } }
+
+    [SerializeField]
+    private BaseMachinesInventoryCtrl baseMachinesInventoryCtrl;
+
+    public BaseMachinesInventoryCtrl BaseMachinesInventoryCtrl { get => baseMachinesInventoryCtrl; }
+
     private void Awake()
     {
         if(Instance == null)

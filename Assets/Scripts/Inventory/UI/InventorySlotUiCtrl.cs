@@ -15,18 +15,34 @@ public class InventorySlotUiCtrl : MonoBehaviour
     [SerializeField]
     private GarbageManager.GarbageType currentGarbageType = GarbageManager.GarbageType.NONE;
 
+    private bool _isFilled = false;
+
     private InventoryItemUiCtrl _currentInventoryItemUiCtrl;
 
     public void SetDataInUi(UiData uiData)
     {
-        if(currentGarbageType!=uiData.garbageType){
+        currentGarbageType = uiData.garbageType;
+        if(!_isFilled){
             _currentInventoryItemUiCtrl= Instantiate(inventoryItemPrefab, transform);
             _currentInventoryItemUiCtrl.SetDataInUi(uiData.inventoryItemUiData);
-            currentGarbageType = uiData.garbageType;
+            _isFilled = true;
         }
         else{
-            _currentInventoryItemUiCtrl.SetDataInUi(uiData.inventoryItemUiData);
+            /*if (currentGarbageType == uiData.garbageType)
+            {*/
+                _currentInventoryItemUiCtrl.SetDataInUi(uiData.inventoryItemUiData);
+            //}
         }
+    }
+
+    public void RemoveItemFromSlot()
+    {
+        _isFilled = false;
+        if(_currentInventoryItemUiCtrl != null)
+        {
+            Destroy(_currentInventoryItemUiCtrl.gameObject);
+        }
+        currentGarbageType = GarbageManager.GarbageType.NONE;
     }
 
 }
