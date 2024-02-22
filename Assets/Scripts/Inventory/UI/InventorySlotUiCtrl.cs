@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventorySlotUiCtrl : MonoBehaviour
 {
@@ -12,17 +13,34 @@ public class InventorySlotUiCtrl : MonoBehaviour
     [SerializeField]
     private InventoryItemUiCtrl inventoryItemPrefab;
 
+    private UiData _currentSlotData;
+    public UiData CurrentSlotData {  get { return _currentSlotData; } }
+
     [SerializeField]
-    private GarbageManager.GarbageType currentGarbageType = GarbageManager.GarbageType.NONE;
+    private Image slotBg;
 
     private bool _isFilled = false;
 
     private InventoryItemUiCtrl _currentInventoryItemUiCtrl;
 
+    private Color _currentColor;
+
+    private bool _isSelected = false;
+    public bool IsSelected
+    {
+        get => _isSelected;
+    }
+
+    private void Awake()
+    {
+        _currentColor = slotBg.color;
+        _currentSlotData = new UiData();
+    }
+
     public void SetDataInUi(UiData uiData)
     {
-        currentGarbageType = uiData.garbageType;
-        if(!_isFilled){
+        _currentSlotData = uiData;
+        if (!_isFilled){
             _currentInventoryItemUiCtrl= Instantiate(inventoryItemPrefab, transform);
             _currentInventoryItemUiCtrl.SetDataInUi(uiData.inventoryItemUiData);
             _isFilled = true;
@@ -42,7 +60,29 @@ public class InventorySlotUiCtrl : MonoBehaviour
         {
             Destroy(_currentInventoryItemUiCtrl.gameObject);
         }
-        currentGarbageType = GarbageManager.GarbageType.NONE;
+        _currentSlotData = new UiData();
+        SlotSelection();
+    }
+
+    public void OnMouseDown()
+    {
+        if (_isFilled && _currentSlotData .garbageType!= GarbageManager.GarbageType.NONE)
+        {
+            SlotSelection();
+        }
+    }
+
+    private void SlotSelection() {
+
+        _isSelected = !_isSelected;
+        if (_isSelected)
+        {
+            slotBg.color = Color.green;
+        }
+        else
+        {
+            slotBg.color = _currentColor;
+        }
     }
 
 }

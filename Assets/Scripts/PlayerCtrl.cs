@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class PlayerCtrl : MonoBehaviour
         get { return health; }
     }
 
+    RaycastHit hit;
     private void Update()
     {
         if (!isHealthDecreasing && (radiationLevel > 0 || bioHazardLevel > 0))
@@ -63,18 +65,22 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
-        RaycastHit hit;
+        Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 5f, Color.green);
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 10f))
+            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 5f))
             {
-                //Debug.DrawRay(cameraTransform.position, cameraTransform.forward, Color.green);
                 if (hit.collider.tag == "Garbage")
                 {
                     GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
                     playerInventorySystem.AddItemToInventory(garbageCtrl);
+                }
+                if (hit.collider.tag == "Button")
+                {
+                    Button buttonCom = hit.collider.GetComponent<Button>();
+                    buttonCom.onClick.Invoke();
                 }
             }
         }

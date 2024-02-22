@@ -13,6 +13,11 @@ public class InventoryUiContainerCtrl : MonoBehaviour
     [SerializeField]
     private List<InventorySlotUiCtrl> inventorySlotList;
 
+    public List<InventorySlotUiCtrl> InventorySlotList
+    {
+        get { return inventorySlotList; }
+    }
+
     public void SetDataInUi(UiData uiData)
     {
         List<InventorySlotUiCtrl.UiData> inventoryData = uiData.inventorySlotsUiData;
