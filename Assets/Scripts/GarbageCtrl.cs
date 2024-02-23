@@ -22,6 +22,9 @@ public class GarbageCtrl : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.PlayerCtrl.StopInfectLevelCoroutines(garbageType);
+        if (GameManager.Instance.PlayerCtrl != null)
+        {
+            GameManager.Instance.PlayerCtrl.StopInfectLevelCoroutines(garbageType);
+        }
     }
 }
