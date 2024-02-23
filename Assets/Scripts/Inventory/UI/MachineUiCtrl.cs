@@ -18,13 +18,17 @@ public class MachineUiCtrl : MonoBehaviour
     [SerializeField]
     private Button playerTransferButton;
 
+    [SerializeField]
+    private Button machineTransferButton;
+
     private GameManager gameManager;
 
     private void Start()
     {
         gameManager = GameManager.Instance;
         playerTransferButton.onClick.AddListener(OnClickTransferToMachineInventoryButton);
-    
+        machineTransferButton.onClick.AddListener(OnClickTransferFromMachineInventoryButton);
+
     }
 
     public void OnPlayerConnectedToMachine()
@@ -42,7 +46,6 @@ public class MachineUiCtrl : MonoBehaviour
 
     public void OnClickTransferToMachineInventoryButton()
     {
-        Debug.Log("Button Cliked");
         List<InventorySlotUiCtrl> inventorySlotUiCtrls = playerInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
@@ -57,7 +60,27 @@ public class MachineUiCtrl : MonoBehaviour
         if (inventorySlotUiCtrls.Count != 0) 
         {
             OnPlayerConnectedToMachine();
-            //gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
+            gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
+        }
+    }
+
+    public void OnClickTransferFromMachineInventoryButton()
+    {
+        List<InventorySlotUiCtrl> inventorySlotUiCtrls = machineInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
+        for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
+        {
+            InventorySlotUiCtrl inventorySlotUiCtrl = inventorySlotUiCtrls[i];
+            InventorySystem.InventoryItemData machineItemData = inventorySystem.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
+            //inventorySlotUiCtrl.RemoveItemFromSlot();
+
+            inventorySystem.RemoveItem(machineItemData);
+            gameManager.PlayerCtrl.PlayerInventory.AddItem(machineItemData);
+        }
+
+        if (inventorySlotUiCtrls.Count != 0)
+        {
+            OnPlayerConnectedToMachine();
+            gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
         }
     }
 }

@@ -31,10 +31,6 @@ public class InventorySlotUiCtrl : MonoBehaviour
         get => _isSelected;
     }
 
-    private void Awake()
-    {
-        _currentSlotData = new UiData() { garbageType = GarbageManager.GarbageType.NONE };
-    }
 
     private void Start()
     {
@@ -71,6 +67,8 @@ public class InventorySlotUiCtrl : MonoBehaviour
 
     public void OnMouseDown()
     {
+        Debug.Log(_isFilled + "_isFilled");
+        Debug.Log(_isFilled + "_isFilled");
         if (_isFilled && _currentSlotData .garbageType!= GarbageManager.GarbageType.NONE)
         {
             SlotSelection(!_isSelected);
