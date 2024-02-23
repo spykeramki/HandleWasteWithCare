@@ -50,8 +50,8 @@ public class Utilities : MonoBehaviour
             inventorySlotUiCtrlData.garbageType = garbageType;
             inventorySlotsUiData.Add(inventorySlotUiCtrlData);
 
-            Debug.Log(inventoryItemUiData.itemImage.name + "image");
-            Debug.Log(inventoryItemUiData.count + "count");
+            /*Debug.Log(inventoryItemUiData.itemImage.name + "image");
+            Debug.Log(inventoryItemUiData.count + "count");*/
         }
 
         uiData.inventorySlotsUiData = inventorySlotsUiData;

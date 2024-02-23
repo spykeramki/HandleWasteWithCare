@@ -11,4 +11,17 @@ public class GarbageCtrl : MonoBehaviour
     {
         get { return garbageType; }
     }
+
+    [SerializeField]
+    private InfectPlayerCtrl infectPlayerCtrl;
+
+    public InfectPlayerCtrl InfectPlayerCtrl
+    {
+        get { return infectPlayerCtrl; }
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.PlayerCtrl.StopInfectLevelCoroutines(garbageType);
+    }
 }

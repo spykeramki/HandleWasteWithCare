@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
+    [SerializeField]
     private float health = 100;
     private float stamina = 100;
     [SerializeField]
@@ -76,6 +77,7 @@ public class PlayerCtrl : MonoBehaviour
                 {
                     GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
                     playerInventorySystem.AddItemToInventory(garbageCtrl);
+                    garbageCtrl.gameObject.SetActive(false);
                 }
                 if (hit.collider.tag == "Button")
                 {
@@ -110,5 +112,82 @@ public class PlayerCtrl : MonoBehaviour
     {
         _playerEquipData = equipData;
         //set player equip
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        InfectPlayerCtrl infectPlayerCtrl = other.GetComponent<InfectPlayerCtrl>();
+        if(infectPlayerCtrl != null)
+        {
+            if (infectPlayerCtrl.InfectType == GarbageManager.GarbageType.RADIOACTIVE)
+            {
+                StartCoroutine("IncreaseRadiationValueSlowly");
+            }
+            else if (infectPlayerCtrl.InfectType == GarbageManager.GarbageType.ORGANIC)
+            {
+                StartCoroutine("IncreaseBioHazardValueSlowly");
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        InfectPlayerCtrl infectPlayerCtrl = other.GetComponent<InfectPlayerCtrl>();
+        
+        if(infectPlayerCtrl != null)
+        {
+            StopInfectLevelCoroutines(infectPlayerCtrl.InfectType);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        
+    }
+
+
+    public IEnumerator IncreaseBioHazardValueSlowly()
+    {
+        while (bioHazardLevel <= 100)
+        {
+            yield return new WaitForSeconds(1f);
+            bioHazardLevel += 1f;
+        }
+
+        if (bioHazardLevel >= 0)
+        {
+            StopCoroutine("IncreaseBioHazardValueSlowly");
+        }
+    }
+
+    public IEnumerator IncreaseRadiationValueSlowly()
+    {
+        while (radiationLevel <= 100)
+        {
+            yield return new WaitForSeconds(1f);
+            radiationLevel += 1f;
+        }
+
+        if (radiationLevel >= 0)
+        {
+            StopCoroutine("IncreaseRadiationValueSlowly");
+        }
+    }
+
+    public void StopInfectLevelCoroutines(GarbageManager.GarbageType garbageType)
+    {
+        if (garbageType == GarbageManager.GarbageType.RADIOACTIVE)
+        {
+            StopCoroutine("IncreaseRadiationValueSlowly");
+        }
+        else if (garbageType == GarbageManager.GarbageType.ORGANIC)
+        {
+            StopCoroutine("IncreaseBioHazardValueSlowly");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }
