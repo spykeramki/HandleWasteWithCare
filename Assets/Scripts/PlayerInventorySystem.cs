@@ -7,8 +7,9 @@ public class PlayerInventorySystem : InventorySystem
     [SerializeField]
     private InventoryUiContainerCtrl playerInventoryUiCtrl;
 
-    private void UpdateDataInInvetoryUi()
+    public void UpdateDataInInvetoryUi()
     {
+        playerInventoryUiCtrl.RemoveAllItemsFromSlots();
         playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(itemsData));
     }
 
@@ -20,7 +21,7 @@ public class PlayerInventorySystem : InventorySystem
             count = 1
         };
         AddItem(inventoryItemData);
-        UpdateDataInInvetoryUi();
+        playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(itemsData));
     }
 
 }

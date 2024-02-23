@@ -30,6 +30,8 @@ public class MachineUiCtrl : MonoBehaviour
     public void OnPlayerConnectedToMachine()
     {
         gameManager = GameManager.Instance;
+        playerInventoryUiCtrl.RemoveAllItemsFromSlots();
+        machineInventoryUiCtrl.RemoveAllItemsFromSlots();
         Dictionary<string, InventorySystem.InventoryItemData> playerItemsData = gameManager.PlayerCtrl.PlayerInventory.GetInventoryItemsData();
         Dictionary<string, InventorySystem.InventoryItemData> machineItemsData = inventorySystem.GetInventoryItemsData();
 
@@ -46,14 +48,16 @@ public class MachineUiCtrl : MonoBehaviour
         {
             InventorySlotUiCtrl inventorySlotUiCtrl = inventorySlotUiCtrls[i];
             InventorySystem.InventoryItemData playerItemData = gameManager.PlayerCtrl.PlayerInventory.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
-            inventorySlotUiCtrl.RemoveItemFromSlot();
+            //inventorySlotUiCtrl.RemoveItemFromSlot();
 
             gameManager.PlayerCtrl.PlayerInventory.RemoveItem(playerItemData);
             inventorySystem.AddItem(playerItemData);
         }
-        if (inventorySlotUiCtrls.Count != 0)
+
+        if (inventorySlotUiCtrls.Count != 0) 
         {
             OnPlayerConnectedToMachine();
+            gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
         }
     }
 }

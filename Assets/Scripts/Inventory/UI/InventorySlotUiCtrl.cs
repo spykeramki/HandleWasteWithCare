@@ -34,7 +34,7 @@ public class InventorySlotUiCtrl : MonoBehaviour
     private void Awake()
     {
         _currentColor = slotBg.color;
-        _currentSlotData = new UiData();
+        _currentSlotData = new UiData() { garbageType = GarbageManager.GarbageType.NONE };
     }
 
     public void SetDataInUi(UiData uiData)
@@ -60,22 +60,21 @@ public class InventorySlotUiCtrl : MonoBehaviour
         {
             Destroy(_currentInventoryItemUiCtrl.gameObject);
         }
-        _currentSlotData = new UiData();
-        SlotSelection();
+        _currentSlotData = new UiData() { garbageType = GarbageManager.GarbageType.NONE};
+        SlotSelection(false);
     }
 
     public void OnMouseDown()
     {
         if (_isFilled && _currentSlotData .garbageType!= GarbageManager.GarbageType.NONE)
         {
-            SlotSelection();
+            SlotSelection(!_isSelected);
         }
     }
 
-    private void SlotSelection() {
-
-        _isSelected = !_isSelected;
-        if (_isSelected)
+    private void SlotSelection(bool isSelected) {
+        _isSelected = isSelected;
+        if (isSelected)
         {
             slotBg.color = Color.green;
         }

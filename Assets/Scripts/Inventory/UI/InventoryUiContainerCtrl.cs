@@ -29,4 +29,12 @@ public class InventoryUiContainerCtrl : MonoBehaviour
             inventorySlotList[i].SetDataInUi(inventoryData[i]);
         }
     }
+
+    public void RemoveAllItemsFromSlots()
+    {
+        for (int i = 0; i < InventorySlotList.Count; i++)
+        {
+            inventorySlotList[i].RemoveItemFromSlot();
+        }
+    }
 }
