@@ -33,8 +33,13 @@ public class InventorySlotUiCtrl : MonoBehaviour
 
     private void Awake()
     {
-        _currentColor = slotBg.color;
         _currentSlotData = new UiData() { garbageType = GarbageManager.GarbageType.NONE };
+    }
+
+    private void Start()
+    {
+        _currentColor = new Color(199, 226, 236, 255);
+        slotBg.color = _currentColor;
     }
 
     public void SetDataInUi(UiData uiData)

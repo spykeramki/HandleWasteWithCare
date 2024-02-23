@@ -57,7 +57,7 @@ public class MachineUiCtrl : MonoBehaviour
         if (inventorySlotUiCtrls.Count != 0) 
         {
             OnPlayerConnectedToMachine();
-            gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
+            //gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
         }
     }
 }
