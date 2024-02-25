@@ -8,6 +8,7 @@ TagManager:
   - Garbage
   - InventoryItem
   - Button
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -56,7 +56,7 @@ public class GarbageManager : MonoBehaviour
 
         float randomRangeBetweenMinAndMax = UnityEngine.Random.Range(garbageToBeGenerated.minDistanceFromBase, garbageToBeGenerated.maxDistanceFromBase);
 
-        Vector3 randomPositionOfWastage = new Vector3(xPos* randomRangeBetweenMinAndMax, 1f, yPos* randomRangeBetweenMinAndMax);
+        Vector3 randomPositionOfWastage = new Vector3(xPos* randomRangeBetweenMinAndMax, 46f, yPos* randomRangeBetweenMinAndMax);
 
         return randomPositionOfWastage;
     }

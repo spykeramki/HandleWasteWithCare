@@ -27,4 +27,21 @@ public class GarbageCtrl : MonoBehaviour
             GameManager.Instance.PlayerCtrl.StopInfectLevelCoroutines(garbageType);
         }
     }
+
+    private void Update()
+    {
+        if(transform.position.y < -50f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            Debug.Log("entered");
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+    }
 }
