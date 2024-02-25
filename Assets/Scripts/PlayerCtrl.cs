@@ -19,6 +19,14 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField]
     private Transform cameraTransform;
 
+    [SerializeField]
+    private PlayerEquipmentCtrl playerEquipmentCtrl;
+
+    public PlayerEquipmentCtrl PlayerEquipment
+    {
+        get { return playerEquipmentCtrl; }
+    }
+
     public PlayerInventorySystem PlayerInventory
     {
         get { return playerInventorySystem; }
@@ -28,8 +36,6 @@ public class PlayerCtrl : MonoBehaviour
     private float _healthToReduceForEachLevelOfBioHazardEffect = 0.2f;
 
     private bool isHealthDecreasing = false;
-
-    private EquipStationCtrl.EquipData _playerEquipData;
 
     public float BioHazardLevel
     {
@@ -108,22 +114,18 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
-    public void SetPlayerEquipment(EquipStationCtrl.EquipData equipData )
-    {
-        _playerEquipData = equipData;
-        //set player equip
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         InfectPlayerCtrl infectPlayerCtrl = other.GetComponent<InfectPlayerCtrl>();
         if(infectPlayerCtrl != null)
         {
-            if (infectPlayerCtrl.InfectType == GarbageManager.GarbageType.RADIOACTIVE)
+            if (playerEquipmentCtrl.PlayerEquipData.playerProtectionSuitType!= EquipStationCtrl.PlayerProtectionSuitType.RADIATION &&
+                infectPlayerCtrl.InfectType == GarbageManager.GarbageType.RADIOACTIVE)
             {
                 StartCoroutine("IncreaseRadiationValueSlowly");
             }
-            else if (infectPlayerCtrl.InfectType == GarbageManager.GarbageType.ORGANIC)
+            else if (playerEquipmentCtrl.PlayerEquipData.playerProtectionSuitType != EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD && 
+                infectPlayerCtrl.InfectType == GarbageManager.GarbageType.ORGANIC)
             {
                 StartCoroutine("IncreaseBioHazardValueSlowly");
             }

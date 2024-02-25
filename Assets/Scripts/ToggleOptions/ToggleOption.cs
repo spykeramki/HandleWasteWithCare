@@ -7,37 +7,20 @@ using UnityEngine.Serialization;
 
 public class ToggleOption : MonoBehaviour
 {
+    [Serializable]
+    public struct EquipmentType
+    {
+        public EquipStationCtrl.PlayerProtectionSuitType playerProtectionSuitType;
+
+        public EquipStationCtrl.GunType playerGunType;
+    }
+
     [SerializeField]
-    private UnityEvent onSelect;
+    private EquipmentType thisEquipmentType;
 
-    [SerializeField]
-    private UnityEvent onUnSelect;
-
-    private void OnEnable()
+    public EquipmentType ThisEquipmentType
     {
-        if(OnSelectingThisOption != null)
-        {
-            OnSelectingThisOption.Invoke();
-        }
+        get => thisEquipmentType;
     }
 
-    private void OnDisable()
-    {
-        if (OnUnSelectingThisOption != null)
-        {
-            OnUnSelectingThisOption.Invoke();
-        }
-    }
-
-    public UnityEvent OnSelectingThisOption
-    {
-        get { return onSelect; }
-        set { onSelect = value; }
-    }
-
-    public UnityEvent OnUnSelectingThisOption
-    {
-        get { return onUnSelect; }
-        set { onUnSelect = value; }
-    }
 }

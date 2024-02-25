@@ -33,6 +33,22 @@ public class Utilities : MonoBehaviour
 
     public GarbageSprites garbageSprites;
 
+    [Serializable]
+    public struct EquipmentSprites
+    {
+        public Sprite radiationSuit;
+        public Sprite bioSuit;
+        public Sprite dryWasteHandler;
+        public Sprite wetWasteHandler;
+        public Sprite bioHazardWasteHandler;
+        public Sprite radiationWasteHandler;
+        public Sprite scanner;
+
+    }
+
+    public EquipmentSprites equipmentSprites;
+
+
     public InventoryUiContainerCtrl.UiData PrepareDataForInventoryUi(Dictionary<string, InventorySystem.InventoryItemData> inventoryItemsData)
     {
         InventoryUiContainerCtrl.UiData uiData = new InventoryUiContainerCtrl.UiData();
@@ -78,4 +94,37 @@ public class Utilities : MonoBehaviour
         }
         return null;
     }
+
+    public Sprite GetSuitSpriteFromSuitType(EquipStationCtrl.PlayerProtectionSuitType suitType)
+    {
+        switch (suitType)
+        {
+            case EquipStationCtrl.PlayerProtectionSuitType.RADIATION:
+                return equipmentSprites.radiationSuit;
+            case EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD:
+                return equipmentSprites.bioSuit;
+        }
+        return null;
+    }
+
+
+    public Sprite GetHandlerSpriteFromSuitType(EquipStationCtrl.GunType gunType)
+    {
+        switch (gunType)
+        {
+            case EquipStationCtrl.GunType.RADIATION:
+                return equipmentSprites.radiationWasteHandler;
+            case EquipStationCtrl.GunType.DRY_WASTE:
+                return equipmentSprites.dryWasteHandler;
+            case EquipStationCtrl.GunType.FLUID_WASTE:
+                return equipmentSprites.wetWasteHandler;
+            case EquipStationCtrl.GunType.ORGANIC_WASTE:
+                return equipmentSprites.bioHazardWasteHandler;
+            case EquipStationCtrl.GunType.SCANNER:
+                return equipmentSprites.scanner;
+
+        }
+        return null;
+    }
+
 }

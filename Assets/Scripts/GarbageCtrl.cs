@@ -40,7 +40,6 @@ public class GarbageCtrl : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
         {
-            Debug.Log("entered");
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
     }
