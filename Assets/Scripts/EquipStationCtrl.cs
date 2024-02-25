@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EquipStationCtrl : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class EquipStationCtrl : MonoBehaviour
     }
 
     [SerializeField] private EquipData equipData;
+
+    [SerializeField] private TMP_Dropdown dropdown;
 
     public void SetPlayerEquipment(EquipData data)
     {

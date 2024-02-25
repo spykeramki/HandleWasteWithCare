@@ -1781,6 +1781,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084235892}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1244101380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8328070543439413383, guid: 692351f24edac484a820e1a82cd6d72a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1592696438415646115}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1465099271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 505334242128878796, guid: 692351f24edac484a820e1a82cd6d72a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1592696438415646115}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1466660098
 GameObject:
   m_ObjectHideFlags: 0
@@ -4488,6 +4500,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2139539768}
     m_Modifications:
+    - target: {fileID: 505334242128878796, guid: 692351f24edac484a820e1a82cd6d72a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1592696438753117340, guid: 692351f24edac484a820e1a82cd6d72a,
         type: 3}
       propertyPath: m_RootOrder
@@ -4548,6 +4565,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: EquipStation
       objectReference: {fileID: 0}
+    - target: {fileID: 3769667537422006306, guid: 692351f24edac484a820e1a82cd6d72a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dropdown
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328070543439413383, guid: 692351f24edac484a820e1a82cd6d72a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8387234772009782586, guid: 692351f24edac484a820e1a82cd6d72a,
+        type: 3}
+      propertyPath: _options.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8387234772009782586, guid: 692351f24edac484a820e1a82cd6d72a,
+        type: 3}
+      propertyPath: _options.Array.data[0]
+      value: 
+      objectReference: {fileID: 1465099271}
+    - target: {fileID: 8387234772009782586, guid: 692351f24edac484a820e1a82cd6d72a,
+        type: 3}
+      propertyPath: _options.Array.data[1]
+      value: 
+      objectReference: {fileID: 1244101380}
+    - target: {fileID: 8387234772009782586, guid: 692351f24edac484a820e1a82cd6d72a,
+        type: 3}
+      propertyPath: _options.Array.data[2]
+      value: 
+      objectReference: {fileID: 1465099271}
+    - target: {fileID: 8387234772009782586, guid: 692351f24edac484a820e1a82cd6d72a,
+        type: 3}
+      propertyPath: _options.Array.data[3]
+      value: 
+      objectReference: {fileID: 1244101380}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 692351f24edac484a820e1a82cd6d72a, type: 3}
 --- !u!1 &2114283753834967212
