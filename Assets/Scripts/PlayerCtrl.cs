@@ -82,8 +82,10 @@ public class PlayerCtrl : MonoBehaviour
                 if (hit.collider.tag == "Garbage")
                 {
                     GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
-                    playerInventorySystem.AddItemToInventory(garbageCtrl);
-                    garbageCtrl.gameObject.SetActive(false);
+                    if(garbageCtrl!=null && playerEquipmentCtrl.GarbageThatCanBeAddedToInventory.Contains(garbageCtrl.GarbageType)){
+                        playerInventorySystem.AddItemToInventory(garbageCtrl);
+                        garbageCtrl.gameObject.SetActive(false);
+                    }
                 }
                 if (hit.collider.tag == "Button")
                 {
