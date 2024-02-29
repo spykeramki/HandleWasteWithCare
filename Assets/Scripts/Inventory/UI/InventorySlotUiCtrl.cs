@@ -38,20 +38,27 @@ public class InventorySlotUiCtrl : MonoBehaviour
         slotBg.color = _currentColor;
     }
 
-    public void SetDataInUi(UiData uiData)
+    public bool SetDataInUi(UiData uiData)
     {
-        _currentSlotData = uiData;
         if (!_isFilled){
+            _currentSlotData = uiData;
             _currentInventoryItemUiCtrl= Instantiate(inventoryItemPrefab, transform);
             _currentInventoryItemUiCtrl.SetDataInUi(uiData.inventoryItemUiData);
             _isFilled = true;
+            return true;
         }
         else{
-            /*if (currentGarbageType == uiData.garbageType)
-            {*/
-                _currentInventoryItemUiCtrl.SetDataInUi(uiData.inventoryItemUiData);
-            //}
+            if (_currentSlotData.garbageType == uiData.garbageType)
+            {
+                if(_currentSlotData.inventoryItemUiData.count != uiData.inventoryItemUiData.count)
+                {
+                    _currentSlotData = uiData;
+                    _currentInventoryItemUiCtrl.SetDataInUi(uiData.inventoryItemUiData);
+                }
+                return true;
+            }
         }
+        return false;
     }
 
     public void RemoveItemFromSlot()

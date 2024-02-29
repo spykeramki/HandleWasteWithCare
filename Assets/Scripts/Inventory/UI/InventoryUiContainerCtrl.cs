@@ -21,12 +21,16 @@ public class InventoryUiContainerCtrl : MonoBehaviour
     public void SetDataInUi(UiData uiData)
     {
         List<InventorySlotUiCtrl.UiData> inventoryData = uiData.inventorySlotsUiData;
-        //Debug.Log(inventoryData.Count + "inventoryData.Count");
         for (int i = 0; i < inventoryData.Count; i++)
         {
-            //Debug.Log(inventoryData[i].inventoryItemUiData.itemImage.name + "image");
-            //Debug.Log(inventoryData[i].inventoryItemUiData.count + "count");
-            inventorySlotList[i].SetDataInUi(inventoryData[i]);
+            for(int j = 0; j < InventorySlotList.Count; j++)
+            {
+                bool isUiSet = inventorySlotList[j].SetDataInUi(inventoryData[i]);
+                if (isUiSet)
+                {
+                    break;
+                }
+            }
         }
     }
 

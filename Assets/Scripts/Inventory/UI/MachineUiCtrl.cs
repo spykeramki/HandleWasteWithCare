@@ -31,7 +31,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     }
 
-    public void OnPlayerConnectedToMachine()
+    public void UpdateTotalUi()
     {
         gameManager = GameManager.Instance;
         playerInventoryUiCtrl.RemoveAllItemsFromSlots();
@@ -44,13 +44,23 @@ public class MachineUiCtrl : MonoBehaviour
 
     }
 
+    public void UpdateDataInUi()
+    {
+        gameManager = GameManager.Instance;
+        Dictionary<string, InventorySystem.InventoryItemData> playerItemsData = gameManager.PlayerCtrl.PlayerInventory.GetInventoryItemsData();
+        Dictionary<string, InventorySystem.InventoryItemData> machineItemsData = inventorySystem.GetInventoryItemsData();
+
+        playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(playerItemsData));
+        machineInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(machineItemsData));
+    }
+
     public void OnClickTransferToMachineInventoryButton()
     {
         List<InventorySlotUiCtrl> inventorySlotUiCtrls = playerInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
             InventorySlotUiCtrl inventorySlotUiCtrl = inventorySlotUiCtrls[i];
-            InventorySystem.InventoryItemData playerItemData = gameManager.PlayerCtrl.PlayerInventory.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
+            InventorySystem.InventoryItemData playerItemData = GameManager.Instance.PlayerCtrl.PlayerInventory.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
             //inventorySlotUiCtrl.RemoveItemFromSlot();
 
             gameManager.PlayerCtrl.PlayerInventory.RemoveItem(playerItemData);
@@ -59,7 +69,7 @@ public class MachineUiCtrl : MonoBehaviour
 
         if (inventorySlotUiCtrls.Count != 0) 
         {
-            OnPlayerConnectedToMachine();
+            UpdateTotalUi();
             gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
         }
     }
@@ -79,7 +89,7 @@ public class MachineUiCtrl : MonoBehaviour
 
         if (inventorySlotUiCtrls.Count != 0)
         {
-            OnPlayerConnectedToMachine();
+            UpdateTotalUi();
             gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
         }
     }
