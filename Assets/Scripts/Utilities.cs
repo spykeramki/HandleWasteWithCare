@@ -48,6 +48,19 @@ public class Utilities : MonoBehaviour
 
     public EquipmentSprites equipmentSprites;
 
+    [Serializable]
+    public struct TimeToRecycleWastages
+    {
+        public float plastic;
+        public float glass;
+        public float oil;
+        public float organic;
+        public float radioactive;
+
+    }
+
+    public TimeToRecycleWastages recycleTimes;
+
 
     public InventoryUiContainerCtrl.UiData PrepareDataForInventoryUi(Dictionary<string, InventorySystem.InventoryItemData> inventoryItemsData)
     {
@@ -125,6 +138,34 @@ public class Utilities : MonoBehaviour
 
         }
         return null;
+    }
+
+
+    public float GetRecyclingTimeAsPerGarbageType(GarbageManager.GarbageType garbageType)
+    {
+        float time = 0f;
+        switch (garbageType)
+        {
+            case GarbageManager.GarbageType.PLASTIC:
+                time = recycleTimes.plastic;
+                break;
+            case GarbageManager.GarbageType.GLASS:
+                time = recycleTimes.glass;
+                break;
+            case GarbageManager.GarbageType.ORGANIC:
+                time = recycleTimes.organic;
+                break;
+            case GarbageManager.GarbageType.OIL:
+                time = recycleTimes.oil;
+                break;
+            case GarbageManager.GarbageType.RADIOACTIVE:
+                time = recycleTimes.radioactive;
+                break;
+            default:
+                time = 0f;
+                break;
+        }
+        return time;
     }
 
 }

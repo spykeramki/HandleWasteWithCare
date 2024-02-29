@@ -61,10 +61,27 @@ public class InventorySystem : MonoBehaviour
         {
             InventoryItemData inventoryItemData = itemsData[enumString];
             inventoryItemData.count -= itemData.count;
+            itemsData[enumString] = inventoryItemData;
 
             if (inventoryItemData.count <= 0)
             {
                 itemsData.Remove(enumString);
+            }
+        }
+    }
+
+    public void RemoveSingleItemOfType(GarbageManager.GarbageType garbageType)
+    {
+        string garbageTypeString = garbageType.ToString();
+        if (itemsData.ContainsKey(garbageTypeString))
+        {
+            InventoryItemData inventoryItemData = itemsData[garbageTypeString];
+            inventoryItemData.count -= 1;
+            itemsData[garbageTypeString] = inventoryItemData;
+
+            if (inventoryItemData.count <= 0)
+            {
+                itemsData.Remove(garbageTypeString);
             }
         }
     }

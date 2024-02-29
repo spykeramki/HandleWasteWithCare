@@ -485,6 +485,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8144562174750086152, guid: c1456e3ceff07af44bc5119fa95406b1,
         type: 3}
+      propertyPath: isRecycler
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8144562174750086152, guid: c1456e3ceff07af44bc5119fa95406b1,
+        type: 3}
       propertyPath: inventorySystem
       value: 
       objectReference: {fileID: 89810174}
@@ -1067,6 +1072,12 @@ MonoBehaviour:
     radiationWasteHandler: {fileID: 21300000, guid: f11db7285d3509b4fa896a94c56f35e6,
       type: 3}
     scanner: {fileID: 21300000, guid: 0b2423603aa8ae34eaa31273a0df5e60, type: 3}
+  recycleTimes:
+    plastic: 5
+    glass: 5
+    oil: 7
+    organic: 10
+    radioactive: 20
 --- !u!114 &854404390
 MonoBehaviour:
   m_ObjectHideFlags: 0

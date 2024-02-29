@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,13 +22,25 @@ public class MachineUiCtrl : MonoBehaviour
     [SerializeField]
     private Button machineTransferButton;
 
+
+    [SerializeField]
+    private Button recycleButton;
+
+    public bool isRecycler = false;
+
     private GameManager gameManager;
+
+    private float _currentRecycleTime = 0;
+
+    private InventorySlotUiCtrl.UiData _currentRecyclingSlotData;
 
     private void Start()
     {
         gameManager = GameManager.Instance;
         playerTransferButton.onClick.AddListener(OnClickTransferToMachineInventoryButton);
         machineTransferButton.onClick.AddListener(OnClickTransferFromMachineInventoryButton);
+        recycleButton.onClick.AddListener(SetRecyclingProcess);
+        recycleButton?.gameObject.SetActive( isRecycler ? true : false );
 
     }
 
@@ -91,6 +104,58 @@ public class MachineUiCtrl : MonoBehaviour
         {
             UpdateTotalUi();
             gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
+        }
+    }
+
+
+
+    private void SetRecyclingProcess()
+    {
+        Debug.Log("recycle started");
+        StopAllCoroutines();
+        _currentRecyclingSlotData = machineInventoryUiCtrl.InventorySlotList[0].CurrentSlotData;
+        if (_currentRecycleTime <= 0f)
+        {
+            _currentRecycleTime = Utilities.Instance.GetRecyclingTimeAsPerGarbageType(_currentRecyclingSlotData.garbageType);
+        }
+        Debug.Log(_currentRecycleTime + "_currentRecycleTime");
+        StartCoroutine("StartRecycling");
+    }
+
+    private IEnumerator StartRecycling()
+    {
+        while (_currentRecycleTime > 0)
+        {
+            yield return new WaitForSeconds(1f);
+            _currentRecycleTime -= 1f;
+        }
+        if (_currentRecycleTime <= 0)
+        {
+            _currentRecyclingSlotData.inventoryItemUiData.count -= 1;
+            
+            inventorySystem.RemoveSingleItemOfType(_currentRecyclingSlotData.garbageType);
+            if (_currentRecyclingSlotData.inventoryItemUiData.count <= 0)
+            {
+                UpdateTotalUi();
+            }
+            else
+            {
+                UpdateDataInUi();
+            }
+            StopCoroutine("StartRecycling");
+            ContinueRecycling();
+        }
+    }
+
+    private void ContinueRecycling()
+    {
+        if (inventorySystem.GetInventoryItemsData().Count > 0)
+        {
+            SetRecyclingProcess();
+        }
+        else
+        {
+            Debug.Log(inventorySystem.GetInventoryItemsData().Count + " inventory count");
         }
     }
 }
