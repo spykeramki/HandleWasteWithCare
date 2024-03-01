@@ -40,11 +40,13 @@ public class PlayerCtrl : MonoBehaviour
     public float BioHazardLevel
     {
         get { return bioHazardLevel; }
+        set { bioHazardLevel = value; }
     }
 
     public float RadiationLevel
     {
         get { return radiationLevel; }
+        set { radiationLevel = value; }
     }
 
     public float Stamina
@@ -111,7 +113,7 @@ public class PlayerCtrl : MonoBehaviour
 
         if(health <= 0)
         {
-            StartCoroutine("ReduceHealthSlowly");
+            StopCoroutine("ReduceHealthSlowly");
             isHealthDecreasing=false;
         }
     }
@@ -144,36 +146,32 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        
-    }
-
-
     public IEnumerator IncreaseBioHazardValueSlowly()
     {
-        while (bioHazardLevel <= 100)
+        while (bioHazardLevel < 100)
         {
             yield return new WaitForSeconds(1f);
             bioHazardLevel += 1f;
         }
 
-        if (bioHazardLevel >= 0)
+        if (bioHazardLevel >= 100)
         {
+            bioHazardLevel = 100;
             StopCoroutine("IncreaseBioHazardValueSlowly");
         }
     }
 
     public IEnumerator IncreaseRadiationValueSlowly()
     {
-        while (radiationLevel <= 100)
+        while (radiationLevel < 100)
         {
             yield return new WaitForSeconds(1f);
             radiationLevel += 1f;
         }
 
-        if (radiationLevel >= 0)
+        if (radiationLevel >= 100)
         {
+            radiationLevel = 100;
             StopCoroutine("IncreaseRadiationValueSlowly");
         }
     }

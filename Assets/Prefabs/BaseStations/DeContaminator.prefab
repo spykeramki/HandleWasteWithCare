@@ -50,7 +50,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -3617,9 +3617,9 @@ ParticleSystem:
     type: 1
     collisionMode: 0
     colliderForce: 0
-    multiplyColliderForceByParticleSize: 1
+    multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
-    multiplyColliderForceByCollisionAngle: 0
+    multiplyColliderForceByCollisionAngle: 1
     m_Planes:
     - {fileID: 0}
     m_Dampen:
@@ -3786,7 +3786,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 823
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -4827,7 +4827,7 @@ GameObject:
   - component: {fileID: 8391461457514964697}
   - component: {fileID: 8391461457514964700}
   - component: {fileID: 8391461457514964701}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DeContaminator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4943,6 +4943,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d77c01399debc3740b97f3c9db546d93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprayers:
+  - {fileID: 8391461456164776173}
+  - {fileID: 8391461457787437530}
 --- !u!1 &8391461457787437511
 GameObject:
   m_ObjectHideFlags: 0
@@ -4993,7 +4996,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -8560,9 +8563,9 @@ ParticleSystem:
     type: 1
     collisionMode: 0
     colliderForce: 0
-    multiplyColliderForceByParticleSize: 1
+    multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
-    multiplyColliderForceByCollisionAngle: 0
+    multiplyColliderForceByCollisionAngle: 1
     m_Planes:
     - {fileID: 0}
     m_Dampen:
@@ -8729,7 +8732,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 823
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
