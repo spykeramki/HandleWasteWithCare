@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Unity.Netcode;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
 #endif
@@ -9,7 +10,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 	[RequireComponent(typeof(PlayerInput))]
 #endif
-	public class FirstPersonController : MonoBehaviour
+	public class FirstPersonController : NetworkBehaviour
 	{
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
@@ -70,7 +71,8 @@ namespace StarterAssets
 #endif
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
-		private GameObject _mainCamera;
+
+        //public GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;
 
@@ -83,15 +85,6 @@ namespace StarterAssets
 				#else
 				return false;
 				#endif
-			}
-		}
-
-		private void Awake()
-		{
-			// get a reference to our main camera
-			if (_mainCamera == null)
-			{
-				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
 		}
 
@@ -112,14 +105,14 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			JumpAndGravity();
+            JumpAndGravity();
 			GroundedCheck();
 			Move();
 		}
 
 		private void LateUpdate()
 		{
-			CameraRotation();
+            CameraRotation();
 		}
 
 		private void GroundedCheck()

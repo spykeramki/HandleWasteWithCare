@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
+using Cinemachine;
+using StarterAssets;
+using UnityEngine.InputSystem;
 
 public class PlayerCtrl : NetworkBehaviour
 {
@@ -21,6 +24,21 @@ public class PlayerCtrl : NetworkBehaviour
 
     [SerializeField]
     private Transform cameraTransform;
+
+    [SerializeField]
+    private AudioListener audioListener;
+
+    [SerializeField]
+    private CinemachineVirtualCamera cinemachineVitualCam;
+
+    [SerializeField]
+    private FirstPersonController fpController;
+
+    [SerializeField]
+    private PlayerInput platerInput;
+
+    [SerializeField]
+    private CharacterController characterController;
 
     [SerializeField]
     private PlayerEquipmentCtrl playerEquipmentCtrl;
@@ -66,15 +84,34 @@ public class PlayerCtrl : NetworkBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        /*if (Instance == null)
         {
             Instance = this;
         }
         else if (Instance != null && Instance != this)
         {
             Destroy(this);
+        }*/
+    }
+
+    public override void OnNetworkSpawn()
+    {
+
+        if (IsOwner)
+        {
+            characterController.enabled = true;
+            fpController.enabled = true;
+            platerInput.enabled = true;
+            audioListener.enabled = true;
+            cinemachineVitualCam.Priority = 1;
+        }
+        else
+        {
+            cinemachineVitualCam.Priority = 0;
         }
     }
+
+
     private void Update()
     {
         if (!isHealthDecreasing && (radiationLevel > 0 || bioHazardLevel > 0))
