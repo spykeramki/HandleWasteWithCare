@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private PlayerCtrl playerCtrl;
-    public PlayerCtrl PlayerCtrl { get { return playerCtrl; } }
 
     [SerializeField]
     private BaseMachinesInventoryCtrl baseMachinesInventoryCtrl;
@@ -37,6 +36,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 }

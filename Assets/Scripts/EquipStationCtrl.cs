@@ -60,7 +60,10 @@ public class EquipStationCtrl : MonoBehaviour
     public void SetPlayerEquipment(EquipData data)
     {
         equipData = data;
-        GameManager.Instance.PlayerCtrl.PlayerEquipment.SetPlayerEquipment(equipData);
+        if (PlayerCtrl.Instance!=null)
+        {
+            PlayerCtrl.Instance.PlayerEquipment.SetPlayerEquipment(equipData);
+        }
     }
 
     public void GetDataFromOptionsAndSetData()

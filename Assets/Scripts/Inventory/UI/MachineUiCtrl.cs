@@ -28,15 +28,12 @@ public class MachineUiCtrl : MonoBehaviour
 
     public bool isRecycler = false;
 
-    private GameManager gameManager;
-
     private float _currentRecycleTime = 0;
 
     private InventorySlotUiCtrl.UiData _currentRecyclingSlotData;
 
     private void Start()
     {
-        gameManager = GameManager.Instance;
         playerTransferButton.onClick.AddListener(OnClickTransferToMachineInventoryButton);
         machineTransferButton.onClick.AddListener(OnClickTransferFromMachineInventoryButton);
         recycleButton.onClick.AddListener(SetRecyclingProcess);
@@ -46,10 +43,9 @@ public class MachineUiCtrl : MonoBehaviour
 
     public void UpdateTotalUi()
     {
-        gameManager = GameManager.Instance;
         playerInventoryUiCtrl.RemoveAllItemsFromSlots();
         machineInventoryUiCtrl.RemoveAllItemsFromSlots();
-        Dictionary<string, InventorySystem.InventoryItemData> playerItemsData = gameManager.PlayerCtrl.PlayerInventory.GetInventoryItemsData();
+        Dictionary<string, InventorySystem.InventoryItemData> playerItemsData = PlayerCtrl.Instance.PlayerInventory.GetInventoryItemsData();
         Dictionary<string, InventorySystem.InventoryItemData> machineItemsData = inventorySystem.GetInventoryItemsData();
 
         playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(playerItemsData));
@@ -59,8 +55,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     public void UpdateDataInUi()
     {
-        gameManager = GameManager.Instance;
-        Dictionary<string, InventorySystem.InventoryItemData> playerItemsData = gameManager.PlayerCtrl.PlayerInventory.GetInventoryItemsData();
+        Dictionary<string, InventorySystem.InventoryItemData> playerItemsData = PlayerCtrl.Instance.PlayerInventory.GetInventoryItemsData();
         Dictionary<string, InventorySystem.InventoryItemData> machineItemsData = inventorySystem.GetInventoryItemsData();
 
         playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(playerItemsData));
@@ -73,17 +68,17 @@ public class MachineUiCtrl : MonoBehaviour
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
             InventorySlotUiCtrl inventorySlotUiCtrl = inventorySlotUiCtrls[i];
-            InventorySystem.InventoryItemData playerItemData = GameManager.Instance.PlayerCtrl.PlayerInventory.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
+            InventorySystem.InventoryItemData playerItemData = PlayerCtrl.Instance.PlayerInventory.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
             //inventorySlotUiCtrl.RemoveItemFromSlot();
 
-            gameManager.PlayerCtrl.PlayerInventory.RemoveItem(playerItemData);
+            PlayerCtrl.Instance.PlayerInventory.RemoveItem(playerItemData);
             inventorySystem.AddItem(playerItemData);
         }
 
         if (inventorySlotUiCtrls.Count != 0) 
         {
             UpdateTotalUi();
-            gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
+            PlayerCtrl.Instance.PlayerInventory.UpdateDataInInvetoryUi();
         }
     }
 
@@ -97,13 +92,13 @@ public class MachineUiCtrl : MonoBehaviour
             //inventorySlotUiCtrl.RemoveItemFromSlot();
 
             inventorySystem.RemoveItem(machineItemData);
-            gameManager.PlayerCtrl.PlayerInventory.AddItem(machineItemData);
+            PlayerCtrl.Instance.PlayerInventory.AddItem(machineItemData);
         }
 
         if (inventorySlotUiCtrls.Count != 0)
         {
             UpdateTotalUi();
-            gameManager.PlayerCtrl.PlayerInventory.UpdateDataInInvetoryUi();
+            PlayerCtrl.Instance.PlayerInventory.UpdateDataInInvetoryUi();
         }
     }
 

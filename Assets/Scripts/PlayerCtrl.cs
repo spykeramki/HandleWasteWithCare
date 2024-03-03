@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Unity.Netcode;
 
-public class PlayerCtrl : MonoBehaviour
+public class PlayerCtrl : NetworkBehaviour
 {
+    public static PlayerCtrl Instance;
+
     [SerializeField]
     private float health = 100;
     private float stamina = 100;
@@ -60,6 +63,18 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     RaycastHit hit;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+    }
     private void Update()
     {
         if (!isHealthDecreasing && (radiationLevel > 0 || bioHazardLevel > 0))
@@ -76,6 +91,10 @@ public class PlayerCtrl : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!IsOwner)
+        {
+            return;
+        }
         Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 5f, Color.green);
         if (Input.GetMouseButtonDown(0))
         {
