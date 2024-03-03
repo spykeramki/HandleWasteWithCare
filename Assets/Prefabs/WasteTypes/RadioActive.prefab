@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1094666440431598425}
   - component: {fileID: -510517816346475682}
   - component: {fileID: -695285734205906428}
+  - component: {fileID: 8169662880959240386}
   m_Layer: 0
   m_Name: RadioActive
   m_TagString: Garbage
@@ -130,7 +131,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   garbageType: 4
-  infectPlayerCtrl: {fileID: 0}
+  infectPlayerCtrl: {fileID: 6933149537897974476}
+--- !u!114 &8169662880959240386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817571425742172030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &2631115883399884165
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,3 +539,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7641624174117071997}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6933149537897974476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 737462748649858737, guid: 1306d2cd9d310db459f3c4673a5dc6ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 7641624174117071997}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47cf121e5c979e84e89366b54842e591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

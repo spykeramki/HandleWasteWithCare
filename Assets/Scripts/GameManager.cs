@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PlayerCtrl playerCtrl;
 
+    [SerializeField] private GarbageManager garbageManager;
+
     [SerializeField]
     private BaseMachinesInventoryCtrl baseMachinesInventoryCtrl;
 

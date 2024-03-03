@@ -1,7 +1,8 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GarbageManager : MonoBehaviour
+public class GarbageManager : NetworkBehaviour
 {
     public enum GarbageType
     {
@@ -28,7 +29,14 @@ public class GarbageManager : MonoBehaviour
     [SerializeField]
     private GarbagePrefabWithRangeOfGeneration[] garbagePrefabsWithRangeOfGeneration;
 
-    private void Start()
+    public override void OnNetworkSpawn()
+    {
+        if(IsServer)
+        {
+            SpawnWastage();
+        }
+    }
+    private void SpawnWastage()
     {
         for (int i = 0; i < garbagePrefabsWithRangeOfGeneration.Length; i++)
         {
@@ -42,7 +50,8 @@ public class GarbageManager : MonoBehaviour
 
         for (int i = 0; i < garbageToBeGenerated.noOfWasteToBeGenerated; i++)
         {
-            Instantiate(garbageToBeGenerated.garbageCtrl, GetRandomPositionOfWastage(garbageToBeGenerated), Quaternion.identity);
+            GarbageCtrl garbageCtrl = Instantiate(garbageToBeGenerated.garbageCtrl, GetRandomPositionOfWastage(garbageToBeGenerated), Quaternion.identity);
+            garbageCtrl.GetComponent<NetworkObject>().Spawn(true);
         }
     }
 
