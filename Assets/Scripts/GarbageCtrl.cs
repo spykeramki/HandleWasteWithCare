@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class GarbageCtrl : MonoBehaviour
+public class GarbageCtrl : NetworkBehaviour
 {
     [SerializeField]
     private GarbageManager.GarbageType garbageType;
@@ -42,5 +43,17 @@ public class GarbageCtrl : MonoBehaviour
         {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void HideObjectServerRpc()
+    {
+        HideObjectClientRpc();
+    }
+
+    [ClientRpc]
+    public void HideObjectClientRpc()
+    {
+        gameObject.SetActive(false);
     }
 }

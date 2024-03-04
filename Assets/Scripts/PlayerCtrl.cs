@@ -80,10 +80,9 @@ public class PlayerCtrl : NetworkBehaviour
         get { return health; }
     }
 
-    RaycastHit hit;
-
     private void Awake()
     {
+        Instance = this;
         /*if (Instance == null)
         {
             Instance = this;
@@ -132,6 +131,7 @@ public class PlayerCtrl : NetworkBehaviour
         {
             return;
         }
+        RaycastHit hit;
         Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 5f, Color.green);
         if (Input.GetMouseButtonDown(0))
         {
@@ -142,7 +142,7 @@ public class PlayerCtrl : NetworkBehaviour
                     GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
                     if(garbageCtrl!=null && playerEquipmentCtrl.GarbageThatCanBeAddedToInventory.Contains(garbageCtrl.GarbageType)){
                         playerInventorySystem.AddItemToInventory(garbageCtrl);
-                        garbageCtrl.gameObject.SetActive(false);
+                        garbageCtrl.HideObjectServerRpc();
                     }
                 }
                 if (hit.collider.tag == "Button")
