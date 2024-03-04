@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,12 @@ public class PlayerCtrl : MonoBehaviour
 
     [SerializeField]
     private PlayerEquipmentCtrl playerEquipmentCtrl;
+
+    [SerializeField]
+    private TextMeshProUGUI statsText;
+
+    [SerializeField]
+    private GameObject inventoryUiGo;
 
     public PlayerEquipmentCtrl PlayerEquipment
     {
@@ -59,6 +66,8 @@ public class PlayerCtrl : MonoBehaviour
         get { return health; }
     }
 
+    private bool _isInventoryActive;
+
     RaycastHit hit;
     private void Update()
     {
@@ -96,6 +105,13 @@ public class PlayerCtrl : MonoBehaviour
                 }
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            _isInventoryActive = !_isInventoryActive;
+            inventoryUiGo.SetActive(_isInventoryActive);
+        }
+        SetStatsString();
     }
 
     private void ReduceHealthByRadiationOrBioHazardLevelIncrease()
@@ -191,5 +207,12 @@ public class PlayerCtrl : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    private void SetStatsString()
+    {
+        statsText.text = "Health : " + Health + "\n" +
+            "Biohazard Level : " + BioHazardLevel + "\n" +
+            "Radiation Level : " + RadiationLevel ;
     }
 }
