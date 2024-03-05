@@ -33,7 +33,7 @@ public class MachineInteractionCtrl : MonoBehaviour
 
     private void OpenInventoryUi()
     {
-        machineUiCtrl.UpdateDataInUi();
+        machineUiCtrl.UpdateTotalUi();
         machineInventoryCanvas.SetActive(true);
     }
 

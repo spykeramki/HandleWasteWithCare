@@ -22,6 +22,9 @@ public class MachineUiCtrl : MonoBehaviour
     [SerializeField]
     private Button machineTransferButton;
 
+    [SerializeField]
+    private GarbageManager.GarbageType machineRecycleType = GarbageManager.GarbageType.NONE;
+
 
     [SerializeField]
     private Button recycleButton;
@@ -70,9 +73,11 @@ public class MachineUiCtrl : MonoBehaviour
             InventorySlotUiCtrl inventorySlotUiCtrl = inventorySlotUiCtrls[i];
             InventorySystem.InventoryItemData playerItemData = PlayerCtrl.LocalInstance.PlayerInventory.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
             //inventorySlotUiCtrl.RemoveItemFromSlot();
-
-            PlayerCtrl.LocalInstance.PlayerInventory.RemoveItem(playerItemData);
-            inventorySystem.AddItem(playerItemData);
+            if(inventorySlotUiCtrl.CurrentSlotData.garbageType == GarbageManager.GarbageType.NONE || inventorySlotUiCtrl.CurrentSlotData.garbageType == machineRecycleType)
+            {
+                PlayerCtrl.LocalInstance.PlayerInventory.RemoveItem(playerItemData);
+                inventorySystem.AddItem(playerItemData);
+            }
         }
 
         if (inventorySlotUiCtrls.Count != 0) 
