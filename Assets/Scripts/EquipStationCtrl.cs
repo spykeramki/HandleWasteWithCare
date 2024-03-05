@@ -48,21 +48,21 @@ public class EquipStationCtrl : MonoBehaviour
 
     private void Start()
     {
-        SetPlayerEquipment( new EquipData()
-        {
-            playerProtectionSuitType = PlayerProtectionSuitType.BIO_HAZARD,
-            leftHandGunType = GunType.SCANNER,
-            rightHandGunType = GunType.DRY_WASTE
-        });
-        SetDataInUi(GetDataFromOptionsAndSetData);
+        PlayerCtrl.SetEquipmentData += OnPlayerSpawn;
+    }
+
+    private void OnPlayerSpawn(EquipData data)
+    {
+        equipData = data;
+        SetDataInUi(equipData, GetDataFromOptionsAndSetData);
     }
 
     public void SetPlayerEquipment(EquipData data)
     {
         equipData = data;
-        if (PlayerCtrl.Instance!=null)
+        if (PlayerCtrl.LocalInstance!=null)
         {
-            PlayerCtrl.Instance.PlayerEquipment.SetPlayerEquipment(equipData);
+            PlayerCtrl.LocalInstance.PlayerEquipment.SetPlayerEquipment(equipData);
         }
     }
 
@@ -77,11 +77,11 @@ public class EquipStationCtrl : MonoBehaviour
         SetPlayerEquipment(equipData) ;
     }
 
-    public void SetDataInUi(Action action = null)
+    public void SetDataInUi(EquipData m_equipData, Action action = null)
     {
         ToggleOption.EquipmentType suitData = new ToggleOption.EquipmentType()
         {
-            playerProtectionSuitType = equipData.playerProtectionSuitType,
+            playerProtectionSuitType = m_equipData.playerProtectionSuitType,
             playerGunType = GunType.NONE
         };
         toggleSystems.suit.SetDataInUi(suitData, action);
@@ -89,7 +89,7 @@ public class EquipStationCtrl : MonoBehaviour
         ToggleOption.EquipmentType leftHandData = new ToggleOption.EquipmentType()
         {
             playerProtectionSuitType = PlayerProtectionSuitType.NONE,
-            playerGunType = equipData.leftHandGunType
+            playerGunType = m_equipData.leftHandGunType
         };
 
         toggleSystems.leftHand.SetDataInUi(leftHandData, action);
@@ -97,7 +97,7 @@ public class EquipStationCtrl : MonoBehaviour
         ToggleOption.EquipmentType rightHandData = new ToggleOption.EquipmentType()
         {
             playerProtectionSuitType = PlayerProtectionSuitType.NONE,
-            playerGunType = equipData.rightHandGunType
+            playerGunType = m_equipData.rightHandGunType
         };
 
         toggleSystems.rightHand.SetDataInUi(rightHandData, action);

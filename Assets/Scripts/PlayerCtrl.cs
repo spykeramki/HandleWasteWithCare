@@ -6,10 +6,13 @@ using Unity.Netcode;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine.InputSystem;
+using System;
 
 public class PlayerCtrl : NetworkBehaviour
 {
-    public static PlayerCtrl Instance;
+    public static Action<EquipStationCtrl.EquipData> SetEquipmentData;
+
+    public static PlayerCtrl LocalInstance;
 
     [SerializeField]
     private float health = 100;
@@ -80,24 +83,12 @@ public class PlayerCtrl : NetworkBehaviour
         get { return health; }
     }
 
-    private void Awake()
-    {
-        Instance = this;
-        /*if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }*/
-    }
-
     public override void OnNetworkSpawn()
     {
 
         if (IsOwner)
         {
+            LocalInstance = this;
             characterController.enabled = true;
             fpController.enabled = true;
             platerInput.enabled = true;
@@ -108,6 +99,7 @@ public class PlayerCtrl : NetworkBehaviour
         {
             cinemachineVitualCam.Priority = 0;
         }
+        SetPlayerInitialEquipmentData();
     }
 
 
@@ -152,6 +144,18 @@ public class PlayerCtrl : NetworkBehaviour
                 }
             }
         }
+    }
+
+    private void SetPlayerInitialEquipmentData()
+    {
+        EquipStationCtrl.EquipData equipData = new EquipStationCtrl.EquipData()
+        {
+            playerProtectionSuitType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD,
+            leftHandGunType = EquipStationCtrl.GunType.SCANNER,
+            rightHandGunType = EquipStationCtrl. GunType.DRY_WASTE
+        };
+        playerEquipmentCtrl.SetPlayerEquipment(equipData);
+        SetEquipmentData(equipData);
     }
 
     private void ReduceHealthByRadiationOrBioHazardLevelIncrease()

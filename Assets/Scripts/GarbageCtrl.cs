@@ -23,9 +23,9 @@ public class GarbageCtrl : NetworkBehaviour
 
     private void OnDisable()
     {
-        if (PlayerCtrl.Instance != null)
+        if (PlayerCtrl.LocalInstance != null)
         {
-            PlayerCtrl.Instance.StopInfectLevelCoroutines(garbageType);
+            PlayerCtrl.LocalInstance.StopInfectLevelCoroutines(garbageType);
         }
     }
 
