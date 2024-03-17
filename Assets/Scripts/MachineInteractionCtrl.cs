@@ -7,6 +7,8 @@ public class MachineInteractionCtrl : MonoBehaviour
 
     [SerializeField]
     private GameObject machineInventoryCanvas;
+    [SerializeField]
+    private GameObject machineInventorySecondaryCanvas;
 
     private MachineUiCtrl machineUiCtrl;
 
@@ -35,10 +37,12 @@ public class MachineInteractionCtrl : MonoBehaviour
     {
         machineUiCtrl.UpdateTotalUi();
         machineInventoryCanvas.SetActive(true);
+        machineInventorySecondaryCanvas.SetActive(true);
     }
 
     private void CloseInventoryUi()
     {
         machineInventoryCanvas.SetActive(false);
+        machineInventorySecondaryCanvas.SetActive(false);
     }
 }

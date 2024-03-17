@@ -46,7 +46,7 @@ public class EquipStationCtrl : MonoBehaviour
 
     public GameObject uiCanvas;
 
-    private void Start()
+    private void Awake()
     {
         PlayerCtrl.SetEquipmentData += OnPlayerSpawn;
     }

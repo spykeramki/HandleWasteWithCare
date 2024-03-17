@@ -46,6 +46,10 @@ public class PlayerCtrl : NetworkBehaviour
     [SerializeField]
     private PlayerEquipmentCtrl playerEquipmentCtrl;
 
+    public GameObject playerInventoryGo;
+
+    private bool _isPlayerUiActive = false;
+
     public PlayerEquipmentCtrl PlayerEquipment
     {
         get { return playerEquipmentCtrl; }
@@ -102,6 +106,17 @@ public class PlayerCtrl : NetworkBehaviour
         SetPlayerInitialEquipmentData();
     }
 
+    #region NON MULTIPLAYER
+    private void Awake()
+    {
+        LocalInstance = this;
+    }
+
+    private void Start()
+    {
+        SetPlayerInitialEquipmentData();
+    }
+    #endregion
 
     private void Update()
     {
@@ -115,14 +130,19 @@ public class PlayerCtrl : NetworkBehaviour
             StopCoroutine("ReduceHealthSlowly");
             isHealthDecreasing = false;
         }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            _isPlayerUiActive = !_isPlayerUiActive;
+            playerInventoryGo.SetActive(_isPlayerUiActive);
+        }
     }
 
     private void LateUpdate()
     {
-        if (!IsOwner)
+        /*if (!IsOwner)
         {
             return;
-        }
+        }*/
         RaycastHit hit;
         Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 5f, Color.green);
         if (Input.GetMouseButtonDown(0))
@@ -134,7 +154,8 @@ public class PlayerCtrl : NetworkBehaviour
                     GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
                     if(garbageCtrl!=null && playerEquipmentCtrl.GarbageThatCanBeAddedToInventory.Contains(garbageCtrl.GarbageType)){
                         playerInventorySystem.AddItemToInventory(garbageCtrl);
-                        garbageCtrl.HideObjectServerRpc();
+                        //garbageCtrl.HideObjectServerRpc();
+                        garbageCtrl.HideObject();
                     }
                 }
                 if (hit.collider.tag == "Button")
@@ -152,10 +173,10 @@ public class PlayerCtrl : NetworkBehaviour
         {
             playerProtectionSuitType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD,
             leftHandGunType = EquipStationCtrl.GunType.SCANNER,
-            rightHandGunType = EquipStationCtrl. GunType.DRY_WASTE
+            rightHandGunType = EquipStationCtrl. GunType.RADIATION
         };
         playerEquipmentCtrl.SetPlayerEquipment(equipData);
-        SetEquipmentData(equipData);
+        SetEquipmentData?.Invoke(equipData);
     }
 
     private void ReduceHealthByRadiationOrBioHazardLevelIncrease()

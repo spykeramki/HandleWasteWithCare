@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1611293240f952e4e9d357cb9ee4384c
+guid: 015874a4adc9d154691b3b8abfdc2e6f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,23 +7,43 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Box 03
-    second: {fileID: 2100000, guid: 0a70a3e0cffbf1e40bb29ab6b1c65095, type: 2}
+      name: Blue Edge Glow
+    second: {fileID: 2100000, guid: 0d26778d0680cc243888b057f5526e30, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DisposalChamber
+    second: {fileID: 2100000, guid: a887b09f2f278b0439a45bcfe0c1e75a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.001
-    second: {fileID: 2100000, guid: 38445729f1589104996f6f5797a611c8, type: 2}
+    second: {fileID: 2100000, guid: 7d51809f8eb630d42b583c579570a770, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: 4dc029875ba78064590c9d16cdd17840, type: 2}
+      name: Procedural Sci-fi Panels
+    second: {fileID: 2100000, guid: e8508312a51cd11468eb88edacbceed8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.003
-    second: {fileID: 2100000, guid: 9db7e8865ee73b845a09eddc4894638a, type: 2}
+      name: Sci fi Wall
+    second: {fileID: 2100000, guid: 4003a0b6fac5b314abb342aa279bcbf6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blackmetal
+    second: {fileID: 2100000, guid: 97254e4d5d466f64db581daed399e600, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: abstractwall_5_emissive-4K
+    second: {fileID: 2800000, guid: 816606f934209734e8bc3b25e5313175, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: abstractwall_5_metallic-4K
+    second: {fileID: 2800000, guid: b8f54fd8609c4c144aa376d01e2bdc2a, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -66,7 +86,7 @@ ModelImporter:
     importLights: 1
     nodeNameCollisionStrategy: 1
     fileIdsGeneration: 2
-    swapUVChannels: 1
+    swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0

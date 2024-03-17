@@ -56,4 +56,9 @@ public class GarbageCtrl : NetworkBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void HideObject()
+    {
+        gameObject.SetActive(false);
+    }
 }
