@@ -61,7 +61,6 @@ public class Utilities : MonoBehaviour
 
     public TimeToRecycleWastages recycleTimes;
 
-
     public InventoryUiContainerCtrl.UiData PrepareDataForInventoryUi(Dictionary<string, InventorySystem.InventoryItemData> inventoryItemsData)
     {
         InventoryUiContainerCtrl.UiData uiData = new InventoryUiContainerCtrl.UiData();
@@ -70,14 +69,42 @@ public class Utilities : MonoBehaviour
 
         foreach (KeyValuePair<string, InventorySystem.InventoryItemData> inventoryItem in inventoryItemsData)
         {
-            InventorySlotUiCtrl.UiData inventorySlotUiCtrlData = new InventorySlotUiCtrl.UiData();
+                InventorySlotUiCtrl.UiData inventorySlotUiCtrlData = new InventorySlotUiCtrl.UiData();
+                GarbageManager.GarbageType garbageType = inventoryItem.Value.garbageCtrl.GarbageType;
+                InventoryItemUiCtrl.UiData inventoryItemUiData = new InventoryItemUiCtrl.UiData();
+                inventoryItemUiData.itemImage = GetSpriteFromGarbageType(garbageType);
+                inventoryItemUiData.count = inventoryItem.Value.count;
+                inventorySlotUiCtrlData.inventoryItemUiData = inventoryItemUiData;
+                inventorySlotUiCtrlData.garbageType = garbageType;
+                inventorySlotsUiData.Add(inventorySlotUiCtrlData);
+
+            /*Debug.Log(inventoryItemUiData.itemImage.name + "image");
+            Debug.Log(inventoryItemUiData.count + "count");*/
+        }
+
+        uiData.inventorySlotsUiData = inventorySlotsUiData;
+
+        return uiData;
+    }
+
+    public InventoryUiContainerCtrl.UiData PrepareDataForInventoryUi(Dictionary<string, InventorySystem.InventoryItemData> inventoryItemsData, GarbageManager.GarbageType m_garbageType)
+    {
+        InventoryUiContainerCtrl.UiData uiData = new InventoryUiContainerCtrl.UiData();
+
+        List<InventorySlotUiCtrl.UiData> inventorySlotsUiData = new List<InventorySlotUiCtrl.UiData>();
+
+        foreach (KeyValuePair<string, InventorySystem.InventoryItemData> inventoryItem in inventoryItemsData)
+        {
             GarbageManager.GarbageType garbageType = inventoryItem.Value.garbageCtrl.GarbageType;
-            InventoryItemUiCtrl.UiData inventoryItemUiData = new InventoryItemUiCtrl.UiData();
-            inventoryItemUiData.itemImage = GetSpriteFromGarbageType(garbageType);
-            inventoryItemUiData.count = inventoryItem.Value.count;
-            inventorySlotUiCtrlData.inventoryItemUiData = inventoryItemUiData;
-            inventorySlotUiCtrlData.garbageType = garbageType;
-            inventorySlotsUiData.Add(inventorySlotUiCtrlData);
+            if(m_garbageType == garbageType){
+                InventorySlotUiCtrl.UiData inventorySlotUiCtrlData = new InventorySlotUiCtrl.UiData();
+                InventoryItemUiCtrl.UiData inventoryItemUiData = new InventoryItemUiCtrl.UiData();
+                inventoryItemUiData.itemImage = GetSpriteFromGarbageType(garbageType);
+                inventoryItemUiData.count = inventoryItem.Value.count;
+                inventorySlotUiCtrlData.inventoryItemUiData = inventoryItemUiData;
+                inventorySlotUiCtrlData.garbageType = garbageType;
+                inventorySlotsUiData.Add(inventorySlotUiCtrlData);
+            }
 
             /*Debug.Log(inventoryItemUiData.itemImage.name + "image");
             Debug.Log(inventoryItemUiData.count + "count");*/

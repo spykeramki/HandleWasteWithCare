@@ -1692,12 +1692,17 @@ PrefabInstance:
     - target: {fileID: 1345104265901174851, guid: c1456e3ceff07af44bc5119fa95406b1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.487
+      value: 0.288
       objectReference: {fileID: 0}
     - target: {fileID: 3448403293525164613, guid: c1456e3ceff07af44bc5119fa95406b1,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973649102693536770, guid: c1456e3ceff07af44bc5119fa95406b1,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9145166627426233596, guid: c1456e3ceff07af44bc5119fa95406b1,
         type: 3}
@@ -1709,7 +1714,9 @@ PrefabInstance:
       propertyPath: machineInventorySecondaryCanvas
       value: 
       objectReference: {fileID: 3621813217802180096}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 538113899188844543, guid: c1456e3ceff07af44bc5119fa95406b1, type: 3}
+    - {fileID: 538113899188844542, guid: c1456e3ceff07af44bc5119fa95406b1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c1456e3ceff07af44bc5119fa95406b1, type: 3}
 --- !u!4 &3047564290458557617 stripped
 Transform:
@@ -1815,6 +1822,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BioHazardDisposalWithTex
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 015874a4adc9d154691b3b8abfdc2e6f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4597593860830517236, guid: 015874a4adc9d154691b3b8abfdc2e6f,
         type: 3}

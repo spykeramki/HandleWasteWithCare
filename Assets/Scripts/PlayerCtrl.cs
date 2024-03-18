@@ -173,7 +173,7 @@ public class PlayerCtrl : NetworkBehaviour
         {
             playerProtectionSuitType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD,
             leftHandGunType = EquipStationCtrl.GunType.SCANNER,
-            rightHandGunType = EquipStationCtrl. GunType.RADIATION
+            rightHandGunType = EquipStationCtrl. GunType.ORGANIC_WASTE
         };
         playerEquipmentCtrl.SetPlayerEquipment(equipData);
         SetEquipmentData?.Invoke(equipData);

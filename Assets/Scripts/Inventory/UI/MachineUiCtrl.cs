@@ -51,8 +51,8 @@ public class MachineUiCtrl : MonoBehaviour
         Dictionary<string, InventorySystem.InventoryItemData> playerItemsData = PlayerCtrl.LocalInstance.PlayerInventory.GetInventoryItemsData();
         Dictionary<string, InventorySystem.InventoryItemData> machineItemsData = inventorySystem.GetInventoryItemsData();
 
-        playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(playerItemsData));
-        machineInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(machineItemsData));
+        playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(playerItemsData, machineRecycleType));
+        machineInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(machineItemsData, machineRecycleType));
 
     }
 
@@ -61,8 +61,8 @@ public class MachineUiCtrl : MonoBehaviour
         Dictionary<string, InventorySystem.InventoryItemData> playerItemsData = PlayerCtrl.LocalInstance.PlayerInventory.GetInventoryItemsData();
         Dictionary<string, InventorySystem.InventoryItemData> machineItemsData = inventorySystem.GetInventoryItemsData();
 
-        playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(playerItemsData));
-        machineInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(machineItemsData));
+        playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(playerItemsData, machineRecycleType));
+        machineInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(machineItemsData, machineRecycleType));
     }
 
     public void OnClickTransferToMachineInventoryButton()

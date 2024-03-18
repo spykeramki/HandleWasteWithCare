@@ -34072,6 +34072,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 536609406353470545, guid: 6655b7c1de2d56846bba02382ad14e07,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1521913702}
     - target: {fileID: 543629714302623944, guid: 6655b7c1de2d56846bba02382ad14e07,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -34412,6 +34417,16 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 6311369153182042214, guid: 6655b7c1de2d56846bba02382ad14e07,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 155.00946
+      objectReference: {fileID: 0}
+    - target: {fileID: 6311369153182042214, guid: 6655b7c1de2d56846bba02382ad14e07,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -27.50472
+      objectReference: {fileID: 0}
     - target: {fileID: 6324619741635188497, guid: 6655b7c1de2d56846bba02382ad14e07,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -34442,6 +34457,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 6826348730863138059, guid: 6655b7c1de2d56846bba02382ad14e07,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1521913702}
     - target: {fileID: 6982986655449666870, guid: 6655b7c1de2d56846bba02382ad14e07,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -48704,6 +48724,12 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!20 &1521913702 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5256551662862591295, guid: c8143c8d08c54cd4ab774e333d502e9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 264069511}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1523314083
 GameObject:
   m_ObjectHideFlags: 0
@@ -60792,7 +60818,7 @@ PrefabInstance:
     - target: {fileID: 597308369130767402, guid: 2f7f3dde7ae722a4aafffe20691ad702,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 597308369130767402, guid: 2f7f3dde7ae722a4aafffe20691ad702,
         type: 3}
@@ -85071,7 +85097,7 @@ Transform:
   - {fileID: 2139539768}
   - {fileID: 1372690353}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8345070699414287371
 GameObject:
