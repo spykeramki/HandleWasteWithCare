@@ -15,11 +15,11 @@ public class PlayerDetailsCtrl : MonoBehaviour
 
     private string emptyTextWarning = "You may feel Empty.\nBut you are more than nothing";
 
-    private DataManager.PlayerData playerData;
+    private DataManager.PlayerDetails playerData;
 
     private void Start()
     {
-        playerData = new DataManager.PlayerData();
+        playerData = new DataManager.PlayerDetails();
         startBtn.onClick.AddListener(OnClickStartBtn);
     }
 
@@ -60,7 +60,7 @@ public class PlayerDetailsCtrl : MonoBehaviour
 
     public void OnClickStartBtn()
     {
-        DataManager.Instance.SetPlayerData(playerData);
+        DataManager.Instance.SetNewPlayerData(playerData);
         SceneManager.LoadScene("01Main");
     }
 

@@ -10,21 +10,22 @@ public class DataManager : MonoBehaviour
 
 
     [Serializable]
-    public struct PlayerData
+    public struct PlayerDetails
     {
         public string name;
     }
 
     [Serializable]
-    public struct SingleSaveData
+    public struct UserGameData
     {
-        public PlayerData playerData;
+        public PlayerDetails playerData;
+        public int id;
     }
 
     [Serializable]
     public struct SaveData
     {
-        public List<SingleSaveData> playerDataList;
+        public List<UserGameData> playerDataList;
     }
 
     [SerializeField, HideInInspector]
@@ -34,7 +35,7 @@ public class DataManager : MonoBehaviour
 
     string saveDataJsonString = string.Empty;
 
-    private int currentPlayerDataIndex = -1;
+    private int currentPlayerDataId = -1;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class DataManager : MonoBehaviour
         {
             Destroy(this);
         }
-        savedData = new SaveData();
+        savedData = new SaveData() { };
     }
 
     private void Start()
@@ -56,21 +57,12 @@ public class DataManager : MonoBehaviour
         GetSavedData();
     }
 
-    public void SetPlayerData(PlayerData m_playerData)
+    public void SetNewPlayerData(PlayerDetails m_playerData)
     {
-        currentPlayerDataIndex = savedData.playerDataList.FindIndex(each => each.playerData.name == m_playerData.name);
-        SingleSaveData playerSave;
-        if (currentPlayerDataIndex < 0)
-        {
-            playerSave = new SingleSaveData() { playerData = m_playerData };
-            savedData.playerDataList.Add(playerSave);
-        }
-        else
-        {
-            playerSave = savedData.playerDataList[currentPlayerDataIndex];
-            playerSave.playerData = m_playerData;
-            savedData.playerDataList[currentPlayerDataIndex] = playerSave;
-        }
+        UserGameData userGameData  = new UserGameData() { playerData = m_playerData, id = GetPlayerDataList().Count };
+        savedData.playerDataList.Add(userGameData);
+
+        SetCurrentPlayerIndex(userGameData.id);
         SetSaveData();
     }
 
@@ -93,8 +85,47 @@ public class DataManager : MonoBehaviour
 
     public bool PlayerNameAlreadyExists(string m_name)
     {
-        int playerIndex = savedData.playerDataList.FindIndex(each => each.playerData.name == m_name);
+        int playerIndex = -1;
+        playerIndex = GetPlayerDataList().FindIndex(each => each.playerData.name == m_name);
         return playerIndex >= 0;
     }
 
+    public UserGameData GetCurrentPlayerData()
+    {
+        return GetPlayerDataList().Find(each => each.id == currentPlayerDataId);
+    }
+
+    public void SetCurrentPlayerIndex(int id)
+    {
+        currentPlayerDataId = id;
+    }
+
+    private List<UserGameData> GetPlayerDataList()
+    {
+        if(savedData.playerDataList == null)
+        {
+            return new List<UserGameData>();
+        }
+        else
+        {
+            return savedData.playerDataList;
+        }
+    }
+
+
+    public LoadGameProfilesListUiCtrl.UiData PrepareDataForLoadGameProfiles()
+    {
+
+        List<LoadGameProfileUiCtrl.UiData> uiData = new List<LoadGameProfileUiCtrl.UiData>();
+        
+            for (int i = GetPlayerDataList().Count - 1; i >= 0; i--)
+            {
+                LoadGameProfileUiCtrl.UiData data = new LoadGameProfileUiCtrl.UiData();
+                data.name = savedData.playerDataList[i].playerData.name;
+                data.id = savedData.playerDataList[i].id;
+                uiData.Add(data);
+            }
+
+        return new LoadGameProfilesListUiCtrl.UiData() { LoadGameProfilesData = uiData };
+    }
 }
