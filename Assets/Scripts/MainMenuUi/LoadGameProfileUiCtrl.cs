@@ -25,21 +25,16 @@ public class LoadGameProfileUiCtrl : MonoBehaviour
 
     private void Start()
     {
-        loadGameBtn.onClick.AddListener(OnClickThisProfile);
+        
     }
 
-    public void SetDataInUi(UiData m_uiData)
+    public void SetDataInUi(UiData m_uiData, Action<int> OnClickThisProfile)
     {
+        loadGameBtn.onClick.AddListener(() => { OnClickThisProfile.Invoke(id); });
         profileName.text = m_uiData.name;
         id = m_uiData.id;
         loadGameBtn.interactable = true;
     }
 
-    private void OnClickThisProfile()
-    {
-        DataManager.Instance.SetCurrentPlayerIndex(id);
-        SceneManager.LoadScene("01Main");
-        Debug.Log(DataManager.Instance.GetCurrentPlayerData().playerData.name + " current user name");
-    }
 
 }

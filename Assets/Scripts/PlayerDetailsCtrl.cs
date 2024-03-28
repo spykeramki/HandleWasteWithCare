@@ -9,11 +9,13 @@ public class PlayerDetailsCtrl : MonoBehaviour
 
     public Button startBtn;
 
-    private string typeInstruction = "Good to go";
+    public LoadingScreenCtrl loadingScreenCtrl;
 
-    private string nameAlreadyExists = "Hey! You have a twin with same name.\ngive another name";
+    private string TYPE_INSTRUCTION = "Good to go";
 
-    private string emptyTextWarning = "You may feel Empty.\nBut you are more than nothing";
+    private string NAME_ALREADY_EXISTS = "Hey! You have a twin with same name.\ngive another name";
+
+    private string EMPTY_TEXT_WARNING = "You may feel Empty.\nBut you are more than nothing";
 
     private DataManager.PlayerDetails playerData;
 
@@ -29,18 +31,18 @@ public class PlayerDetailsCtrl : MonoBehaviour
         bool doesPlayerNameExist =  DataManager.Instance.PlayerNameAlreadyExists(m_name);
         if(m_name == string.Empty)
         {
-            nameInstruction.text = emptyTextWarning;
+            nameInstruction.text = EMPTY_TEXT_WARNING;
             errorSetings();
             return;
         }
         if (doesPlayerNameExist)
         {
-            nameInstruction.text = nameAlreadyExists;
+            nameInstruction.text = NAME_ALREADY_EXISTS;
             errorSetings();
         }
         else
         {
-            nameInstruction.text = typeInstruction;
+            nameInstruction.text = TYPE_INSTRUCTION;
             goodToGoSettings();
 
         }
@@ -61,7 +63,7 @@ public class PlayerDetailsCtrl : MonoBehaviour
     public void OnClickStartBtn()
     {
         DataManager.Instance.SetNewPlayerData(playerData);
-        SceneManager.LoadScene("01Main");
+        loadingScreenCtrl.ShowLoadingScreen("01Main");
     }
 
 }
