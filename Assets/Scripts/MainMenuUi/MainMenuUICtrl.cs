@@ -7,12 +7,10 @@ using UnityEngine.Video;
 
 public class MainMenuUICtrl : MonoBehaviour
 {
-    public Button PlayBtn;
     public Button YesBtnToQuit;
 
     void Start()
     {
-        PlayBtn.onClick.AddListener(StartGame);
         YesBtnToQuit.onClick.AddListener(QuitGame);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
@@ -25,11 +23,6 @@ public class MainMenuUICtrl : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-    }
-
-    private void StartGame()
-    {
-        SceneManager.LoadScene("01main");
     }
 
     private void QuitGame()
