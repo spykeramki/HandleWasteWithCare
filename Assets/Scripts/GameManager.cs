@@ -1,10 +1,15 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    [HideInInspector]
+    public UnityEvent<bool> SetPlayerStateToUiMode = new UnityEvent<bool>();
 
     public enum PlayerLocation
     {
@@ -17,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private PlayerCtrl playerCtrl;
+
+    private FirstPersonController firstPersonController;
 
     [SerializeField] private GarbageManager garbageManager;
 
@@ -38,6 +45,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
+        firstPersonController = GetComponent<FirstPersonController>();
     }
 }

@@ -195,4 +195,18 @@ public class Utilities : MonoBehaviour
         return time;
     }
 
+    public void SetSettingsForUi(bool isUiActive)
+    {
+        if(isUiActive)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
 }

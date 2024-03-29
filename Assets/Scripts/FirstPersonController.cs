@@ -88,6 +88,8 @@ namespace StarterAssets
 			}
 		}
 
+		private bool isUiActive = false;
+
 		private void Start()
 		{
 			_controller = GetComponent<CharacterController>();
@@ -101,19 +103,32 @@ namespace StarterAssets
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+
+			GameManager.Instance.SetPlayerStateToUiMode.AddListener(SettingsForUi);
 		}
 
 		private void Update()
 		{
-            JumpAndGravity();
-			GroundedCheck();
-			Move();
+			if (!isUiActive)
+			{
+				JumpAndGravity();
+				GroundedCheck();
+				Move();
+			}
 		}
 
 		private void LateUpdate()
 		{
-            CameraRotation();
+			if (!isUiActive)
+			{
+				CameraRotation();
+			}
 		}
+
+		private void SettingsForUi(bool m_isUiActive)
+		{
+            isUiActive = m_isUiActive;
+        }
 
 		private void GroundedCheck()
 		{
