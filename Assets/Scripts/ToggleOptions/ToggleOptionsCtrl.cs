@@ -78,7 +78,7 @@ public class ToggleOptionsCtrl : MonoBehaviour
     {
         for (int i = 0; i < optionsList.Count; i++)
         {
-            optionsList[i].gameObject.SetActive(false);
+            optionsList[i]?.gameObject.SetActive(false);
         }
     }
 

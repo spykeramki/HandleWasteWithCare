@@ -65,6 +65,8 @@ public class PlayerCtrl : NetworkBehaviour
 
     private bool isHealthDecreasing = false;
 
+    private bool _isGameOver = false;
+
     public float BioHazardLevel
     {
         get { return bioHazardLevel; }
@@ -134,6 +136,12 @@ public class PlayerCtrl : NetworkBehaviour
         {
             _isPlayerUiActive = !_isPlayerUiActive;
             playerInventoryGo.SetActive(_isPlayerUiActive);
+        }
+
+        if(!_isGameOver && health <= 0)
+        {
+            GameManager.Instance.SetGameOver();
+            _isGameOver = true;
         }
     }
 

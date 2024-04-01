@@ -11,26 +11,19 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public UnityEvent<bool> SetPlayerStateToUiMode = new UnityEvent<bool>();
 
-    public enum PlayerLocation
+    public GameOverCtrl gameOverCtrl;
+
+    public PauseMenuCtrl pauseMenuCtrl;
+
+    private bool _isGameOver;
+
+    void Update()
     {
-        WORLD,
-        BASE,
-        CLEANSER
+        if (Input.GetKeyUp(KeyCode.Escape) && !_isGameOver)
+        {
+            pauseMenuCtrl.OnClickResumeBtn();
+        }
     }
-
-    public PlayerLocation playerLocation = PlayerLocation.BASE;
-
-    [SerializeField]
-    private PlayerCtrl playerCtrl;
-
-    private FirstPersonController firstPersonController;
-
-    [SerializeField] private GarbageManager garbageManager;
-
-    [SerializeField]
-    private BaseMachinesInventoryCtrl baseMachinesInventoryCtrl;
-
-    public BaseMachinesInventoryCtrl BaseMachinesInventoryCtrl { get => baseMachinesInventoryCtrl; }
 
     private void Awake()
     {
@@ -43,8 +36,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void SetGameOver()
     {
-        firstPersonController = GetComponent<FirstPersonController>();
+        _isGameOver = true;
+        SetPlayerStateToUiMode?.Invoke(true);
+        Utilities.Instance.SetSettingsForUi(true);
+        gameOverCtrl.gameObject.SetActive(true);
     }
 }
