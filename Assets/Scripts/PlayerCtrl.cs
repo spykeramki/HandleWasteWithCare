@@ -16,7 +16,6 @@ public class PlayerCtrl : NetworkBehaviour
 
     [SerializeField]
     private float health = 100;
-    private float stamina = 100;
     [SerializeField]
     private float bioHazardLevel = 0;
     [SerializeField]
@@ -77,11 +76,6 @@ public class PlayerCtrl : NetworkBehaviour
     {
         get { return radiationLevel; }
         set { radiationLevel = value; }
-    }
-
-    public float Stamina
-    {
-        get { return stamina; }
     }
 
     public float Health
@@ -198,10 +192,13 @@ public class PlayerCtrl : NetworkBehaviour
         {
             yield return new WaitForSeconds(1f);
             health -= (radiationLevel* _healthToReduceForEachLevelOfRadiation) + (bioHazardLevel * _healthToReduceForEachLevelOfBioHazardEffect);
+            GameManager.Instance.playerStatsUiCtrl.SetHealthInUi(health);
         }
 
         if(health <= 0)
         {
+            health = 0;
+            GameManager.Instance.playerStatsUiCtrl.SetHealthInUi(health);
             StopCoroutine("ReduceHealthSlowly");
             isHealthDecreasing=false;
         }
@@ -237,15 +234,18 @@ public class PlayerCtrl : NetworkBehaviour
 
     public IEnumerator IncreaseBioHazardValueSlowly()
     {
+        GameManager gameManager = GameManager.Instance;
         while (bioHazardLevel < 100)
         {
             yield return new WaitForSeconds(1f);
             bioHazardLevel += 1f;
+            gameManager.playerStatsUiCtrl.SetBioHazardInUi(bioHazardLevel);
         }
 
         if (bioHazardLevel >= 100)
         {
             bioHazardLevel = 100;
+            gameManager.playerStatsUiCtrl.SetBioHazardInUi(bioHazardLevel);
             StopCoroutine("IncreaseBioHazardValueSlowly");
         }
     }
@@ -256,11 +256,13 @@ public class PlayerCtrl : NetworkBehaviour
         {
             yield return new WaitForSeconds(1f);
             radiationLevel += 1f;
+            GameManager.Instance.playerStatsUiCtrl.SetRadiationInUi(radiationLevel);
         }
 
         if (radiationLevel >= 100)
         {
             radiationLevel = 100;
+            GameManager.Instance.playerStatsUiCtrl.SetRadiationInUi(radiationLevel);
             StopCoroutine("IncreaseRadiationValueSlowly");
         }
     }

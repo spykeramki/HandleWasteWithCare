@@ -78,11 +78,13 @@ public class DecontaminatorCtrl : MonoBehaviour
             yield return new WaitForEndOfFrame();
             _radiationLevel-= Time.deltaTime;
             playerCtrl.RadiationLevel = _radiationLevel;
+            GameManager.Instance.playerStatsUiCtrl.SetRadiationInUi(_radiationLevel);
         }
         if (_radiationLevel <= 0)
         {
             _radiationLevel =0;
             playerCtrl.RadiationLevel = _radiationLevel;
+            GameManager.Instance.playerStatsUiCtrl.SetRadiationInUi(_radiationLevel);
             if (_bioHazardLevel <= 0)
             {
                 StopSprayers();
@@ -98,11 +100,13 @@ public class DecontaminatorCtrl : MonoBehaviour
             yield return new WaitForEndOfFrame();
             _bioHazardLevel -= Time.deltaTime;
             playerCtrl.BioHazardLevel = _bioHazardLevel;
+            GameManager.Instance.playerStatsUiCtrl.SetBioHazardInUi(_bioHazardLevel);
         }
         if (_bioHazardLevel <= 0)
         {
             _bioHazardLevel=0;
             playerCtrl.BioHazardLevel = _bioHazardLevel;
+            GameManager.Instance.playerStatsUiCtrl.SetBioHazardInUi(_bioHazardLevel);
             if (_radiationLevel <= 0)
             {
                 StopSprayers();

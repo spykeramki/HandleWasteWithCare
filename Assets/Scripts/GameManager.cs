@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     public PauseMenuCtrl pauseMenuCtrl;
 
+    public PlayerStatsUiCtrl playerStatsUiCtrl;
+
     private bool _isGameOver;
 
     void Update()
