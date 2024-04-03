@@ -53,6 +53,7 @@ public class PauseMenuCtrl : MonoBehaviour
 
     private void OnClickMainMenuBtn()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("00Start");
     }
 

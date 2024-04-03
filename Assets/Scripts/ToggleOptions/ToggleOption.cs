@@ -4,23 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class ToggleOption : MonoBehaviour
 {
-    [Serializable]
-    public struct EquipmentType
-    {
-        public EquipStationCtrl.PlayerProtectionSuitType playerProtectionSuitType;
+    private Button _button;
 
-        public EquipStationCtrl.GunType playerGunType;
+    private Image _image;
+
+    public Button ToggleBtn
+    {
+        get { return _button; }
     }
 
-    [SerializeField]
-    private EquipmentType thisEquipmentType;
-
-    public EquipmentType ThisEquipmentType
+    public Image ToggleImage
     {
-        get => thisEquipmentType;
+        get { return _image; }
     }
 
+    private void Awake()
+    {
+        _button = GetComponent<Button>();
+        _image = GetComponent<Image>();
+    }
 }

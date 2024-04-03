@@ -3,46 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class EquipStationCtrl : MonoBehaviour
 {
 
-    [Serializable]
-    public struct EquipData
-    {
-        public PlayerProtectionSuitType playerProtectionSuitType;
-        public GunType leftHandGunType;
-        public GunType rightHandGunType;
-    }
-
     public enum PlayerProtectionSuitType
     {
-        NONE,
         BIO_HAZARD,
         RADIATION
     }
 
-    public enum GunType
-    {
-        NONE,
-        DRY_WASTE,
-        FLUID_WASTE,
-        ORGANIC_WASTE,
-        RADIATION,
-        SCANNER
-    }
+    private PlayerProtectionSuitType playerProtectionSuitType;
 
-    private EquipData equipData;
-
-    [Serializable]
-    private struct ToggleSystems
-    {
-        public ToggleOptionsCtrl suit;
-        public ToggleOptionsCtrl rightHand;
-        public ToggleOptionsCtrl leftHand;
-    }
-
-    [SerializeField] private ToggleSystems toggleSystems;
+    public ToggleOption suit;
 
     public GameObject uiCanvas;
 
@@ -51,56 +25,43 @@ public class EquipStationCtrl : MonoBehaviour
         PlayerCtrl.SetEquipmentData += OnPlayerSpawn;
     }
 
-    private void OnPlayerSpawn(EquipData data)
+    private void Start()
     {
-        equipData = data;
-        SetDataInUi(equipData, GetDataFromOptionsAndSetData);
+        suit.ToggleBtn.onClick.AddListener(OnClickEquipmentChangeBtn);
     }
 
-    public void SetPlayerEquipment(EquipData data)
+    private void OnPlayerSpawn(PlayerProtectionSuitType suitType)
     {
-        equipData = data;
+        playerProtectionSuitType = suitType;
+        SetDataInUi(suitType);
+    }
+
+    public void SetPlayerEquipment(PlayerProtectionSuitType suitType)
+    {
         if (PlayerCtrl.LocalInstance!=null)
         {
-            PlayerCtrl.LocalInstance.PlayerEquipment.SetPlayerEquipment(equipData);
+            PlayerCtrl.LocalInstance.PlayerEquipment.SetPlayerEquipment(suitType);
         }
     }
 
-    public void GetDataFromOptionsAndSetData()
+    public void SetDataInUi(PlayerProtectionSuitType m_suitType)
     {
-        EquipData equipData = new EquipData()
-        {
-            playerProtectionSuitType = toggleSystems.suit.GetActiveEquipmentType().playerProtectionSuitType,
-            leftHandGunType = toggleSystems.leftHand.GetActiveEquipmentType().playerGunType,
-            rightHandGunType = toggleSystems.rightHand.GetActiveEquipmentType().playerGunType
-        };
-        SetPlayerEquipment(equipData) ;
+        suit.ToggleImage.sprite = Utilities.Instance.GetSuitSpriteFromSuitType(m_suitType);
     }
 
-    public void SetDataInUi(EquipData m_equipData, Action action = null)
+    private void OnClickEquipmentChangeBtn()
     {
-        ToggleOption.EquipmentType suitData = new ToggleOption.EquipmentType()
+        if(playerProtectionSuitType == PlayerProtectionSuitType.BIO_HAZARD)
         {
-            playerProtectionSuitType = m_equipData.playerProtectionSuitType,
-            playerGunType = GunType.NONE
-        };
-        toggleSystems.suit.SetDataInUi(suitData, action);
-
-        ToggleOption.EquipmentType leftHandData = new ToggleOption.EquipmentType()
+            playerProtectionSuitType = PlayerProtectionSuitType.RADIATION;
+        }
+        else
         {
-            playerProtectionSuitType = PlayerProtectionSuitType.NONE,
-            playerGunType = m_equipData.leftHandGunType
-        };
+            playerProtectionSuitType = PlayerProtectionSuitType.BIO_HAZARD;
+        }
+        SetPlayerEquipment(playerProtectionSuitType);
 
-        toggleSystems.leftHand.SetDataInUi(leftHandData, action);
-
-        ToggleOption.EquipmentType rightHandData = new ToggleOption.EquipmentType()
-        {
-            playerProtectionSuitType = PlayerProtectionSuitType.NONE,
-            playerGunType = m_equipData.rightHandGunType
-        };
-
-        toggleSystems.rightHand.SetDataInUi(rightHandData, action);
+        SetDataInUi(playerProtectionSuitType);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -10,7 +10,7 @@ using System;
 
 public class PlayerCtrl : NetworkBehaviour
 {
-    public static Action<EquipStationCtrl.EquipData> SetEquipmentData;
+    public static Action<EquipStationCtrl.PlayerProtectionSuitType> SetEquipmentData;
 
     public static PlayerCtrl LocalInstance;
 
@@ -171,14 +171,9 @@ public class PlayerCtrl : NetworkBehaviour
 
     private void SetPlayerInitialEquipmentData()
     {
-        EquipStationCtrl.EquipData equipData = new EquipStationCtrl.EquipData()
-        {
-            playerProtectionSuitType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD,
-            leftHandGunType = EquipStationCtrl.GunType.SCANNER,
-            rightHandGunType = EquipStationCtrl. GunType.ORGANIC_WASTE
-        };
-        playerEquipmentCtrl.SetPlayerEquipment(equipData);
-        SetEquipmentData?.Invoke(equipData);
+        EquipStationCtrl.PlayerProtectionSuitType suitType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD;
+        playerEquipmentCtrl.SetPlayerEquipment(suitType);
+        SetEquipmentData?.Invoke(suitType);
     }
 
     private void ReduceHealthByRadiationOrBioHazardLevelIncrease()
@@ -209,12 +204,12 @@ public class PlayerCtrl : NetworkBehaviour
         InfectPlayerCtrl infectPlayerCtrl = other.GetComponent<InfectPlayerCtrl>();
         if(infectPlayerCtrl != null)
         {
-            if (playerEquipmentCtrl.PlayerEquipData.playerProtectionSuitType!= EquipStationCtrl.PlayerProtectionSuitType.RADIATION &&
+            if (playerEquipmentCtrl.PlayerSuit!= EquipStationCtrl.PlayerProtectionSuitType.RADIATION &&
                 infectPlayerCtrl.InfectType == GarbageManager.GarbageType.RADIOACTIVE)
             {
                 StartCoroutine("IncreaseRadiationValueSlowly");
             }
-            else if (playerEquipmentCtrl.PlayerEquipData.playerProtectionSuitType != EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD && 
+            else if (playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD && 
                 infectPlayerCtrl.InfectType == GarbageManager.GarbageType.ORGANIC)
             {
                 StartCoroutine("IncreaseBioHazardValueSlowly");

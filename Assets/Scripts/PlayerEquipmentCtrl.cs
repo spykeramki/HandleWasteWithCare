@@ -7,62 +7,44 @@ using UnityEngine.UI;
 public class PlayerEquipmentCtrl : MonoBehaviour
 {
 
-    private EquipStationCtrl.EquipData _playerEquipData;
+    private EquipStationCtrl.PlayerProtectionSuitType _playerSuit;
 
-    public EquipStationCtrl.EquipData PlayerEquipData
+    public EquipStationCtrl.PlayerProtectionSuitType PlayerSuit
     {
-        get { return _playerEquipData; }
+        get { return _playerSuit; }
     }
-
-    [Serializable]
-    private struct EquipmentImages
-    {
-        public Image suit;
-        public Image leftHand;
-        public Image rightHand;
-    }
-
-    [SerializeField] private EquipmentImages equipImages;
+    public Image suit;
 
     private List<GarbageManager.GarbageType> itemsThatCanBeAddedToInventory = new List<GarbageManager.GarbageType>();
     public List<GarbageManager.GarbageType> GarbageThatCanBeAddedToInventory{
         get { return itemsThatCanBeAddedToInventory;}
     }
 
-    public void SetPlayerEquipment(EquipStationCtrl.EquipData equipData )
+    public void SetPlayerEquipment(EquipStationCtrl.PlayerProtectionSuitType suitType )
     {
-        _playerEquipData = equipData;
-        setDataInUi(equipData);
-        itemsThatCanBeAddedToInventory = CanAddItemToInventoryBasedOnPlayerToolType(equipData);
+        _playerSuit = suitType;
+        setDataInUi(suitType);
+        itemsThatCanBeAddedToInventory = CanAddItemToInventoryBasedOnPlayerToolType(suitType);
         //SetMaterialsAndPlayerObjects();
     }
 
-    private void setDataInUi(EquipStationCtrl.EquipData equipData)
+    private void setDataInUi(EquipStationCtrl.PlayerProtectionSuitType suitType)
     {
-        Utilities utilities = Utilities.Instance;
-        equipImages.suit.sprite = utilities.GetSuitSpriteFromSuitType(equipData.playerProtectionSuitType);
-        equipImages.leftHand.sprite = utilities.GetHandlerSpriteFromSuitType(equipData.leftHandGunType);
-        equipImages.rightHand.sprite = utilities.GetHandlerSpriteFromSuitType(equipData.rightHandGunType);
+        suit.sprite = Utilities.Instance.GetSuitSpriteFromSuitType(suitType);
     }
 
     
-    private List<GarbageManager.GarbageType> CanAddItemToInventoryBasedOnPlayerToolType(EquipStationCtrl.EquipData equipData ){
-        EquipStationCtrl.GunType leftHandType = _playerEquipData.leftHandGunType;
-        EquipStationCtrl.GunType rightHandType = _playerEquipData.rightHandGunType;
+    private List<GarbageManager.GarbageType> CanAddItemToInventoryBasedOnPlayerToolType(EquipStationCtrl.PlayerProtectionSuitType m_suitType)
+    {
 
         List<GarbageManager.GarbageType> itemsThatCanBeAdded = new List<GarbageManager.GarbageType>();
 
-        if(leftHandType == EquipStationCtrl.GunType.DRY_WASTE || rightHandType == EquipStationCtrl.GunType.DRY_WASTE){
-            itemsThatCanBeAdded.Add(GarbageManager.GarbageType.PLASTIC);
-            itemsThatCanBeAdded.Add(GarbageManager.GarbageType.GLASS);
-        }
-        if(leftHandType == EquipStationCtrl.GunType.FLUID_WASTE || rightHandType == EquipStationCtrl.GunType.FLUID_WASTE){
-            itemsThatCanBeAdded.Add(GarbageManager.GarbageType.OIL);
-        }
-        if(leftHandType == EquipStationCtrl.GunType.ORGANIC_WASTE || rightHandType == EquipStationCtrl.GunType.ORGANIC_WASTE){
+        if(m_suitType == EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD)
+        {
             itemsThatCanBeAdded.Add(GarbageManager.GarbageType.ORGANIC);
         }
-        if(leftHandType == EquipStationCtrl.GunType.RADIATION || rightHandType == EquipStationCtrl.GunType.RADIATION){
+        if(m_suitType == EquipStationCtrl.PlayerProtectionSuitType.RADIATION)
+        {
             itemsThatCanBeAdded.Add(GarbageManager.GarbageType.RADIOACTIVE);
         }
 

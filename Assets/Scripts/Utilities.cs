@@ -148,26 +148,6 @@ public class Utilities : MonoBehaviour
     }
 
 
-    public Sprite GetHandlerSpriteFromSuitType(EquipStationCtrl.GunType gunType)
-    {
-        switch (gunType)
-        {
-            case EquipStationCtrl.GunType.RADIATION:
-                return equipmentSprites.radiationWasteHandler;
-            case EquipStationCtrl.GunType.DRY_WASTE:
-                return equipmentSprites.dryWasteHandler;
-            case EquipStationCtrl.GunType.FLUID_WASTE:
-                return equipmentSprites.wetWasteHandler;
-            case EquipStationCtrl.GunType.ORGANIC_WASTE:
-                return equipmentSprites.bioHazardWasteHandler;
-            case EquipStationCtrl.GunType.SCANNER:
-                return equipmentSprites.scanner;
-
-        }
-        return null;
-    }
-
-
     public float GetRecyclingTimeAsPerGarbageType(GarbageManager.GarbageType garbageType)
     {
         float time = 0f;
