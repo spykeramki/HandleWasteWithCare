@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
+
+    private string _sceneName;
 
 
     [Serializable]
@@ -16,9 +19,35 @@ public class DataManager : MonoBehaviour
     }
 
     [Serializable]
+    public struct GarbageDetails
+    {
+        public string garbageType;
+        public int count;
+    }
+
+    [Serializable]
+    public struct PlayerGameData
+    {
+        public Vector3 position;
+        public float health;
+        public float radiationLevel;
+        public float bioHazardLevel;
+        public List<GarbageDetails> inventoryGarbage;
+    }
+
+    [Serializable]
+    public struct MachinesData
+    {
+        public GarbageDetails bioHazardWaste;
+        public GarbageDetails radiationWaste;
+    }
+
+    [Serializable]
     public struct UserGameData
     {
         public PlayerDetails playerData;
+        public PlayerGameData playerGameData;
+        public MachinesData machinesData;
         public int id;
     }
 
@@ -49,6 +78,7 @@ public class DataManager : MonoBehaviour
             Destroy(this);
         }
         savedData = new SaveData() { };
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -90,7 +120,7 @@ public class DataManager : MonoBehaviour
         return playerIndex >= 0;
     }
 
-    public UserGameData GetCurrentPlayerData()
+    public UserGameData GetCurrentUserData()
     {
         return GetPlayerDataList().Find(each => each.id == currentPlayerDataId);
     }
@@ -127,5 +157,15 @@ public class DataManager : MonoBehaviour
             }
 
         return new LoadGameProfilesListUiCtrl.UiData() { LoadGameProfilesData = uiData };
+    }
+
+    private void OnSceneLoaded(Scene m_scene, LoadSceneMode m_loadSceneMode)
+    {
+        _sceneName = m_scene.name;
+    }
+
+    public void SaveDataOfCurrentUser(UserGameData m_userGameData)
+    {
+        savedData.playerDataList[currentPlayerDataId] = m_userGameData;
     }
 }
