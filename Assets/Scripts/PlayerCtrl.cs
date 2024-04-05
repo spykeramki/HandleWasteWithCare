@@ -210,7 +210,7 @@ public class PlayerCtrl : NetworkBehaviour
                 StartCoroutine("IncreaseRadiationValueSlowly");
             }
             else if (playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD && 
-                infectPlayerCtrl.InfectType == GarbageManager.GarbageType.ORGANIC)
+                infectPlayerCtrl.InfectType == GarbageManager.GarbageType.BIO_HAZARD)
             {
                 StartCoroutine("IncreaseBioHazardValueSlowly");
             }
@@ -268,7 +268,7 @@ public class PlayerCtrl : NetworkBehaviour
         {
             StopCoroutine("IncreaseRadiationValueSlowly");
         }
-        else if (garbageType == GarbageManager.GarbageType.ORGANIC)
+        else if (garbageType == GarbageManager.GarbageType.BIO_HAZARD)
         {
             StopCoroutine("IncreaseBioHazardValueSlowly");
         }
@@ -277,5 +277,25 @@ public class PlayerCtrl : NetworkBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
+    }
+
+    public DataManager.PlayerGameData GetPlayerGameData()
+    {
+        DataManager.PlayerGameData playerGameData = new DataManager.PlayerGameData();
+        playerGameData.position = transform.position;
+        playerGameData.health = health;
+        playerGameData.radiationLevel = radiationLevel;
+        playerGameData.bioHazardLevel = bioHazardLevel;
+        playerGameData.playerEquipmentType = playerEquipmentCtrl.PlayerSuit.ToString();
+        List<DataManager.GarbageDetails> playerInventoryGarbage = new List<DataManager.GarbageDetails>();
+        foreach (KeyValuePair<string, InventorySystem.InventoryItemData> item in playerInventorySystem.GetInventoryItemsData())
+        {
+            DataManager.GarbageDetails garbageDetails = new DataManager.GarbageDetails();
+            garbageDetails.garbageType = item.Key;
+            garbageDetails.count = item.Value.count;
+            playerInventoryGarbage.Add(garbageDetails);
+        }
+        playerGameData.inventoryGarbage = playerInventoryGarbage;
+        return playerGameData;
     }
 }

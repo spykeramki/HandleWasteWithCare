@@ -47,8 +47,8 @@ public class PauseMenuCtrl : MonoBehaviour
 
     private void OnClickSaveBtn()
     {
-        DataManager.Instance.SetSaveData();
         StartCoroutine("ShowSavingData");
+        DataManager.Instance.SaveDataOfCurrentUser();
     }
 
     private void OnClickMainMenuBtn()
@@ -67,7 +67,7 @@ public class PauseMenuCtrl : MonoBehaviour
     {
         opionsGo.SetActive(false);
         savingUiGo.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
         opionsGo.SetActive(true);
         savingUiGo.SetActive(false);
     }
@@ -89,5 +89,10 @@ public class PauseMenuCtrl : MonoBehaviour
         savingUiGo.SetActive(false);
         optionsPanelGo.SetActive(true);
         opionsGo.SetActive(true);
+    }
+
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
     }
 }

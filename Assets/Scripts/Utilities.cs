@@ -127,7 +127,7 @@ public class Utilities : MonoBehaviour
                 return garbageSprites.glass;
             case GarbageManager.GarbageType.OIL:
                 return garbageSprites.oil;
-            case GarbageManager.GarbageType.ORGANIC:
+            case GarbageManager.GarbageType.BIO_HAZARD:
                 return garbageSprites.organic;
             case GarbageManager.GarbageType.RADIOACTIVE:
                 return garbageSprites.radioactive;
@@ -159,7 +159,7 @@ public class Utilities : MonoBehaviour
             case GarbageManager.GarbageType.GLASS:
                 time = recycleTimes.glass;
                 break;
-            case GarbageManager.GarbageType.ORGANIC:
+            case GarbageManager.GarbageType.BIO_HAZARD:
                 time = recycleTimes.organic;
                 break;
             case GarbageManager.GarbageType.OIL:

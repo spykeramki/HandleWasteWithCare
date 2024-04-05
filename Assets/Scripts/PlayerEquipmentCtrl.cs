@@ -41,7 +41,7 @@ public class PlayerEquipmentCtrl : MonoBehaviour
 
         if(m_suitType == EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD)
         {
-            itemsThatCanBeAdded.Add(GarbageManager.GarbageType.ORGANIC);
+            itemsThatCanBeAdded.Add(GarbageManager.GarbageType.BIO_HAZARD);
         }
         if(m_suitType == EquipStationCtrl.PlayerProtectionSuitType.RADIATION)
         {

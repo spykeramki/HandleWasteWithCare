@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
 
     public PlayerStatsUiCtrl playerStatsUiCtrl;
 
+    public RecyclerInventorySystem bioHazardRecyclerInventory;
+
+    public RecyclerInventorySystem radiationRecyclerInventory;
+
     private bool _isGameOver;
 
     void Update()
@@ -44,5 +48,13 @@ public class GameManager : MonoBehaviour
         SetPlayerStateToUiMode?.Invoke(true);
         Utilities.Instance.SetSettingsForUi(true);
         gameOverCtrl.gameObject.SetActive(true);
+    }
+
+    public DataManager.MachinesData GetMachinesData()
+    {
+        DataManager.MachinesData machinesData = new DataManager.MachinesData();
+        machinesData.bioHazardWaste = bioHazardRecyclerInventory.GetInventoryItemsData().Count;
+        machinesData.radiationWaste = radiationRecyclerInventory.GetInventoryItemsData().Count;
+        return machinesData;
     }
 }

@@ -20,7 +20,10 @@ public class LoadGameProfilesListUiCtrl : MonoBehaviour
     {
         for (int i = 0; i < uiData.LoadGameProfilesData.Count; i++)
         {
-            loadGameProfiles[i].SetDataInUi(uiData.LoadGameProfilesData[i], OnClickThisProfile);
+            if(i < loadGameProfiles.Length)
+            {
+                loadGameProfiles[i].SetDataInUi(uiData.LoadGameProfilesData[i], OnClickThisProfile);
+            }
         }
     }
 

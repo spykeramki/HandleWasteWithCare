@@ -33,19 +33,20 @@ public class DataManager : MonoBehaviour
         public float radiationLevel;
         public float bioHazardLevel;
         public List<GarbageDetails> inventoryGarbage;
+        public string playerEquipmentType;
     }
 
     [Serializable]
     public struct MachinesData
     {
-        public GarbageDetails bioHazardWaste;
-        public GarbageDetails radiationWaste;
+        public int bioHazardWaste;
+        public int radiationWaste;
     }
 
     [Serializable]
     public struct UserGameData
     {
-        public PlayerDetails playerData;
+        public PlayerDetails playerDetails;
         public PlayerGameData playerGameData;
         public MachinesData machinesData;
         public int id;
@@ -77,19 +78,20 @@ public class DataManager : MonoBehaviour
         {
             Destroy(this);
         }
-        savedData = new SaveData() { };
+        savedData = new SaveData() { playerDataList = new List<UserGameData>() };
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
     {
         savePath = Application.persistentDataPath + @"\hwcSaveData.txt";
+        Debug.Log(savePath);
         GetSavedData();
     }
 
     public void SetNewPlayerData(PlayerDetails m_playerData)
     {
-        UserGameData userGameData  = new UserGameData() { playerData = m_playerData, id = GetPlayerDataList().Count };
+        UserGameData userGameData  = new UserGameData() { playerDetails = m_playerData, id = GetPlayerDataList().Count };
         savedData.playerDataList.Add(userGameData);
 
         SetCurrentPlayerIndex(userGameData.id);
@@ -116,7 +118,7 @@ public class DataManager : MonoBehaviour
     public bool PlayerNameAlreadyExists(string m_name)
     {
         int playerIndex = -1;
-        playerIndex = GetPlayerDataList().FindIndex(each => each.playerData.name == m_name);
+        playerIndex = GetPlayerDataList().FindIndex(each => each.playerDetails.name == m_name);
         return playerIndex >= 0;
     }
 
@@ -151,7 +153,7 @@ public class DataManager : MonoBehaviour
             for (int i = GetPlayerDataList().Count - 1; i >= 0; i--)
             {
                 LoadGameProfileUiCtrl.UiData data = new LoadGameProfileUiCtrl.UiData();
-                data.name = savedData.playerDataList[i].playerData.name;
+                data.name = savedData.playerDataList[i].playerDetails.name;
                 data.id = savedData.playerDataList[i].id;
                 uiData.Add(data);
             }
@@ -164,8 +166,13 @@ public class DataManager : MonoBehaviour
         _sceneName = m_scene.name;
     }
 
-    public void SaveDataOfCurrentUser(UserGameData m_userGameData)
+    public void SaveDataOfCurrentUser()
     {
-        savedData.playerDataList[currentPlayerDataId] = m_userGameData;
+        UserGameData userGameData = GetPlayerDataList()[currentPlayerDataId];
+        userGameData.playerGameData = PlayerCtrl.LocalInstance.GetPlayerGameData();
+        userGameData.machinesData = GameManager.Instance.GetMachinesData();
+
+        savedData.playerDataList[currentPlayerDataId] = userGameData;
+        SetSaveData();
     }
 }
