@@ -22,6 +22,14 @@ public class DataManager : MonoBehaviour
     public struct GarbageDetails
     {
         public string garbageType;
+        public string id;
+        public string garbageStatus;
+    }
+
+    [Serializable]
+    public struct PlayerInventoryDetails
+    {
+        public string garbageType;
         public int count;
     }
 
@@ -32,8 +40,8 @@ public class DataManager : MonoBehaviour
         public float health;
         public float radiationLevel;
         public float bioHazardLevel;
-        public List<GarbageDetails> inventoryGarbage;
         public string playerEquipmentType;
+        public List<PlayerInventoryDetails> playerInventoryDetails;
     }
 
     [Serializable]
@@ -48,6 +56,7 @@ public class DataManager : MonoBehaviour
     {
         public PlayerDetails playerDetails;
         public PlayerGameData playerGameData;
+        public List<GarbageDetails> garbageDetails;
         public MachinesData machinesData;
         public int id;
     }
@@ -61,7 +70,7 @@ public class DataManager : MonoBehaviour
     [SerializeField, HideInInspector]
     private SaveData savedData;
 
-    private string savePath = "";
+    private string savePath = string.Empty;
 
     string saveDataJsonString = string.Empty;
 
@@ -91,7 +100,20 @@ public class DataManager : MonoBehaviour
 
     public void SetNewPlayerData(PlayerDetails m_playerData)
     {
-        UserGameData userGameData  = new UserGameData() { playerDetails = m_playerData, id = GetPlayerDataList().Count };
+        PlayerGameData newPlayerGameData = new PlayerGameData();
+        newPlayerGameData.health = 100;
+        newPlayerGameData.radiationLevel = 0;
+        newPlayerGameData.bioHazardLevel = 0;
+        newPlayerGameData.position = new Vector3(-21.58f, 7.935f, -116.6182f);
+        newPlayerGameData.playerEquipmentType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD.ToString();
+        newPlayerGameData.playerInventoryDetails = new List<PlayerInventoryDetails>();
+        UserGameData userGameData = new UserGameData() {
+            playerDetails = m_playerData,
+            id = GetPlayerDataList().Count,
+            playerGameData = newPlayerGameData,
+            garbageDetails = new List<GarbageDetails>(),
+
+        };
         savedData.playerDataList.Add(userGameData);
 
         SetCurrentPlayerIndex(userGameData.id);
@@ -168,11 +190,13 @@ public class DataManager : MonoBehaviour
 
     public void SaveDataOfCurrentUser()
     {
-        UserGameData userGameData = GetPlayerDataList()[currentPlayerDataId];
+        UserGameData userGameData = GetCurrentUserData();
         userGameData.playerGameData = PlayerCtrl.LocalInstance.GetPlayerGameData();
         userGameData.machinesData = GameManager.Instance.GetMachinesData();
+        userGameData.garbageDetails = GameManager.Instance.GetGarbageDetails();
 
-        savedData.playerDataList[currentPlayerDataId] = userGameData;
+        int index = GetPlayerDataList().FindIndex(each => each.id == currentPlayerDataId);
+        savedData.playerDataList[index] = userGameData;
         SetSaveData();
     }
 }

@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class GarbageCtrl : NetworkBehaviour
 {
+    public enum GarbageState
+    {
+        YET_TO_COLLECT,
+        COLLECTED
+    }
+
     [SerializeField]
     private GarbageManager.GarbageType garbageType;
 
@@ -19,6 +25,21 @@ public class GarbageCtrl : NetworkBehaviour
     public InfectPlayerCtrl InfectPlayerCtrl
     {
         get { return infectPlayerCtrl; }
+    }
+
+    private string id;
+
+    public string Id
+    {
+        get { return id; }
+    }
+
+    private GarbageState garbageState = GarbageState.YET_TO_COLLECT;
+    public GarbageState CurrentGarbageState { get { return garbageState; } }
+
+    private void Awake()
+    {
+        id = gameObject.name;
     }
 
     private void OnDisable()
@@ -57,8 +78,25 @@ public class GarbageCtrl : NetworkBehaviour
         gameObject.SetActive(false);
     }
 
-    public void HideObject()
+    public void SetActiveness(bool active)
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(active);
+    }
+
+    public void SetGarbageType(GarbageManager.GarbageType m_garbageType)
+    {
+        garbageType = m_garbageType;
+    }
+
+    public void SetGarbageState(GarbageState m_garbageState)
+    {
+        garbageState = m_garbageState;
+        bool isActive = false;
+
+        if (m_garbageState == GarbageState.YET_TO_COLLECT)
+        {
+            isActive = true;
+        }
+        SetActiveness(isActive);
     }
 }

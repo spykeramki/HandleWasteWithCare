@@ -13,12 +13,12 @@ public class PlayerInventorySystem : InventorySystem
         playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(itemsData));
     }
 
-    public void AddItemToInventory(GarbageCtrl garbageItemCtrl)
+    public void AddItemToInventory(GarbageManager.GarbageType m_garbageType, int m_count)
     {
         InventoryItemData inventoryItemData = new InventoryItemData()
         {
-            garbageCtrl = garbageItemCtrl,
-            count = 1
+            garbageType = m_garbageType,
+            count = m_count
         };
         AddItem(inventoryItemData);
         playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(itemsData));

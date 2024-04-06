@@ -70,7 +70,7 @@ public class Utilities : MonoBehaviour
         foreach (KeyValuePair<string, InventorySystem.InventoryItemData> inventoryItem in inventoryItemsData)
         {
                 InventorySlotUiCtrl.UiData inventorySlotUiCtrlData = new InventorySlotUiCtrl.UiData();
-                GarbageManager.GarbageType garbageType = inventoryItem.Value.garbageCtrl.GarbageType;
+                GarbageManager.GarbageType garbageType = inventoryItem.Value.garbageType;
                 InventoryItemUiCtrl.UiData inventoryItemUiData = new InventoryItemUiCtrl.UiData();
                 inventoryItemUiData.itemImage = GetSpriteFromGarbageType(garbageType);
                 inventoryItemUiData.count = inventoryItem.Value.count;
@@ -95,7 +95,7 @@ public class Utilities : MonoBehaviour
 
         foreach (KeyValuePair<string, InventorySystem.InventoryItemData> inventoryItem in inventoryItemsData)
         {
-            GarbageManager.GarbageType garbageType = inventoryItem.Value.garbageCtrl.GarbageType;
+            GarbageManager.GarbageType garbageType = inventoryItem.Value.garbageType;
             if(m_garbageType == garbageType){
                 InventorySlotUiCtrl.UiData inventorySlotUiCtrlData = new InventorySlotUiCtrl.UiData();
                 InventoryItemUiCtrl.UiData inventoryItemUiData = new InventoryItemUiCtrl.UiData();

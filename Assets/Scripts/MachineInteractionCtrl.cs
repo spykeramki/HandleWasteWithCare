@@ -35,7 +35,7 @@ public class MachineInteractionCtrl : MonoBehaviour
 
     private void OpenInventoryUi()
     {
-        machineUiCtrl.UpdateTotalUi();
+        UpdateMachineUi();
         machineInventoryCanvas.SetActive(true);
         machineInventorySecondaryCanvas.SetActive(true);
     }
@@ -44,5 +44,10 @@ public class MachineInteractionCtrl : MonoBehaviour
     {
         machineInventoryCanvas.SetActive(false);
         machineInventorySecondaryCanvas.SetActive(false);
+    }
+
+    public void UpdateMachineUi()
+    {
+        machineUiCtrl.UpdateTotalUi();
     }
 }

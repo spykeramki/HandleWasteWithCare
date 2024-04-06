@@ -7,8 +7,7 @@ public class InventorySystem : MonoBehaviour
 
     public struct InventoryItemData
     {
-        public ContainerCtrl containerCtrl;
-        public GarbageCtrl garbageCtrl;
+        public GarbageManager.GarbageType garbageType;
         public int count;
     }
 
@@ -16,16 +15,9 @@ public class InventorySystem : MonoBehaviour
 
     public virtual void AddItem(InventoryItemData itemData)
     {
-        if (itemData.garbageCtrl != null)
-        {
-            string enumString = itemData.garbageCtrl.GarbageType.ToString();
+            string enumString = itemData.garbageType.ToString();
 
             ManageItemAdditionToInventory(enumString, itemData);
-        }
-        else if(itemData.containerCtrl != null)
-        {
-            ManageItemAdditionToInventory(GarbageManager.GarbageType.NONE.ToString(), itemData);
-        }
     }
 
     private void ManageItemAdditionToInventory(string enumString, InventoryItemData itemData)
@@ -44,15 +36,8 @@ public class InventorySystem : MonoBehaviour
 
     public virtual void RemoveItem(InventoryItemData itemData)
     {
-        if (itemData.garbageCtrl != null)
-        {
-            string enumString = itemData.garbageCtrl.GarbageType.ToString();
-            ManageItemRemovalToInventory(enumString, itemData);
-        }
-        else if (itemData.containerCtrl != null)
-        {
-            ManageItemRemovalToInventory(GarbageManager.GarbageType.NONE.ToString(), itemData);
-        }
+        string enumString = itemData.garbageType.ToString();
+        ManageItemRemovalToInventory(enumString, itemData);
     }
 
     private void ManageItemRemovalToInventory(string enumString, InventoryItemData itemData)

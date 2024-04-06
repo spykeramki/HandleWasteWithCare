@@ -724,7 +724,7 @@ PrefabInstance:
     - target: {fileID: 1433020486483768416, guid: cb4ca8c62f284154181fb58ac66a4828,
         type: 3}
       propertyPath: m_Name
-      value: BioHazard
+      value: BioHazard3
       objectReference: {fileID: 0}
     - target: {fileID: 7274692062081079418, guid: cb4ca8c62f284154181fb58ac66a4828,
         type: 3}
@@ -794,6 +794,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 66397183}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &66397185 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -855835096503761722, guid: cb4ca8c62f284154181fb58ac66a4828,
+    type: 3}
+  m_PrefabInstance: {fileID: 66397183}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecfd7d183f056a46b73658a59cb0eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &79259765
 GameObject:
   m_ObjectHideFlags: 0
@@ -7007,7 +7019,7 @@ PrefabInstance:
     - target: {fileID: 1433020486483768416, guid: cb4ca8c62f284154181fb58ac66a4828,
         type: 3}
       propertyPath: m_Name
-      value: BioHazard (1)
+      value: BioHazard2
       objectReference: {fileID: 0}
     - target: {fileID: 3952450187991659047, guid: cb4ca8c62f284154181fb58ac66a4828,
         type: 3}
@@ -7082,6 +7094,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 233599580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &233599582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -855835096503761722, guid: cb4ca8c62f284154181fb58ac66a4828,
+    type: 3}
+  m_PrefabInstance: {fileID: 233599580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecfd7d183f056a46b73658a59cb0eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &247621819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5740877781535179535, guid: 9f53b9d1c36f8b849ae60571ecc35f68,
@@ -7232,7 +7256,7 @@ PrefabInstance:
     - target: {fileID: 1433020486483768416, guid: cb4ca8c62f284154181fb58ac66a4828,
         type: 3}
       propertyPath: m_Name
-      value: BioHazard (2)
+      value: BioHazard1
       objectReference: {fileID: 0}
     - target: {fileID: 7274692062081079418, guid: cb4ca8c62f284154181fb58ac66a4828,
         type: 3}
@@ -7302,6 +7326,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 261742010}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &261742012 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -855835096503761722, guid: cb4ca8c62f284154181fb58ac66a4828,
+    type: 3}
+  m_PrefabInstance: {fileID: 261742010}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecfd7d183f056a46b73658a59cb0eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &264069511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18688,7 +18724,7 @@ PrefabInstance:
     - target: {fileID: 1817571425742172030, guid: 114364eb6bc039646926dc5d80d587ca,
         type: 3}
       propertyPath: m_Name
-      value: RadioActive (2)
+      value: RadioActive3
       objectReference: {fileID: 0}
     - target: {fileID: 3569919552512556055, guid: 114364eb6bc039646926dc5d80d587ca,
         type: 3}
@@ -18828,6 +18864,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 454980570}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &454980572 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -695285734205906428, guid: 114364eb6bc039646926dc5d80d587ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 454980570}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecfd7d183f056a46b73658a59cb0eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &465219013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25345,7 +25393,7 @@ PrefabInstance:
     - target: {fileID: 1817571425742172030, guid: 114364eb6bc039646926dc5d80d587ca,
         type: 3}
       propertyPath: m_Name
-      value: RadioActive
+      value: RadioActive1
       objectReference: {fileID: 0}
     - target: {fileID: 3569919552512556055, guid: 114364eb6bc039646926dc5d80d587ca,
         type: 3}
@@ -25420,6 +25468,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 687048557}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &687048559 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -695285734205906428, guid: 114364eb6bc039646926dc5d80d587ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 687048557}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecfd7d183f056a46b73658a59cb0eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &689614253
 GameObject:
   m_ObjectHideFlags: 0
@@ -37123,6 +37183,13 @@ MonoBehaviour:
   playerStatsUiCtrl: {fileID: 398197968}
   bioHazardRecyclerInventory: {fileID: 807559038}
   radiationRecyclerInventory: {fileID: 1443754958}
+  garbageList:
+  - {fileID: 687048559}
+  - {fileID: 1698459286}
+  - {fileID: 454980572}
+  - {fileID: 261742012}
+  - {fileID: 233599582}
+  - {fileID: 66397185}
 --- !u!114 &854404391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51003,6 +51070,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3973649102693536770, guid: c1456e3ceff07af44bc5119fa95406b1,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3973649102693536770, guid: c1456e3ceff07af44bc5119fa95406b1,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4099955351810827648, guid: c1456e3ceff07af44bc5119fa95406b1,
         type: 3}
       propertyPath: m_Size.y
@@ -53299,7 +53376,7 @@ PrefabInstance:
     - target: {fileID: 1817571425742172030, guid: 114364eb6bc039646926dc5d80d587ca,
         type: 3}
       propertyPath: m_Name
-      value: RadioActive (1)
+      value: RadioActive2
       objectReference: {fileID: 0}
     - target: {fileID: 3569919552512556055, guid: 114364eb6bc039646926dc5d80d587ca,
         type: 3}
@@ -53384,6 +53461,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1698459284}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1698459286 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -695285734205906428, guid: 114364eb6bc039646926dc5d80d587ca,
+    type: 3}
+  m_PrefabInstance: {fileID: 1698459284}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ecfd7d183f056a46b73658a59cb0eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1715427998
 GameObject:
   m_ObjectHideFlags: 0

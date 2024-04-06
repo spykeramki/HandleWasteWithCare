@@ -111,14 +111,12 @@ public class MachineUiCtrl : MonoBehaviour
 
     private void SetRecyclingProcess()
     {
-        Debug.Log("recycle started");
         StopAllCoroutines();
         _currentRecyclingSlotData = machineInventoryUiCtrl.InventorySlotList[0].CurrentSlotData;
         if (_currentRecycleTime <= 0f)
         {
             _currentRecycleTime = Utilities.Instance.GetRecyclingTimeAsPerGarbageType(_currentRecyclingSlotData.garbageType);
         }
-        Debug.Log(_currentRecycleTime + "_currentRecycleTime");
         StartCoroutine("StartRecycling");
     }
 
@@ -152,10 +150,6 @@ public class MachineUiCtrl : MonoBehaviour
         if (inventorySystem.GetInventoryItemsData().Count > 0)
         {
             SetRecyclingProcess();
-        }
-        else
-        {
-            Debug.Log(inventorySystem.GetInventoryItemsData().Count + " inventory count");
         }
     }
 }

@@ -108,10 +108,6 @@ public class PlayerCtrl : NetworkBehaviour
         LocalInstance = this;
     }
 
-    private void Start()
-    {
-        SetPlayerInitialEquipmentData();
-    }
     #endregion
 
     private void Update()
@@ -155,9 +151,9 @@ public class PlayerCtrl : NetworkBehaviour
                 {
                     GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
                     if(garbageCtrl!=null && playerEquipmentCtrl.GarbageThatCanBeAddedToInventory.Contains(garbageCtrl.GarbageType)){
-                        playerInventorySystem.AddItemToInventory(garbageCtrl);
+                        playerInventorySystem.AddItemToInventory(garbageCtrl.GarbageType, 1);
                         //garbageCtrl.HideObjectServerRpc();
-                        garbageCtrl.HideObject();
+                        garbageCtrl.SetGarbageState(m_garbageState:GarbageCtrl.GarbageState.COLLECTED);
                     }
                 }
                 if (hit.collider.tag == "Button")
@@ -169,9 +165,9 @@ public class PlayerCtrl : NetworkBehaviour
         }
     }
 
-    private void SetPlayerInitialEquipmentData()
+    private void SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType suitType 
+        = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD)
     {
-        EquipStationCtrl.PlayerProtectionSuitType suitType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD;
         playerEquipmentCtrl.SetPlayerEquipment(suitType);
         SetEquipmentData?.Invoke(suitType);
     }
@@ -287,15 +283,49 @@ public class PlayerCtrl : NetworkBehaviour
         playerGameData.radiationLevel = radiationLevel;
         playerGameData.bioHazardLevel = bioHazardLevel;
         playerGameData.playerEquipmentType = playerEquipmentCtrl.PlayerSuit.ToString();
-        List<DataManager.GarbageDetails> playerInventoryGarbage = new List<DataManager.GarbageDetails>();
-        foreach (KeyValuePair<string, InventorySystem.InventoryItemData> item in playerInventorySystem.GetInventoryItemsData())
+
+        List<DataManager.PlayerInventoryDetails> playerInventoryDetails = new List<DataManager.PlayerInventoryDetails>();
+        foreach (KeyValuePair< string, InventorySystem.InventoryItemData> item in playerInventorySystem.GetInventoryItemsData())
         {
-            DataManager.GarbageDetails garbageDetails = new DataManager.GarbageDetails();
-            garbageDetails.garbageType = item.Key;
-            garbageDetails.count = item.Value.count;
-            playerInventoryGarbage.Add(garbageDetails);
+            DataManager.PlayerInventoryDetails itemDetails = new DataManager.PlayerInventoryDetails()
+            {
+                garbageType = item.Key,
+                count = item.Value.count
+            };
+            playerInventoryDetails.Add(itemDetails);
         }
-        playerGameData.inventoryGarbage = playerInventoryGarbage;
+
+        playerGameData.playerInventoryDetails = playerInventoryDetails;
+
+
         return playerGameData;
+    }
+
+    public void SetPlayerGameData()
+    {
+        DataManager.UserGameData m_userGameData  = DataManager.Instance.GetCurrentUserData();
+        if (!m_userGameData.Equals(null))
+        {
+
+            DataManager.PlayerGameData playerGameData = DataManager.Instance.GetCurrentUserData().playerGameData;
+            transform.position = playerGameData.position;
+            health = playerGameData.health;
+            radiationLevel = playerGameData.radiationLevel;
+            bioHazardLevel = playerGameData.bioHazardLevel;
+
+            EquipStationCtrl.PlayerProtectionSuitType playerProtectionSuitType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD;
+            Enum.TryParse(playerGameData.playerEquipmentType, out playerProtectionSuitType);
+            SetPlayerInitialEquipmentData(playerProtectionSuitType);
+            for (int i = 0; i < playerGameData.playerInventoryDetails.Count; i++)
+            {
+                DataManager.PlayerInventoryDetails itemDetails = playerGameData.playerInventoryDetails[i];
+                playerInventorySystem.AddItemToInventory((GarbageManager.GarbageType)Enum.Parse(typeof(GarbageManager.GarbageType), itemDetails.garbageType), itemDetails.count);
+
+            }
+        }
+        else
+        {
+            SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD);
+        }
     }
 }

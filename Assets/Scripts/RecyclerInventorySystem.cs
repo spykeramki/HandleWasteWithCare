@@ -5,18 +5,15 @@ using UnityEngine;
 
 public class RecyclerInventorySystem : InventorySystem
 {
-    
+    public MachineInteractionCtrl machineInteractionCtrl;
 
     public override void AddItem(InventoryItemData itemData)
     {
-        if(itemData.garbageCtrl != null)
+        if(itemData.garbageType == GarbageManager.GarbageType.NONE)
         {
-            if(itemData.garbageCtrl.GarbageType == GarbageManager.GarbageType.NONE)
-            {
-                return;
-            }
-            base.AddItem(itemData);
+            return;
         }
+        base.AddItem(itemData);
     }
 
 }
