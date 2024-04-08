@@ -178,18 +178,6 @@ public class PlayerCtrl : NetworkBehaviour
             GameManager.Instance.SetGameOver();
             _isGameOver = true;
         }
-        /*if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
-        {
-            SetPlayerAnimations(PlayerState.IS_WALKING, true, 1f);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SetPlayerAnimations(PlayerState.IS_WALKING, true, -1f);
-        }
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-        {
-            SetPlayerAnimations(PlayerState.IS_WALKING, false, 1f);
-        }*/
     }
 
     private void LateUpdate()
@@ -209,6 +197,7 @@ public class PlayerCtrl : NetworkBehaviour
                     GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
                     if (garbageCtrl != null && playerEquipmentCtrl.GarbageThatCanBeAddedToInventory.Contains(garbageCtrl.GarbageType)) {
                         playerInventorySystem.AddItemToInventory(garbageCtrl.GarbageType, 1);
+                        SetPlayerAnimations(PlayerCtrl.PlayerState.IS_PICKING, 1f);
                         //garbageCtrl.HideObjectServerRpc();
                         garbageCtrl.SetGarbageState(m_garbageState: GarbageCtrl.GarbageState.COLLECTED);
                     }

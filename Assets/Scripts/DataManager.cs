@@ -94,7 +94,6 @@ public class DataManager : MonoBehaviour
     private void Start()
     {
         savePath = Application.persistentDataPath + @"\hwcSaveData.txt";
-        Debug.Log(savePath);
         GetSavedData();
     }
 
