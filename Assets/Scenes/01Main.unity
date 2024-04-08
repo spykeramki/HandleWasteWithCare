@@ -7623,6 +7623,11 @@ PrefabInstance:
       objectReference: {fileID: 1767311995}
     - target: {fileID: 2941768432805046602, guid: c8143c8d08c54cd4ab774e333d502e9d,
         type: 3}
+      propertyPath: playerRenderer
+      value: 
+      objectReference: {fileID: 1491553334}
+    - target: {fileID: 2941768432805046602, guid: c8143c8d08c54cd4ab774e333d502e9d,
+        type: 3}
       propertyPath: playerCamPoints.wake
       value: 
       objectReference: {fileID: 1056230253}
@@ -7631,6 +7636,16 @@ PrefabInstance:
       propertyPath: playerCamPoints.sleep
       value: 
       objectReference: {fileID: 236478827}
+    - target: {fileID: 2941768432805046602, guid: c8143c8d08c54cd4ab774e333d502e9d,
+        type: 3}
+      propertyPath: playerSuitMats.biohazardSuit
+      value: 
+      objectReference: {fileID: 2100000, guid: 5686492093226bb49b0b18e9832208bf, type: 2}
+    - target: {fileID: 2941768432805046602, guid: c8143c8d08c54cd4ab774e333d502e9d,
+        type: 3}
+      propertyPath: playerSuitMats.radiationSuit
+      value: 
+      objectReference: {fileID: 2100000, guid: f3a38759bf7d46244a94938d8387ad28, type: 2}
     - target: {fileID: 3245141224849635101, guid: c8143c8d08c54cd4ab774e333d502e9d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -52783,6 +52798,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 538113899188844540, guid: c1456e3ceff07af44bc5119fa95406b1,
     type: 3}
   m_PrefabInstance: {fileID: 1477512718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1491553334 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4938486229735239370, guid: c8143c8d08c54cd4ab774e333d502e9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 264069511}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1495295851
 PrefabInstance:

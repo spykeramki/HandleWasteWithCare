@@ -25,7 +25,7 @@ public class PlayerEquipmentCtrl : MonoBehaviour
         _playerSuit = suitType;
         setDataInUi(suitType);
         itemsThatCanBeAddedToInventory = CanAddItemToInventoryBasedOnPlayerToolType(suitType);
-        //SetMaterialsAndPlayerObjects();
+        PlayerCtrl.LocalInstance.ChangePlayerSuit(suitType == EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD ? true : false);
     }
 
     private void setDataInUi(EquipStationCtrl.PlayerProtectionSuitType suitType)

@@ -69,6 +69,17 @@ public class PlayerCtrl : NetworkBehaviour
 
     public Transform camRoot;
 
+    [Serializable]
+    public struct PlayerSuitMats
+    {
+        public Material radiationSuit;
+        public Material biohazardSuit;
+    }
+
+    public PlayerSuitMats playerSuitMats;
+
+    public Renderer playerRenderer;
+
     private bool _isPlayerUiActive = false;
 
     public PlayerEquipmentCtrl PlayerEquipment
@@ -425,5 +436,20 @@ public class PlayerCtrl : NetworkBehaviour
                     break;
                 }
         }
+    }
+
+    public void ChangePlayerSuit(bool isBioHazard)
+    {
+
+        Material[] materials = playerRenderer.materials;
+        if (isBioHazard)
+        {
+            materials[0] = playerSuitMats.biohazardSuit;
+        }
+        else
+        {
+            materials[0] = playerSuitMats.radiationSuit;
+        }
+        playerRenderer.materials = materials;
     }
 }
