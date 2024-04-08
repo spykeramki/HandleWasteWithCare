@@ -88,7 +88,7 @@ namespace StarterAssets
 			}
 		}
 
-		private bool isUiActive = false;
+		private bool isUiActive = true;
 
 		private void Start()
 		{

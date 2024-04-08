@@ -12,7 +12,17 @@ public class PlayerCtrl : NetworkBehaviour
 {
     public static Action<EquipStationCtrl.PlayerProtectionSuitType> SetEquipmentData;
 
+    public enum PlayerState
+    {
+        IS_IDLE,
+        IS_WALKING,
+        IS_RUNNING,
+        IS_PICKING
+    }
+
     public static PlayerCtrl LocalInstance;
+
+    public Animator playerAnim;
 
     [SerializeField]
     private float health = 100;
@@ -47,6 +57,18 @@ public class PlayerCtrl : NetworkBehaviour
 
     public GameObject playerInventoryGo;
 
+    [Serializable]
+    public struct PlayerCamPoints
+    {
+        public Transform sleep;
+        public Transform wake;
+    };
+
+    [SerializeField]
+    private PlayerCamPoints playerCamPoints;
+
+    public Transform camRoot;
+
     private bool _isPlayerUiActive = false;
 
     public PlayerEquipmentCtrl PlayerEquipment
@@ -57,6 +79,13 @@ public class PlayerCtrl : NetworkBehaviour
     public PlayerInventorySystem PlayerInventory
     {
         get { return playerInventorySystem; }
+    }
+
+    private PlayerState _state = PlayerState.IS_IDLE;
+
+    public PlayerState CurrentState
+    {
+        get { return _state; }
     }
 
     private float _healthToReduceForEachLevelOfRadiation = 0.1f;
@@ -110,6 +139,11 @@ public class PlayerCtrl : NetworkBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        WakeUpPlayer();
+    }
+
     private void Update()
     {
         if (!isHealthDecreasing && (radiationLevel > 0 || bioHazardLevel > 0))
@@ -128,10 +162,45 @@ public class PlayerCtrl : NetworkBehaviour
             playerInventoryGo.SetActive(_isPlayerUiActive);
         }
 
-        if(!_isGameOver && health <= 0)
+        if (!_isGameOver && health <= 0)
         {
             GameManager.Instance.SetGameOver();
             _isGameOver = true;
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            playerAnim.speed = 1;
+            SetPlayerAnimations(PlayerState.IS_WALKING, true);
+        }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            SetPlayerAnimations(PlayerState.IS_WALKING, false);
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            playerAnim.speed = -1;
+            SetPlayerAnimations(PlayerState.IS_WALKING, true);
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+
+            SetPlayerAnimations(PlayerState.IS_WALKING, false);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+
         }
     }
 
@@ -150,10 +219,10 @@ public class PlayerCtrl : NetworkBehaviour
                 if (hit.collider.tag == "Garbage")
                 {
                     GarbageCtrl garbageCtrl = hit.collider.GetComponent<GarbageCtrl>();
-                    if(garbageCtrl!=null && playerEquipmentCtrl.GarbageThatCanBeAddedToInventory.Contains(garbageCtrl.GarbageType)){
+                    if (garbageCtrl != null && playerEquipmentCtrl.GarbageThatCanBeAddedToInventory.Contains(garbageCtrl.GarbageType)) {
                         playerInventorySystem.AddItemToInventory(garbageCtrl.GarbageType, 1);
                         //garbageCtrl.HideObjectServerRpc();
-                        garbageCtrl.SetGarbageState(m_garbageState:GarbageCtrl.GarbageState.COLLECTED);
+                        garbageCtrl.SetGarbageState(m_garbageState: GarbageCtrl.GarbageState.COLLECTED);
                     }
                 }
                 if (hit.collider.tag == "Button")
@@ -165,7 +234,7 @@ public class PlayerCtrl : NetworkBehaviour
         }
     }
 
-    private void SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType suitType 
+    private void SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType suitType
         = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD)
     {
         playerEquipmentCtrl.SetPlayerEquipment(suitType);
@@ -179,33 +248,33 @@ public class PlayerCtrl : NetworkBehaviour
 
     private IEnumerator ReduceHealthSlowly()
     {
-        while (health>0)
+        while (health > 0)
         {
             yield return new WaitForSeconds(1f);
-            health -= (radiationLevel* _healthToReduceForEachLevelOfRadiation) + (bioHazardLevel * _healthToReduceForEachLevelOfBioHazardEffect);
+            health -= (radiationLevel * _healthToReduceForEachLevelOfRadiation) + (bioHazardLevel * _healthToReduceForEachLevelOfBioHazardEffect);
             GameManager.Instance.playerStatsUiCtrl.SetHealthInUi(health);
         }
 
-        if(health <= 0)
+        if (health <= 0)
         {
             health = 0;
             GameManager.Instance.playerStatsUiCtrl.SetHealthInUi(health);
             StopCoroutine("ReduceHealthSlowly");
-            isHealthDecreasing=false;
+            isHealthDecreasing = false;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         InfectPlayerCtrl infectPlayerCtrl = other.GetComponent<InfectPlayerCtrl>();
-        if(infectPlayerCtrl != null)
+        if (infectPlayerCtrl != null)
         {
-            if (playerEquipmentCtrl.PlayerSuit!= EquipStationCtrl.PlayerProtectionSuitType.RADIATION &&
+            if (playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.RADIATION &&
                 infectPlayerCtrl.InfectType == GarbageManager.GarbageType.RADIOACTIVE)
             {
                 StartCoroutine("IncreaseRadiationValueSlowly");
             }
-            else if (playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD && 
+            else if (playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD &&
                 infectPlayerCtrl.InfectType == GarbageManager.GarbageType.BIO_HAZARD)
             {
                 StartCoroutine("IncreaseBioHazardValueSlowly");
@@ -216,8 +285,8 @@ public class PlayerCtrl : NetworkBehaviour
     private void OnTriggerExit(Collider other)
     {
         InfectPlayerCtrl infectPlayerCtrl = other.GetComponent<InfectPlayerCtrl>();
-        
-        if(infectPlayerCtrl != null)
+
+        if (infectPlayerCtrl != null)
         {
             StopInfectLevelCoroutines(infectPlayerCtrl.InfectType);
         }
@@ -285,7 +354,7 @@ public class PlayerCtrl : NetworkBehaviour
         playerGameData.playerEquipmentType = playerEquipmentCtrl.PlayerSuit.ToString();
 
         List<DataManager.PlayerInventoryDetails> playerInventoryDetails = new List<DataManager.PlayerInventoryDetails>();
-        foreach (KeyValuePair< string, InventorySystem.InventoryItemData> item in playerInventorySystem.GetInventoryItemsData())
+        foreach (KeyValuePair<string, InventorySystem.InventoryItemData> item in playerInventorySystem.GetInventoryItemsData())
         {
             DataManager.PlayerInventoryDetails itemDetails = new DataManager.PlayerInventoryDetails()
             {
@@ -303,7 +372,7 @@ public class PlayerCtrl : NetworkBehaviour
 
     public void SetPlayerGameData()
     {
-        DataManager.UserGameData m_userGameData  = DataManager.Instance.GetCurrentUserData();
+        DataManager.UserGameData m_userGameData = DataManager.Instance.GetCurrentUserData();
         if (!m_userGameData.Equals(null))
         {
 
@@ -326,6 +395,43 @@ public class PlayerCtrl : NetworkBehaviour
         else
         {
             SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD);
+        }
+    }
+
+    public void WakeUpPlayer()
+    {
+        camRoot.SetParent(playerCamPoints.sleep);
+        camRoot.localPosition = Vector3.zero;
+        playerAnim.SetTrigger("wake");
+    }
+
+    public void ChangeCamToWake()
+    {
+        camRoot.SetParent(playerCamPoints.wake);
+        camRoot.localPosition = Vector3.zero;
+        GameManager.Instance.SetPlayerStateToUiMode?.Invoke(false);
+    }
+
+    public void SetPlayerAnimations(PlayerState m_state, bool m_choice)
+    {
+        _state = m_state;
+        switch (m_state)
+        {
+            case PlayerState.IS_WALKING:
+                {
+                    playerAnim.SetBool("IsWalking", m_choice); 
+                    break;
+                }
+            case PlayerState.IS_RUNNING:
+                {
+                    playerAnim.SetBool("IsRunning", m_choice);
+                    break;
+                }
+            case PlayerState.IS_PICKING:
+                {
+                    playerAnim.SetBool("pick", m_choice);
+                    break;
+                }
         }
     }
 }
