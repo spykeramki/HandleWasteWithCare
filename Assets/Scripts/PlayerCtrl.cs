@@ -167,41 +167,18 @@ public class PlayerCtrl : NetworkBehaviour
             GameManager.Instance.SetGameOver();
             _isGameOver = true;
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        /*if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
         {
-            playerAnim.speed = 1;
-            SetPlayerAnimations(PlayerState.IS_WALKING, true);
-        }
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            SetPlayerAnimations(PlayerState.IS_WALKING, false);
+            SetPlayerAnimations(PlayerState.IS_WALKING, true, 1f);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            playerAnim.speed = -1;
-            SetPlayerAnimations(PlayerState.IS_WALKING, true);
+            SetPlayerAnimations(PlayerState.IS_WALKING, true, -1f);
         }
-        if (Input.GetKeyUp(KeyCode.S))
+        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
-
-            SetPlayerAnimations(PlayerState.IS_WALKING, false);
-        }
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-
-        }
-        if (Input.GetKeyUp(KeyCode.D))
-        {
-
-        }
+            SetPlayerAnimations(PlayerState.IS_WALKING, false, 1f);
+        }*/
     }
 
     private void LateUpdate()
@@ -412,24 +389,39 @@ public class PlayerCtrl : NetworkBehaviour
         GameManager.Instance.SetPlayerStateToUiMode?.Invoke(false);
     }
 
-    public void SetPlayerAnimations(PlayerState m_state, bool m_choice)
+    public void SetPlayerAnimations(PlayerState m_state, float m_speed)
     {
-        _state = m_state;
+        if (_state != m_state)
+        {
+            playerAnim.SetFloat("direction", m_speed);
+            _state = m_state;
+            SetAnimation(m_state);
+        }
+    }
+
+    private void SetAnimation(PlayerState m_state)
+    {
         switch (m_state)
         {
             case PlayerState.IS_WALKING:
                 {
-                    playerAnim.SetBool("IsWalking", m_choice); 
+                    playerAnim.SetTrigger("IsWalking");
                     break;
                 }
             case PlayerState.IS_RUNNING:
                 {
-                    playerAnim.SetBool("IsRunning", m_choice);
+                    playerAnim.SetTrigger("IsRunning");
                     break;
                 }
             case PlayerState.IS_PICKING:
                 {
-                    playerAnim.SetBool("pick", m_choice);
+                    playerAnim.SetTrigger("pick");
+                    break;
+                }
+            case PlayerState.IS_IDLE:
+            default:
+                {                 
+                    playerAnim.SetTrigger("idle");
                     break;
                 }
         }

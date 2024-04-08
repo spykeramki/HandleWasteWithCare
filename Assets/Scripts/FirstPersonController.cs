@@ -65,9 +65,9 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
-	
+		bool isIdle = true;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
-		private PlayerInput _playerInput;
+        private PlayerInput _playerInput;
 #endif
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
@@ -163,6 +163,7 @@ namespace StarterAssets
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+			
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -175,9 +176,36 @@ namespace StarterAssets
 
 			float speedOffset = 0.1f;
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
+			PlayerCtrl playerCtrl = PlayerCtrl.LocalInstance;
 
-			// accelerate or decelerate to target speed
-			if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
+            if (_input.move.magnitude!=0)
+			{
+				isIdle = false;
+
+                float inputMoveDirection = _input.move.y < 0 ? -1f : 1f;
+
+				if (_input.sprint)
+                {
+                    playerCtrl.SetPlayerAnimations(PlayerCtrl.PlayerState.IS_RUNNING, inputMoveDirection * 1f);
+
+				}
+				else
+                {
+                    playerCtrl.SetPlayerAnimations(PlayerCtrl.PlayerState.IS_WALKING, inputMoveDirection * MoveSpeed);
+				}
+			}
+			else
+			{
+				if (!isIdle)
+				{
+					isIdle = true;
+
+                    PlayerCtrl.LocalInstance.SetPlayerAnimations(PlayerCtrl.PlayerState.IS_IDLE, 1f);
+				}
+
+            }
+            // accelerate or decelerate to target speed
+            if (currentHorizontalSpeed < targetSpeed - speedOffset || currentHorizontalSpeed > targetSpeed + speedOffset)
 			{
 				// creates curved result rather than a linear one giving a more organic speed change
 				// note T in Lerp is clamped, so we don't need to clamp our speed

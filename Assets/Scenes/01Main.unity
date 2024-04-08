@@ -7666,6 +7666,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3854523661552741134, guid: c8143c8d08c54cd4ab774e333d502e9d,
+        type: 3}
+      propertyPath: TopClamp
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3854523661552741134, guid: c8143c8d08c54cd4ab774e333d502e9d,
+        type: 3}
+      propertyPath: MoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3854523661552741134, guid: c8143c8d08c54cd4ab774e333d502e9d,
+        type: 3}
+      propertyPath: BottomClamp
+      value: -75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3854523661552741134, guid: c8143c8d08c54cd4ab774e333d502e9d,
+        type: 3}
+      propertyPath: SprintSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4084494750228485698, guid: c8143c8d08c54cd4ab774e333d502e9d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
