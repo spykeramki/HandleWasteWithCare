@@ -20,6 +20,23 @@ public class EquipStationCtrl : MonoBehaviour
 
     public GameObject uiCanvas;
 
+    public Light[] stationLights;
+
+    [Serializable]
+    public struct StationColors
+    {
+        public Color radiation;
+        public Color bioHazard;
+    }
+
+    public StationColors stationColors;
+
+    public Image uiBg;
+
+    public Renderer playerModelRenderer;
+
+    public TextMeshProUGUI suitTypeText;
+
     private void Awake()
     {
         PlayerCtrl.SetEquipmentData += OnPlayerSpawn;
@@ -51,6 +68,7 @@ public class EquipStationCtrl : MonoBehaviour
 
     private void OnClickEquipmentChangeBtn()
     {
+        Debug.Log("calling onclick");
         if(playerProtectionSuitType == PlayerProtectionSuitType.BIO_HAZARD)
         {
             playerProtectionSuitType = PlayerProtectionSuitType.RADIATION;
@@ -59,6 +77,7 @@ public class EquipStationCtrl : MonoBehaviour
         {
             playerProtectionSuitType = PlayerProtectionSuitType.BIO_HAZARD;
         }
+        AdjustStationBasedOnSuitType(playerProtectionSuitType);
         SetPlayerEquipment(playerProtectionSuitType);
 
         SetDataInUi(playerProtectionSuitType);
@@ -77,6 +96,32 @@ public class EquipStationCtrl : MonoBehaviour
         if (other.tag == "Player")
         {
             uiCanvas.SetActive(false);
+        }
+    }
+
+    private void AdjustStationBasedOnSuitType(PlayerProtectionSuitType m_suitType)
+    {
+        Material[] materials = playerModelRenderer.materials;
+        if (m_suitType== PlayerProtectionSuitType.BIO_HAZARD)
+        {
+            materials[0] = PlayerCtrl.LocalInstance.playerSuitMats.biohazardSuit;
+            ChangeStationLightsColor(stationColors.bioHazard);
+            uiBg.color = stationColors.bioHazard;
+        }
+        else
+        {
+            materials[0] = PlayerCtrl.LocalInstance.playerSuitMats.radiationSuit;
+            ChangeStationLightsColor(stationColors.radiation);
+            uiBg.color = stationColors.radiation;
+        }
+        playerModelRenderer.materials = materials;
+    }
+
+    private void ChangeStationLightsColor(Color m_color)
+    {
+        foreach(Light light in stationLights)
+        {
+            light.color = m_color;
         }
     }
 }

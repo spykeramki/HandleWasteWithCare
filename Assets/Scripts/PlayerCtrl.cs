@@ -82,6 +82,8 @@ public class PlayerCtrl : NetworkBehaviour
 
     private bool _isPlayerUiActive = false;
 
+    private int layerMask = 1 << 8;
+
     public PlayerEquipmentCtrl PlayerEquipment
     {
         get { return playerEquipmentCtrl; }
@@ -152,6 +154,7 @@ public class PlayerCtrl : NetworkBehaviour
 
     private void Start()
     {
+        layerMask = ~layerMask;
         WakeUpPlayer();
     }
 
@@ -190,7 +193,7 @@ public class PlayerCtrl : NetworkBehaviour
         Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 5f, Color.green);
         if (Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 5f))
+            if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 5f, layerMask))
             {
                 if (hit.collider.tag == "Garbage")
                 {

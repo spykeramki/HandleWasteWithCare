@@ -178,9 +178,8 @@ namespace StarterAssets
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 			PlayerCtrl playerCtrl = PlayerCtrl.LocalInstance;
 
-            if (_input.move.magnitude!=0)
+            if (_input.move.magnitude>0.1)
 			{
-				isIdle = false;
 
                 float inputMoveDirection = _input.move.y < 0 ? -1f : 1f;
 
@@ -196,12 +195,8 @@ namespace StarterAssets
 			}
 			else
 			{
-				if (!isIdle)
-				{
-					isIdle = true;
 
-                    PlayerCtrl.LocalInstance.SetPlayerAnimations(PlayerCtrl.PlayerState.IS_IDLE, 1f);
-				}
+					playerCtrl.SetPlayerAnimations(PlayerCtrl.PlayerState.IS_IDLE, 1f);
 
             }
             // accelerate or decelerate to target speed
