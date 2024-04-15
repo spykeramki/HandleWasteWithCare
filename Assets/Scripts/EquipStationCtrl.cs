@@ -31,7 +31,7 @@ public class EquipStationCtrl : MonoBehaviour
 
     public StationColors stationColors;
 
-    public Image uiBg;
+    public Renderer uiBg;
 
     public Renderer playerModelRenderer;
 
@@ -68,7 +68,6 @@ public class EquipStationCtrl : MonoBehaviour
 
     private void OnClickEquipmentChangeBtn()
     {
-        Debug.Log("calling onclick");
         if(playerProtectionSuitType == PlayerProtectionSuitType.BIO_HAZARD)
         {
             playerProtectionSuitType = PlayerProtectionSuitType.RADIATION;
@@ -106,13 +105,17 @@ public class EquipStationCtrl : MonoBehaviour
         {
             materials[0] = PlayerCtrl.LocalInstance.playerSuitMats.biohazardSuit;
             ChangeStationLightsColor(stationColors.bioHazard);
-            uiBg.color = stationColors.bioHazard;
+            uiBg.material.color = stationColors.bioHazard;
+            uiBg.material.SetColor("_EmissionColor", stationColors.bioHazard);
+            suitTypeText.text = "Bio Hazard";
         }
         else
         {
             materials[0] = PlayerCtrl.LocalInstance.playerSuitMats.radiationSuit;
             ChangeStationLightsColor(stationColors.radiation);
-            uiBg.color = stationColors.radiation;
+            uiBg.material.color = stationColors.radiation;
+            uiBg.material.SetColor("_EmissionColor", stationColors.radiation);
+            suitTypeText.text = "Radiation";
         }
         playerModelRenderer.materials = materials;
     }

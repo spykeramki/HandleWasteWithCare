@@ -25,6 +25,9 @@ public class MachineUiCtrl : MonoBehaviour
     [SerializeField]
     private GarbageManager.GarbageType machineRecycleType = GarbageManager.GarbageType.NONE;
 
+    public Color recyclingColor;
+
+    public Material recyclingMaterial;
 
     [SerializeField]
     private Button recycleButton;
@@ -41,6 +44,8 @@ public class MachineUiCtrl : MonoBehaviour
         machineTransferButton.onClick.AddListener(OnClickTransferFromMachineInventoryButton);
         recycleButton.onClick.AddListener(SetRecyclingProcess);
         recycleButton?.gameObject.SetActive( isRecycler ? true : false );
+        recycleButton.interactable = false;
+        recyclingMaterial.SetColor("_EmissionColor", recyclingColor * 0f);
 
     }
 
@@ -82,6 +87,7 @@ public class MachineUiCtrl : MonoBehaviour
 
         if (inventorySlotUiCtrls.Count != 0) 
         {
+            recycleButton.interactable = true;
             UpdateTotalUi();
             PlayerCtrl.LocalInstance.PlayerInventory.UpdateDataInInvetoryUi();
         }
@@ -113,11 +119,16 @@ public class MachineUiCtrl : MonoBehaviour
     {
         StopAllCoroutines();
         _currentRecyclingSlotData = machineInventoryUiCtrl.InventorySlotList[0].CurrentSlotData;
+        
         if (_currentRecycleTime <= 0f)
         {
             _currentRecycleTime = Utilities.Instance.GetRecyclingTimeAsPerGarbageType(_currentRecyclingSlotData.garbageType);
         }
-        StartCoroutine("StartRecycling");
+        if (machineInventoryUiCtrl.InventorySlotList[0].IsFilled)
+        {
+            recyclingMaterial.SetColor("_EmissionColor", recyclingColor * 1f);
+            StartCoroutine("StartRecycling");
+        }
     }
 
     private IEnumerator StartRecycling()
@@ -151,5 +162,15 @@ public class MachineUiCtrl : MonoBehaviour
         {
             SetRecyclingProcess();
         }
+        else
+        {
+            recyclingMaterial.SetColor("_EmissionColor", recyclingColor * 0);
+            recycleButton.interactable = false;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        recyclingMaterial.SetColor("_EmissionColor", recyclingColor * 0);
     }
 }

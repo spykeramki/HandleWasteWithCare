@@ -20,6 +20,10 @@ public class InventorySlotUiCtrl : MonoBehaviour
     private Image slotBg;
 
     private bool _isFilled = false;
+    public bool IsFilled
+    {
+        get { return _isFilled; }
+    }
 
     private InventoryItemUiCtrl _currentInventoryItemUiCtrl;
 
@@ -74,8 +78,6 @@ public class InventorySlotUiCtrl : MonoBehaviour
 
     public void OnMouseDown()
     {
-        Debug.Log(_isFilled + "_isFilled");
-        Debug.Log(_isFilled + "_isFilled");
         if (_isFilled && _currentSlotData .garbageType!= GarbageManager.GarbageType.NONE)
         {
             SlotSelection(!_isSelected);

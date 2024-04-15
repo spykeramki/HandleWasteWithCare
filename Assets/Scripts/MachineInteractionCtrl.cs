@@ -10,12 +10,7 @@ public class MachineInteractionCtrl : MonoBehaviour
     [SerializeField]
     private GameObject machineInventorySecondaryCanvas;
 
-    private MachineUiCtrl machineUiCtrl;
-
-    private void Awake()
-    {
-        machineUiCtrl = machineInventoryCanvas.GetComponent<MachineUiCtrl>();
-    }
+    public MachineUiCtrl machineUiCtrl;
 
     private void OnTriggerEnter(Collider other)
     {

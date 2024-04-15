@@ -1140,6 +1140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   machineInventoryCanvas: {fileID: 7819700193110136004}
   machineInventorySecondaryCanvas: {fileID: 7068853047788819540}
+  machineUiCtrl: {fileID: 1940597952361889609}
 --- !u!1 &7068853047788819540
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1257,6 @@ GameObject:
   - component: {fileID: 1153819047430585450}
   - component: {fileID: 7136540222165255742}
   - component: {fileID: 1002950842777432020}
-  - component: {fileID: 8144562174750086152}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1348,26 +1348,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8144562174750086152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7819700193110136004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2cf544bcaed76d45a1efdcd8db234ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerInventoryUiCtrl: {fileID: 4543768788667463025}
-  machineInventoryUiCtrl: {fileID: 5518233165947701648}
-  inventorySystem: {fileID: 538113899188844528}
-  playerTransferButton: {fileID: 787936787877125806}
-  machineTransferButton: {fileID: 7780095763386178297}
-  machineRecycleType: 5
-  recycleButton: {fileID: 6693442727493469951}
-  isRecycler: 1
 --- !u!1 &8680760933288567647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,6 +1885,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 2.5, z: 1.6}
   m_Center: {x: -0.85, y: 1.32, z: 0}
+--- !u!114 &1940597952361889609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3448403293525164613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2cf544bcaed76d45a1efdcd8db234ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInventoryUiCtrl: {fileID: 4543768788667463025}
+  machineInventoryUiCtrl: {fileID: 5518233165947701648}
+  inventorySystem: {fileID: 538113899188844528}
+  playerTransferButton: {fileID: 787936787877125806}
+  machineTransferButton: {fileID: 7780095763386178297}
+  machineRecycleType: 4
+  recyclingColor: {r: 0.7254902, g: 0.9490196, b: 0.3372549, a: 1}
+  recyclingMaterial: {fileID: 2100000, guid: 38445729f1589104996f6f5797a611c8, type: 2}
+  recycleButton: {fileID: 6693442727493469951}
+  isRecycler: 1
 --- !u!4 &4583866484859607106 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2055738334503233366, guid: 1611293240f952e4e9d357cb9ee4384c,
