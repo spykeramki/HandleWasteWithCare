@@ -80,6 +80,8 @@ public class PlayerCtrl : NetworkBehaviour
 
     public Renderer playerRenderer;
 
+    public AudioSource playerAudioSource;
+
     private bool _isPlayerUiActive = false;
 
     private int layerMask = 1 << 8;
@@ -155,7 +157,6 @@ public class PlayerCtrl : NetworkBehaviour
     private void Start()
     {
         layerMask = ~layerMask;
-        WakeUpPlayer();
     }
 
     private void Update()
@@ -380,7 +381,7 @@ public class PlayerCtrl : NetworkBehaviour
 
     public void WakeUpPlayer()
     {
-        camRoot.SetParent(playerCamPoints.sleep);
+        camRoot.SetParent(playerCamPoints.sleep, false);
         camRoot.localPosition = Vector3.zero;
         playerAnim.SetTrigger("wake");
     }
@@ -389,7 +390,6 @@ public class PlayerCtrl : NetworkBehaviour
     {
         camRoot.SetParent(playerCamPoints.wake);
         camRoot.localPosition = Vector3.zero;
-        GameManager.Instance.SetPlayerStateToUiMode?.Invoke(false);
     }
 
     public void SetPlayerAnimations(PlayerState m_state, float m_speed)
@@ -443,5 +443,15 @@ public class PlayerCtrl : NetworkBehaviour
             materials[0] = playerSuitMats.radiationSuit;
         }
         playerRenderer.materials = materials;
+    }
+
+    public void PlayPlayerAudio(AudioClip m_clip, bool shouldLoop)
+    {
+        playerAudioSource.loop = shouldLoop;
+        if (m_clip.name != playerAudioSource.clip.name)
+        {
+            playerAudioSource.clip = m_clip;
+        }
+        playerAudioSource.Play();
     }
 }

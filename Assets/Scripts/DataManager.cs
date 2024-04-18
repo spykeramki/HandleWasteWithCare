@@ -103,8 +103,8 @@ public class DataManager : MonoBehaviour
         newPlayerGameData.health = 100;
         newPlayerGameData.radiationLevel = 0;
         newPlayerGameData.bioHazardLevel = 0;
-        newPlayerGameData.position = new Vector3(-21.58f, 7.935f, -116.6182f);
-        newPlayerGameData.playerEquipmentType = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD.ToString();
+        newPlayerGameData.position = new Vector3(39.3f, 9.549f, -138.8f);
+        newPlayerGameData.playerEquipmentType = EquipStationCtrl.PlayerProtectionSuitType.RADIATION.ToString();
         newPlayerGameData.playerInventoryDetails = new List<PlayerInventoryDetails>();
         UserGameData userGameData = new UserGameData() {
             playerDetails = m_playerData,

@@ -7,6 +7,18 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    public enum GameState
+    {
+        NEW_ARRIVAL,
+        COLLECT_RADIOACTIVE_WASTE,
+        DECONTAMINATION,
+        DISPOSE_RADIOACTIVE_WASTE,
+        CHANGE_SUIT,
+        COLLECT_BIOHAZARD_WASTE,
+        DISPOSE_BIOHAZARD_WASTE,
+        FREE_ROAM
+    }
+
     public static GameManager Instance;
 
     [HideInInspector]
@@ -24,7 +36,21 @@ public class GameManager : MonoBehaviour
 
     public List<GarbageCtrl> garbageList;
 
+    public FactsCtrl factsCtrl;
+    public FactsCtrl introCtrl;
+
+    public FactsData factsData;
+    public GameObject[] playerHudUiElements;
+
+    public TutorialInstructionsCtrl tutorialInstructionsCtrl;
+
     private bool _isGameOver;
+
+    private GameState currentGameState;
+    public GameState CurrentGameState
+    {
+        get { return currentGameState; }
+    }
 
     void Update()
     {
@@ -43,6 +69,7 @@ public class GameManager : MonoBehaviour
         else if(Instance!= null && Instance != this) { 
             Destroy(this);
         }
+        currentGameState = GameState.NEW_ARRIVAL;
     }
 
     private void Start()
@@ -50,6 +77,8 @@ public class GameManager : MonoBehaviour
         PlayerCtrl.LocalInstance.SetPlayerGameData();
         SetMachinesData();
         SetGarbageData();
+        SetActivenessOfPlayerHudUi(false);
+        SetGameStateInGame(currentGameState);
     }
 
     public void SetGameOver()
@@ -131,4 +160,53 @@ public class GameManager : MonoBehaviour
         }
         return playerInventoryGarbage;
     }
+
+    public void SetGameStateInGame(GameState m_gameState)
+    {
+        Debug.Log(m_gameState + " executed 3");
+        currentGameState = m_gameState;
+        switch (m_gameState)
+        {
+            case GameState.NEW_ARRIVAL:
+                introCtrl.SetFactsText(new FactsCtrl.UiData()
+                {
+                    factsDataList = factsData.intro,
+                    onCompletionOfSettingData = PlayerCtrl.LocalInstance.WakeUpPlayer
+                });
+                break;
+            case GameState.COLLECT_RADIOACTIVE_WASTE:
+                TutorialInstructionsCtrl.UiData uiData = new TutorialInstructionsCtrl.UiData()
+                {
+                    gameState = currentGameState,
+                    actionToBeExecutedAfterIntro = () =>
+                    {
+                        SetPlayerStateToUiMode?.Invoke(false);
+                        Utilities.Instance.SetSettingsForUi(false);
+                        Invoke("SetDataForFactsInformationUi", 2f);
+                    }
+                };
+                tutorialInstructionsCtrl.SetDataInUi(uiData);
+                SetPlayerStateToUiMode?.Invoke(true);
+                Utilities.Instance.SetSettingsForUi(true);
+                break;
+        }
+    }
+
+    public void SetActivenessOfPlayerHudUi(bool isActive)
+    {
+        foreach (GameObject item in playerHudUiElements)
+        {
+            item.SetActive(isActive);
+        }
+    }
+
+    private void SetDataForFactsInformationUi()
+    {
+        factsCtrl.SetFactsText(new FactsCtrl.UiData()
+        {
+            factsDataList = factsData.wastageFacts,
+            onCompletionOfSettingData = null
+        });
+    }
+
 }
