@@ -103,8 +103,11 @@ public class PlayerCtrl : NetworkBehaviour
         get { return _state; }
     }
 
-    private float _healthToReduceForEachLevelOfRadiation = 0.1f;
-    private float _healthToReduceForEachLevelOfBioHazardEffect = 0.2f;
+    private float _healthToReduceForEachLevelOfRadiation = 0.03f;
+    private float _healthToReduceForEachLevelOfBioHazardEffect = 0.06f;
+
+    private float _radiationLevelToIncrease = 1f;
+    private float _bioHazardLevelToIncrease = 1f;
 
     private bool isHealthDecreasing = false;
 
@@ -250,14 +253,28 @@ public class PlayerCtrl : NetworkBehaviour
         InfectPlayerCtrl infectPlayerCtrl = other.GetComponent<InfectPlayerCtrl>();
         if (infectPlayerCtrl != null)
         {
-            if (playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.RADIATION &&
-                infectPlayerCtrl.InfectType == GarbageManager.GarbageType.RADIOACTIVE)
+            if ( infectPlayerCtrl.InfectType == GarbageManager.GarbageType.RADIOACTIVE)
             {
+                if(playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.RADIATION)
+                {
+                    _radiationLevelToIncrease = 1f;
+                }
+                else
+                {
+                    _radiationLevelToIncrease = 0.1f;
+                }
                 StartCoroutine("IncreaseRadiationValueSlowly");
             }
-            else if (playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD &&
-                infectPlayerCtrl.InfectType == GarbageManager.GarbageType.BIO_HAZARD)
+            else if (infectPlayerCtrl.InfectType == GarbageManager.GarbageType.BIO_HAZARD)
             {
+                if (playerEquipmentCtrl.PlayerSuit != EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD)
+                {
+                    _bioHazardLevelToIncrease = 1f;
+                }
+                else
+                {
+                    _bioHazardLevelToIncrease = 0.1f;
+                }
                 StartCoroutine("IncreaseBioHazardValueSlowly");
             }
         }
@@ -279,7 +296,7 @@ public class PlayerCtrl : NetworkBehaviour
         while (bioHazardLevel < 100)
         {
             yield return new WaitForSeconds(1f);
-            bioHazardLevel += 1f;
+            bioHazardLevel += _bioHazardLevelToIncrease;
             gameManager.playerStatsUiCtrl.SetBioHazardInUi(bioHazardLevel);
         }
 
@@ -296,7 +313,7 @@ public class PlayerCtrl : NetworkBehaviour
         while (radiationLevel < 100)
         {
             yield return new WaitForSeconds(1f);
-            radiationLevel += 1f;
+            radiationLevel += _radiationLevelToIncrease;
             GameManager.Instance.playerStatsUiCtrl.SetRadiationInUi(radiationLevel);
         }
 
@@ -402,7 +419,7 @@ public class PlayerCtrl : NetworkBehaviour
         }
     }
 
-    private void SetAnimation(PlayerState m_state)
+    public void SetAnimation(PlayerState m_state)
     {
         switch (m_state)
         {

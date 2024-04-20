@@ -10,7 +10,11 @@ public class DecontaminatorCtrl : MonoBehaviour
 
     public ParticleSystem[] sprayers;
 
+    public Animator scanningMeshAnim;
+    
     private PlayerCtrl playerCtrl;
+
+    public ContaminationUiCtrl contaminationUiCtrl;
 
     public void SetRadiationLevel(float level)
     {
@@ -31,9 +35,14 @@ public class DecontaminatorCtrl : MonoBehaviour
             SetBioHazardLevel(playerCtrl.BioHazardLevel);
             if (_bioHazardLevel > 0 || _radiationLevel > 0f)
             {
-                Invoke("StartDecontamination", 1f);
+                Invoke("ScanPlayerForContamination", 1f);
             }
         }
+    }
+
+    private void ScanPlayerForContamination()
+    {
+        scanningMeshAnim.SetTrigger("Scan");
     }
 
     private void OnTriggerExit(Collider other)
@@ -46,7 +55,14 @@ public class DecontaminatorCtrl : MonoBehaviour
         }
     }
 
-    private void StartDecontamination()
+    public void ShowScannedDataForDecontamination()
+    {
+        contaminationUiCtrl.ParentGo.SetActive(true);
+        SetDataInContaminationUi();
+        Invoke("StartDecontamination", 1f);
+    }
+
+    public void StartDecontamination()
     {
         StartSprayers();
         if (_radiationLevel > 0f)
@@ -79,15 +95,18 @@ public class DecontaminatorCtrl : MonoBehaviour
             _radiationLevel-= Time.deltaTime;
             playerCtrl.RadiationLevel = _radiationLevel;
             GameManager.Instance.playerStatsUiCtrl.SetRadiationInUi(_radiationLevel);
+            SetDataInContaminationUi();
         }
         if (_radiationLevel <= 0)
         {
             _radiationLevel =0;
             playerCtrl.RadiationLevel = _radiationLevel;
             GameManager.Instance.playerStatsUiCtrl.SetRadiationInUi(_radiationLevel);
+            SetDataInContaminationUi();
             if (_bioHazardLevel <= 0)
             {
                 StopSprayers();
+                Invoke("DeactivateContaminationUi", 2f);
             }
             StopCoroutine("ReduceRadiationLevelSlowly");
         }
@@ -101,18 +120,35 @@ public class DecontaminatorCtrl : MonoBehaviour
             _bioHazardLevel -= Time.deltaTime;
             playerCtrl.BioHazardLevel = _bioHazardLevel;
             GameManager.Instance.playerStatsUiCtrl.SetBioHazardInUi(_bioHazardLevel);
+            SetDataInContaminationUi();
         }
         if (_bioHazardLevel <= 0)
         {
             _bioHazardLevel=0;
             playerCtrl.BioHazardLevel = _bioHazardLevel;
             GameManager.Instance.playerStatsUiCtrl.SetBioHazardInUi(_bioHazardLevel);
+            SetDataInContaminationUi();
             if (_radiationLevel <= 0)
             {
                 StopSprayers();
+                Invoke("DeactivateContaminationUi", 2f);
             }
             StopCoroutine("ReduceBioHazardLevelSlowly");
         }
+    }
+
+    private void SetDataInContaminationUi()
+    {
+        contaminationUiCtrl.SetContamination(new ContaminationUiCtrl.UiData()
+        {
+            biohazard = (int)_bioHazardLevel,
+            radiation = (int)_radiationLevel
+        });
+    }
+
+    private void DeactivateContaminationUi()
+    {
+        contaminationUiCtrl.ParentGo.SetActive(false);
     }
 
     private void StopSprayers()

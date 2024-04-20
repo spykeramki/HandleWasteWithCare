@@ -59,6 +59,7 @@ public class DataManager : MonoBehaviour
         public List<GarbageDetails> garbageDetails;
         public MachinesData machinesData;
         public int id;
+        public string gameState;
     }
 
     [Serializable]
@@ -111,6 +112,7 @@ public class DataManager : MonoBehaviour
             id = GetPlayerDataList().Count,
             playerGameData = newPlayerGameData,
             garbageDetails = new List<GarbageDetails>(),
+            gameState = GameManager.GameState.NEW_ARRIVAL.ToString(),
 
         };
         savedData.playerDataList.Add(userGameData);
@@ -193,6 +195,7 @@ public class DataManager : MonoBehaviour
         userGameData.playerGameData = PlayerCtrl.LocalInstance.GetPlayerGameData();
         userGameData.machinesData = GameManager.Instance.GetMachinesData();
         userGameData.garbageDetails = GameManager.Instance.GetGarbageDetails();
+        userGameData.gameState = GameManager.Instance.CurrentGameState.ToString();
 
         int index = GetPlayerDataList().FindIndex(each => each.id == currentPlayerDataId);
         savedData.playerDataList[index] = userGameData;

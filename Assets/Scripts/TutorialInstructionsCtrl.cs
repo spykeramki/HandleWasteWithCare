@@ -12,6 +12,9 @@ public class TutorialInstructionsCtrl : MonoBehaviour
     }
 
     public GameObject collectRadMatIntro;
+    public GameObject timeToRecycleIntro;
+    public GameObject goToBaseIntroUi;
+    public GameObject decontaminationIntro;
 
     private UiData uiData;
 
@@ -34,6 +37,27 @@ public class TutorialInstructionsCtrl : MonoBehaviour
             case GameManager.GameState.COLLECT_RADIOACTIVE_WASTE:
                 collectRadMatIntro.SetActive(isActive);
                 break;
+            case GameManager.GameState.DECONTAMINATION:
+                ResetDecontaminationIntro();
+                decontaminationIntro.SetActive(isActive);
+                break;
         }
+    }
+
+    public void InvokeGoToBaseIntroUiUi()
+    {
+        timeToRecycleIntro.SetActive(false);
+        Invoke("ActiveOfGoToBaseIntroUiUi", 2f);
+    }
+
+    public void ActiveOfGoToBaseIntroUiUi()
+    {
+        goToBaseIntroUi.SetActive(true);
+    }
+
+    private void ResetDecontaminationIntro()
+    {
+        timeToRecycleIntro.SetActive(true);
+        goToBaseIntroUi.SetActive(false);
     }
 }

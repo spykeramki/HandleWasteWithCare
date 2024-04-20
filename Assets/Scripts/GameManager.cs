@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
         SetMachinesData();
         SetGarbageData();
         SetActivenessOfPlayerHudUi(false);
-        SetGameStateInGame(currentGameState);
+        SetPlayerGameStateFromData();
     }
 
     public void SetGameOver()
@@ -147,6 +147,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetPlayerGameStateFromData()
+    {
+        DataManager.UserGameData m_userGameData = DataManager.Instance.GetCurrentUserData();
+        GameState gameState = (GameState)Enum.Parse(typeof(GameState), m_userGameData.gameState);
+        if (gameState!= GameState.NEW_ARRIVAL)
+        {
+            PlayerCtrl.LocalInstance.SetAnimation(PlayerCtrl.PlayerState.IS_IDLE);
+            SetActivenessOfPlayerHudUi(true);
+        }
+        SetGameStateInGame(gameState);
+    }
+
     public List<DataManager.GarbageDetails> GetGarbageDetails()
     {
         List<DataManager.GarbageDetails> playerInventoryGarbage = new List<DataManager.GarbageDetails>();
@@ -185,11 +197,28 @@ public class GameManager : MonoBehaviour
                         Invoke("SetDataForFactsInformationUi", 2f);
                     }
                 };
-                tutorialInstructionsCtrl.SetDataInUi(uiData);
-                SetPlayerStateToUiMode?.Invoke(true);
-                Utilities.Instance.SetSettingsForUi(true);
+                SetDataInTutorialInstructions(uiData);
+                break;
+            case GameState.DECONTAMINATION:
+                TutorialInstructionsCtrl.UiData uiData2 = new TutorialInstructionsCtrl.UiData()
+                {
+                    gameState = currentGameState,
+                    actionToBeExecutedAfterIntro = () =>
+                    {
+                        SetPlayerStateToUiMode?.Invoke(false);
+                        Utilities.Instance.SetSettingsForUi(false);
+                    }
+                };
+                SetDataInTutorialInstructions(uiData2);
                 break;
         }
+    }
+
+    private void SetDataInTutorialInstructions(TutorialInstructionsCtrl.UiData m_uiData)
+    {
+        tutorialInstructionsCtrl.SetDataInUi(m_uiData);
+        SetPlayerStateToUiMode?.Invoke(true);
+        Utilities.Instance.SetSettingsForUi(true);
     }
 
     public void SetActivenessOfPlayerHudUi(bool isActive)

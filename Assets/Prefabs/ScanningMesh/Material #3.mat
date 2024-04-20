@@ -23,12 +23,12 @@ Material:
   m_Name: Material #3
   m_Shader: {fileID: -6465566751694194690, guid: 1a207e3bee00db44b940e6f362a8e148,
     type: 3}
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _DISABLE_DECALS
   - _DISABLE_SSR_TRANSPARENT
   - _ENABLE_FOG_ON_TRANSPARENT
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -172,11 +172,11 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - _BASE_COLOR: {r: 0.375, g: 0.47697374, b: 0.8848684, a: 1}
+    - _BASE_COLOR: {r: 0.5492168, g: 0.7876799, b: 0.9622642, a: 1}
     - _BaseColor: {r: 0.64607656, g: 0.7199823, b: 0.94757885, a: 0.64}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
-    - _EMISSION_COLOR: {r: 0.3726415, g: 0.59669816, b: 1, a: 1}
+    - _EMISSION_COLOR: {r: 0.5529412, g: 0.7882353, b: 0.9647059, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _REFLECTIONS_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
