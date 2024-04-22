@@ -37,7 +37,7 @@ public class TutorialInstructionsCtrl : MonoBehaviour
             case GameManager.GameState.COLLECT_RADIOACTIVE_WASTE:
                 collectRadMatIntro.SetActive(isActive);
                 break;
-            case GameManager.GameState.DECONTAMINATION:
+            case GameManager.GameState.AFTER_EFFECTS:
                 ResetDecontaminationIntro();
                 decontaminationIntro.SetActive(isActive);
                 break;

@@ -9,25 +9,26 @@ public class DoorManagerCtrl : MonoBehaviour
     public Animator anim;
 
     private bool isDoorOpened = false;
+    private string instructionText = "Press 'E' to open the Door";
 
-    /*private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            //anim.speed = 1;
-            anim.SetTrigger("OperateDoor");
+            GameManager.Instance.SetDataAndActivenessOfGeneralIntructUi(instructionText, true);
         }
-    }*/
+    }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" && isDoorOpened)
+        if (other.tag == "Player")
         {
-
-            isDoorOpened = false;
-            //anim.speed = -1;
-            anim.SetTrigger("CloseDoor");
-
+            GameManager.Instance.SetDataAndActivenessOfGeneralIntructUi(string.Empty, false);
+            if(isDoorOpened){
+                isDoorOpened = false;
+                //anim.speed = -1;
+                anim.SetTrigger("CloseDoor");
+            }
         }
     }
 

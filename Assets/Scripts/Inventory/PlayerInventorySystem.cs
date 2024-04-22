@@ -22,7 +22,7 @@ public class PlayerInventorySystem : InventorySystem
             GameManager.Instance.CurrentGameState== GameManager.GameState.COLLECT_RADIOACTIVE_WASTE)
         {
             _isFirstRadioActiveItemCollected = true;
-            GameManager.Instance.SetGameStateInGame(GameManager.GameState.DECONTAMINATION);
+            GameManager.Instance.SetGameStateInGame(GameManager.GameState.AFTER_EFFECTS);
         }
         InventoryItemData inventoryItemData = new InventoryItemData()
         {

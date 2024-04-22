@@ -12,10 +12,13 @@ public class MachineInteractionCtrl : MonoBehaviour
 
     public MachineUiCtrl machineUiCtrl;
 
+    private string instructionText = "Use 'Left Mouse Button' to Interact with UI";
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
+            GameManager.Instance.SetDataAndActivenessOfGeneralIntructUi(instructionText, true);
             OpenInventoryUi();
         }
     }
@@ -24,6 +27,7 @@ public class MachineInteractionCtrl : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            GameManager.Instance.SetDataAndActivenessOfGeneralIntructUi(string.Empty, false);
             CloseInventoryUi();
         }
     }

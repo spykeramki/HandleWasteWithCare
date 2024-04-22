@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     {
         NEW_ARRIVAL,
         COLLECT_RADIOACTIVE_WASTE,
-        DECONTAMINATION,
+        AFTER_EFFECTS,
         DISPOSE_RADIOACTIVE_WASTE,
         CHANGE_SUIT,
         COLLECT_BIOHAZARD_WASTE,
@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     public GameObject[] playerHudUiElements;
 
     public TutorialInstructionsCtrl tutorialInstructionsCtrl;
+
+    public PlayInstructionsCtrl playInstructionsCtrl;
 
     private bool _isGameOver;
 
@@ -199,7 +201,7 @@ public class GameManager : MonoBehaviour
                 };
                 SetDataInTutorialInstructions(uiData);
                 break;
-            case GameState.DECONTAMINATION:
+            case GameState.AFTER_EFFECTS:
                 TutorialInstructionsCtrl.UiData uiData2 = new TutorialInstructionsCtrl.UiData()
                 {
                     gameState = currentGameState,
@@ -238,4 +240,7 @@ public class GameManager : MonoBehaviour
         });
     }
 
+    public void SetDataAndActivenessOfGeneralIntructUi(string m_text, bool isActive){
+        playInstructionsCtrl.SetDataAndActivenessInUi(m_text, isActive);
+    }
 }
