@@ -14,7 +14,9 @@ public class TutorialInstructionsCtrl : MonoBehaviour
     public GameObject collectRadMatIntro;
     public GameObject timeToRecycleIntro;
     public GameObject goToBaseIntroUi;
-    public GameObject decontaminationIntro;
+    public GameObject afterEffectsIntro;
+    public GameObject decontaminationUnitIntroBg;
+    public GameObject changeSuitIntroBg;
 
     private UiData uiData;
 
@@ -39,7 +41,13 @@ public class TutorialInstructionsCtrl : MonoBehaviour
                 break;
             case GameManager.GameState.AFTER_EFFECTS:
                 ResetDecontaminationIntro();
-                decontaminationIntro.SetActive(isActive);
+                afterEffectsIntro.SetActive(isActive);
+                break;
+            case GameManager.GameState.DECONTAMINATION_UNIT:
+                decontaminationUnitIntroBg.SetActive(isActive);
+                break;
+            case GameManager.GameState.CHANGE_SUIT:
+                changeSuitIntroBg.SetActive(isActive);
                 break;
         }
     }
@@ -47,7 +55,8 @@ public class TutorialInstructionsCtrl : MonoBehaviour
     public void InvokeGoToBaseIntroUiUi()
     {
         timeToRecycleIntro.SetActive(false);
-        Invoke("ActiveOfGoToBaseIntroUiUi", 2f);
+        goToBaseIntroUi.SetActive(true);
+        //Invoke("ActiveOfGoToBaseIntroUiUi", 2f);
     }
 
     public void ActiveOfGoToBaseIntroUiUi()

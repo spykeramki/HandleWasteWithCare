@@ -25060,6 +25060,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1303833397}
+  isMainDoor: 1
+  isSuitDoor: 0
+  isBaseDoor: 0
 --- !u!65 &738194511
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25071,8 +25074,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 25, y: 31, z: 2}
-  m_Center: {x: 0, y: 0, z: -9.29}
+  m_Size: {x: 25, y: 26.747211, z: 4}
+  m_Center: {x: 0, y: -2.1263988, z: -9.8}
 --- !u!1 &742443746
 GameObject:
   m_ObjectHideFlags: 0
@@ -46125,6 +46128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1292884881}
+  isMainDoor: 0
+  isSuitDoor: 0
+  isBaseDoor: 1
 --- !u!1 &984584283
 GameObject:
   m_ObjectHideFlags: 0
@@ -49255,7 +49261,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 25, y: 31, z: 2}
+  m_Size: {x: 25, y: 25, z: 4}
   m_Center: {x: 0, y: 0, z: -9.06}
 --- !u!114 &1452924797
 MonoBehaviour:
@@ -49270,6 +49276,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 866843863}
+  isMainDoor: 0
+  isSuitDoor: 1
+  isBaseDoor: 0
 --- !u!1 &1466660098
 GameObject:
   m_ObjectHideFlags: 0

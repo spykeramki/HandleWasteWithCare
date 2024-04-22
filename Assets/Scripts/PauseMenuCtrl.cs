@@ -39,10 +39,8 @@ public class PauseMenuCtrl : MonoBehaviour
     {
         isPausing = !isPausing;
         GameManager.Instance.SetPlayerStateToUiMode?.Invoke(isPausing);
-        Utilities.Instance.SetSettingsForUi(isPausing);
         parentGo.SetActive(isPausing);
         ResetPauseOptions();
-        Time.timeScale = isPausing ? 0f : 1f;
     }
 
     private void OnClickSaveBtn()

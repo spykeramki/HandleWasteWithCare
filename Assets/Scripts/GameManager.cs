@@ -12,8 +12,9 @@ public class GameManager : MonoBehaviour
         NEW_ARRIVAL,
         COLLECT_RADIOACTIVE_WASTE,
         AFTER_EFFECTS,
-        DISPOSE_RADIOACTIVE_WASTE,
+        DECONTAMINATION_UNIT,
         CHANGE_SUIT,
+        DISPOSE_RADIOACTIVE_WASTE,
         COLLECT_BIOHAZARD_WASTE,
         DISPOSE_BIOHAZARD_WASTE,
         FREE_ROAM
@@ -81,13 +82,13 @@ public class GameManager : MonoBehaviour
         SetGarbageData();
         SetActivenessOfPlayerHudUi(false);
         SetPlayerGameStateFromData();
+        SetPlayerStateToUiMode.AddListener(Utilities.Instance.SetSettingsForUi);
     }
 
     public void SetGameOver()
     {
         _isGameOver = true;
         SetPlayerStateToUiMode?.Invoke(true);
-        Utilities.Instance.SetSettingsForUi(true);
         gameOverCtrl.gameObject.SetActive(true);
     }
 
@@ -177,7 +178,6 @@ public class GameManager : MonoBehaviour
 
     public void SetGameStateInGame(GameState m_gameState)
     {
-        Debug.Log(m_gameState + " executed 3");
         currentGameState = m_gameState;
         switch (m_gameState)
         {
@@ -195,7 +195,6 @@ public class GameManager : MonoBehaviour
                     actionToBeExecutedAfterIntro = () =>
                     {
                         SetPlayerStateToUiMode?.Invoke(false);
-                        Utilities.Instance.SetSettingsForUi(false);
                         Invoke("SetDataForFactsInformationUi", 2f);
                     }
                 };
@@ -208,10 +207,31 @@ public class GameManager : MonoBehaviour
                     actionToBeExecutedAfterIntro = () =>
                     {
                         SetPlayerStateToUiMode?.Invoke(false);
-                        Utilities.Instance.SetSettingsForUi(false);
                     }
                 };
                 SetDataInTutorialInstructions(uiData2);
+                break;
+            case GameState.DECONTAMINATION_UNIT:
+                TutorialInstructionsCtrl.UiData uiData3 = new TutorialInstructionsCtrl.UiData()
+                {
+                    gameState = currentGameState,
+                    actionToBeExecutedAfterIntro = () =>
+                    {
+                        SetPlayerStateToUiMode?.Invoke(false);
+                    }
+                };
+                SetDataInTutorialInstructions(uiData3);
+                break;
+            case GameState.CHANGE_SUIT:
+                TutorialInstructionsCtrl.UiData uiData4 = new TutorialInstructionsCtrl.UiData()
+                {
+                    gameState = currentGameState,
+                    actionToBeExecutedAfterIntro = () =>
+                    {
+                        SetPlayerStateToUiMode?.Invoke(false);
+                    }
+                };
+                SetDataInTutorialInstructions(uiData4);
                 break;
         }
     }
@@ -220,7 +240,6 @@ public class GameManager : MonoBehaviour
     {
         tutorialInstructionsCtrl.SetDataInUi(m_uiData);
         SetPlayerStateToUiMode?.Invoke(true);
-        Utilities.Instance.SetSettingsForUi(true);
     }
 
     public void SetActivenessOfPlayerHudUi(bool isActive)

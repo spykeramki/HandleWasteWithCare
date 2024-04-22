@@ -11,6 +11,12 @@ public class DoorManagerCtrl : MonoBehaviour
     private bool isDoorOpened = false;
     private string instructionText = "Press 'E' to open the Door";
 
+    public bool isMainDoor = false;
+    public bool isSuitDoor = false;
+    public bool isBaseDoor = false;
+
+    private bool _isFirstTimeOpened = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
@@ -41,8 +47,25 @@ public class DoorManagerCtrl : MonoBehaviour
                 isDoorOpened = true;
                 //anim.speed = -1;
                 anim.SetTrigger("OperateDoor");
+                Invoke("ShowIntro", 1f);
             }
 
+        }
+    }
+
+    private void ShowIntro()
+    {
+        if (!_isFirstTimeOpened)
+        {
+            _isFirstTimeOpened = true;
+            if (isMainDoor)
+            {
+                GameManager.Instance.SetGameStateInGame(GameManager.GameState.DECONTAMINATION_UNIT);
+            }
+            else if (isSuitDoor)
+            {
+                GameManager.Instance.SetGameStateInGame(GameManager.GameState.CHANGE_SUIT);
+            }
         }
     }
 }
