@@ -146,7 +146,7 @@ public class PlayerCtrl : NetworkBehaviour
         {
             cinemachineVitualCam.Priority = 0;
         }
-        SetPlayerInitialEquipmentData();
+        //SetPlayerInitialEquipmentData();
     }
 
     #region NON MULTIPLAYER
@@ -218,8 +218,7 @@ public class PlayerCtrl : NetworkBehaviour
         }
     }
 
-    private void SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType suitType
-        = EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD)
+    private void SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType suitType)
     {
         playerEquipmentCtrl.SetPlayerEquipment(suitType);
         SetEquipmentData?.Invoke(suitType);
@@ -392,7 +391,7 @@ public class PlayerCtrl : NetworkBehaviour
         }
         else
         {
-            SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType.BIO_HAZARD);
+            SetPlayerInitialEquipmentData(EquipStationCtrl.PlayerProtectionSuitType.RADIATION);
         }
     }
 

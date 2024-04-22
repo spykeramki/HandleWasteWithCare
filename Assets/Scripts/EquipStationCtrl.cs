@@ -51,6 +51,7 @@ public class EquipStationCtrl : MonoBehaviour
     {
         playerProtectionSuitType = suitType;
         SetDataInUi(suitType);
+        AdjustStationBasedOnSuitType(suitType);
     }
 
     public void SetPlayerEquipment(PlayerProtectionSuitType suitType)
