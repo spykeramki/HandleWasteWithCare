@@ -55,16 +55,23 @@ public class DoorManagerCtrl : MonoBehaviour
 
     private void ShowIntro()
     {
+        GameManager gameManager = GameManager.Instance;
         if (!_isFirstTimeOpened)
         {
-            _isFirstTimeOpened = true;
-            if (isMainDoor)
+            if (isMainDoor && gameManager.CurrentGameState == GameManager.GameState.AFTER_EFFECTS)
             {
-                GameManager.Instance.SetGameStateInGame(GameManager.GameState.DECONTAMINATION_UNIT);
+                _isFirstTimeOpened = true;
+                gameManager.SetGameStateInGame(GameManager.GameState.DECONTAMINATION_UNIT);
             }
-            else if (isSuitDoor)
+            else if (isSuitDoor && gameManager.CurrentGameState == GameManager.GameState.DECONTAMINATION_UNIT)
             {
-                GameManager.Instance.SetGameStateInGame(GameManager.GameState.CHANGE_SUIT);
+                _isFirstTimeOpened = true;
+                gameManager.SetGameStateInGame(GameManager.GameState.CHANGE_SUIT);
+            }
+            else if(isBaseDoor && gameManager.CurrentGameState == GameManager.GameState.CHANGE_SUIT)
+            {
+                _isFirstTimeOpened = true;
+                gameManager.SetGameStateInGame(GameManager.GameState.BASE_INTRO);
             }
         }
     }

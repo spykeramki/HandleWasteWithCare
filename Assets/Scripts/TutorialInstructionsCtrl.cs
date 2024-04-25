@@ -17,6 +17,9 @@ public class TutorialInstructionsCtrl : MonoBehaviour
     public GameObject afterEffectsIntro;
     public GameObject decontaminationUnitIntroBg;
     public GameObject changeSuitIntroBg;
+    public GameObject baseIntroBgUi;
+    public GameObject recycleProcessIntroUi;
+    public GameObject freeRoamUi;
 
     private UiData uiData;
 
@@ -49,18 +52,21 @@ public class TutorialInstructionsCtrl : MonoBehaviour
             case GameManager.GameState.CHANGE_SUIT:
                 changeSuitIntroBg.SetActive(isActive);
                 break;
+            case GameManager.GameState.BASE_INTRO:
+                baseIntroBgUi.SetActive(isActive);
+                break;
+            case GameManager.GameState.DISPOSE_RADIOACTIVE_WASTE:
+                recycleProcessIntroUi.SetActive(isActive);
+                break;
+            case GameManager.GameState.FREE_ROAM:
+                freeRoamUi.SetActive(isActive);
+                break;
         }
     }
 
     public void InvokeGoToBaseIntroUiUi()
     {
         timeToRecycleIntro.SetActive(false);
-        goToBaseIntroUi.SetActive(true);
-        //Invoke("ActiveOfGoToBaseIntroUiUi", 2f);
-    }
-
-    public void ActiveOfGoToBaseIntroUiUi()
-    {
         goToBaseIntroUi.SetActive(true);
     }
 

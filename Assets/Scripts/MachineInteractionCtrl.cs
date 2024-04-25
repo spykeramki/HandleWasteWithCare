@@ -12,6 +12,8 @@ public class MachineInteractionCtrl : MonoBehaviour
 
     public MachineUiCtrl machineUiCtrl;
 
+    private bool isPlayerEnteredFirstTime = false;
+
     private string instructionText = "Use 'Left Mouse Button' to Interact with UI";
 
     private void OnTriggerEnter(Collider other)
@@ -20,6 +22,12 @@ public class MachineInteractionCtrl : MonoBehaviour
         {
             GameManager.Instance.SetDataAndActivenessOfGeneralIntructUi(instructionText, true);
             OpenInventoryUi();
+
+            if(!isPlayerEnteredFirstTime && machineUiCtrl.MachineRecycleType== GarbageManager.GarbageType.RADIOACTIVE)
+            {
+                isPlayerEnteredFirstTime = true;
+                GameManager.Instance.SetGameStateInGame(GameManager.GameState.DISPOSE_RADIOACTIVE_WASTE);
+            }
         }
     }
 

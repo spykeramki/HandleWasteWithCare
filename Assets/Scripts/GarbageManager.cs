@@ -2,7 +2,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-public class GarbageManager : NetworkBehaviour
+public class GarbageManager : MonoBehaviour
 {
     public enum GarbageType
     {

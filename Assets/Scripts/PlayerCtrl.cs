@@ -8,7 +8,7 @@ using StarterAssets;
 using UnityEngine.InputSystem;
 using System;
 
-public class PlayerCtrl : NetworkBehaviour
+public class PlayerCtrl : MonoBehaviour
 {
     public static Action<EquipStationCtrl.PlayerProtectionSuitType> SetEquipmentData;
 
@@ -128,25 +128,6 @@ public class PlayerCtrl : NetworkBehaviour
     public float Health
     {
         get { return health; }
-    }
-
-    public override void OnNetworkSpawn()
-    {
-
-        if (IsOwner)
-        {
-            LocalInstance = this;
-            characterController.enabled = true;
-            fpController.enabled = true;
-            platerInput.enabled = true;
-            audioListener.enabled = true;
-            cinemachineVitualCam.Priority = 1;
-        }
-        else
-        {
-            cinemachineVitualCam.Priority = 0;
-        }
-        //SetPlayerInitialEquipmentData();
     }
 
     #region NON MULTIPLAYER

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class GarbageCtrl : NetworkBehaviour
+public class GarbageCtrl : MonoBehaviour
 {
     public enum GarbageState
     {

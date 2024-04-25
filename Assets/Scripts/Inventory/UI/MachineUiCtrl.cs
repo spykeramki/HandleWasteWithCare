@@ -24,6 +24,10 @@ public class MachineUiCtrl : MonoBehaviour
 
     [SerializeField]
     private GarbageManager.GarbageType machineRecycleType = GarbageManager.GarbageType.NONE;
+    public GarbageManager.GarbageType MachineRecycleType
+    {
+        get { return machineRecycleType; }
+    }
 
     public Color recyclingColor;
 
@@ -37,6 +41,8 @@ public class MachineUiCtrl : MonoBehaviour
     private float _currentRecycleTime = 0;
 
     private InventorySlotUiCtrl.UiData _currentRecyclingSlotData;
+
+    private bool _isFirstTimeRecyclingDone = false;
 
     private void Start()
     {
@@ -158,6 +164,11 @@ public class MachineUiCtrl : MonoBehaviour
 
     private void ContinueRecycling()
     {
+        if (!_isFirstTimeRecyclingDone && machineRecycleType == GarbageManager.GarbageType.RADIOACTIVE && 
+            GameManager.Instance.CurrentGameState == GameManager.GameState.DISPOSE_RADIOACTIVE_WASTE)
+        {
+            GameManager.Instance.SetGameStateInGame(GameManager.GameState.FREE_ROAM);
+        }
         if (inventorySystem.GetInventoryItemsData().Count > 0)
         {
             SetRecyclingProcess();

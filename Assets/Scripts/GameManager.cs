@@ -14,9 +14,8 @@ public class GameManager : MonoBehaviour
         AFTER_EFFECTS,
         DECONTAMINATION_UNIT,
         CHANGE_SUIT,
+        BASE_INTRO,
         DISPOSE_RADIOACTIVE_WASTE,
-        COLLECT_BIOHAZARD_WASTE,
-        DISPOSE_BIOHAZARD_WASTE,
         FREE_ROAM
     }
 
@@ -201,39 +200,29 @@ public class GameManager : MonoBehaviour
                 SetDataInTutorialInstructions(uiData);
                 break;
             case GameState.AFTER_EFFECTS:
-                TutorialInstructionsCtrl.UiData uiData2 = new TutorialInstructionsCtrl.UiData()
-                {
-                    gameState = currentGameState,
-                    actionToBeExecutedAfterIntro = () =>
-                    {
-                        SetPlayerStateToUiMode?.Invoke(false);
-                    }
-                };
-                SetDataInTutorialInstructions(uiData2);
-                break;
             case GameState.DECONTAMINATION_UNIT:
-                TutorialInstructionsCtrl.UiData uiData3 = new TutorialInstructionsCtrl.UiData()
-                {
-                    gameState = currentGameState,
-                    actionToBeExecutedAfterIntro = () =>
-                    {
-                        SetPlayerStateToUiMode?.Invoke(false);
-                    }
-                };
-                SetDataInTutorialInstructions(uiData3);
-                break;
             case GameState.CHANGE_SUIT:
-                TutorialInstructionsCtrl.UiData uiData4 = new TutorialInstructionsCtrl.UiData()
-                {
-                    gameState = currentGameState,
-                    actionToBeExecutedAfterIntro = () =>
-                    {
-                        SetPlayerStateToUiMode?.Invoke(false);
-                    }
-                };
-                SetDataInTutorialInstructions(uiData4);
+            case GameState.BASE_INTRO:
+            case GameState.DISPOSE_RADIOACTIVE_WASTE:
+            case GameState.FREE_ROAM:
+            default:
+                SetIntroUi();
                 break;
+
         }
+    }
+
+    private void SetIntroUi()
+    {
+        TutorialInstructionsCtrl.UiData uiData = new TutorialInstructionsCtrl.UiData()
+        {
+            gameState = currentGameState,
+            actionToBeExecutedAfterIntro = () =>
+            {
+                SetPlayerStateToUiMode?.Invoke(false);
+            }
+        };
+        SetDataInTutorialInstructions(uiData);
     }
 
     private void SetDataInTutorialInstructions(TutorialInstructionsCtrl.UiData m_uiData)

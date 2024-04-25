@@ -9,6 +9,9 @@ public class PlayerAnimEvents : MonoBehaviour
         GameManager gameManager = GameManager.Instance;
         PlayerCtrl.LocalInstance.ChangeCamToWake();
         gameManager.SetActivenessOfPlayerHudUi(true);
-        gameManager.SetGameStateInGame(GameManager.GameState.COLLECT_RADIOACTIVE_WASTE);
+        if(gameManager.CurrentGameState == GameManager.GameState.NEW_ARRIVAL)
+        {
+            gameManager.SetGameStateInGame(GameManager.GameState.COLLECT_RADIOACTIVE_WASTE);
+        }
     }
 }
