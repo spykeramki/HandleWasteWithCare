@@ -194,17 +194,29 @@ public class GameManager : MonoBehaviour
                     actionToBeExecutedAfterIntro = () =>
                     {
                         SetPlayerStateToUiMode?.Invoke(false);
-                        Invoke("SetDataForFactsInformationUi", 2f);
+                        Invoke("SetDataForWastageFactsInformationUi", 2f);
                     }
                 };
                 SetDataInTutorialInstructions(uiData);
+                break;
+
+            case GameState.FREE_ROAM:
+                TutorialInstructionsCtrl.UiData uiData2 = new TutorialInstructionsCtrl.UiData()
+                {
+                    gameState = currentGameState,
+                    actionToBeExecutedAfterIntro = () =>
+                    {
+                        SetPlayerStateToUiMode?.Invoke(false);
+                        Invoke("SetDataForWastageRevFactsInformationUi", 2f);
+                    }
+                };
+                SetDataInTutorialInstructions(uiData2);
                 break;
             case GameState.AFTER_EFFECTS:
             case GameState.DECONTAMINATION_UNIT:
             case GameState.CHANGE_SUIT:
             case GameState.BASE_INTRO:
             case GameState.DISPOSE_RADIOACTIVE_WASTE:
-            case GameState.FREE_ROAM:
             default:
                 SetIntroUi();
                 break;
@@ -239,11 +251,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SetDataForFactsInformationUi()
+    private void SetDataForWastageFactsInformationUi()
     {
         factsCtrl.SetFactsText(new FactsCtrl.UiData()
         {
             factsDataList = factsData.wastageFacts,
+            onCompletionOfSettingData = null
+        });
+    }
+
+    private void SetDataForWastageRevFactsInformationUi()
+    {
+        factsCtrl.SetFactsText(new FactsCtrl.UiData()
+        {
+            factsDataList = factsData.wastageRevolutionFacts,
             onCompletionOfSettingData = null
         });
     }

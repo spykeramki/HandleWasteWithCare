@@ -66,7 +66,7 @@ public class FactsCtrl : MonoBehaviour
             {
                 playerCtrl.PlayPlayerAudio(defaultLetterClip, false);
             }
-            yield return new WaitForSeconds(0.16f);
+            yield return new WaitForSeconds(0.08f);
         }
 
         currentStringCount++;

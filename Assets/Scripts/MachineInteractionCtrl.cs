@@ -23,7 +23,8 @@ public class MachineInteractionCtrl : MonoBehaviour
             GameManager.Instance.SetDataAndActivenessOfGeneralIntructUi(instructionText, true);
             OpenInventoryUi();
 
-            if(!isPlayerEnteredFirstTime && machineUiCtrl.MachineRecycleType== GarbageManager.GarbageType.RADIOACTIVE)
+            if(!isPlayerEnteredFirstTime && machineUiCtrl.MachineRecycleType== GarbageManager.GarbageType.RADIOACTIVE &&
+                GameManager.Instance.CurrentGameState == GameManager.GameState.BASE_INTRO)
             {
                 isPlayerEnteredFirstTime = true;
                 GameManager.Instance.SetGameStateInGame(GameManager.GameState.DISPOSE_RADIOACTIVE_WASTE);

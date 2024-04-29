@@ -24,19 +24,16 @@ MonoBehaviour:
       the process.
     audio: {fileID: 0}
   wastageFacts:
-  - text: Most nuclear waste is secured in canisters and buried deep underground
-      in sealed tunnels to prevent any waste from escaping.
-    audio: {fileID: 8300000, guid: bd0cd03d121b7814b942aa98bbcff331, type: 3}
   - text: High-level radioactive waste primarily is uranium fuel that has been used
       in a nuclear power reactor
     audio: {fileID: 8300000, guid: e4ce960b0634a4248b96fbee68f88329, type: 3}
   - text: At this time, there is no facility available for permanent disposal of
       high-level waste.
     audio: {fileID: 8300000, guid: 86b76fe237b914c40883801572683d46, type: 3}
-  wastageRevolutionFacts:
+  - text: Most nuclear waste is secured in canisters and buried deep underground
+      in sealed tunnels to prevent any waste from escaping.
+    audio: {fileID: 8300000, guid: bd0cd03d121b7814b942aa98bbcff331, type: 3}
   - text: Liquid and sludge radioactive waste are normally converted into solids
       with cement and glass to stabilise them
     audio: {fileID: 8300000, guid: 411cb6f485242aa4699e5d6233b7dd3d, type: 3}
-  - text: Liquid and sludge radioactive waste are normally converted into solids
-      with cement and glass to stabilise them
-    audio: {fileID: 8300000, guid: 411cb6f485242aa4699e5d6233b7dd3d, type: 3}
+  wastageRevolutionFacts: []
