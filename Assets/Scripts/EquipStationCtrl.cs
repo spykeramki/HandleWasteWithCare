@@ -35,6 +35,10 @@ public class EquipStationCtrl : MonoBehaviour
 
     public Renderer playerModelRenderer;
 
+
+    public GameObject bioHazardModel;
+    public GameObject radiationModel;
+
     public TextMeshProUGUI suitTypeText;
 
     private void Awake()
@@ -101,10 +105,11 @@ public class EquipStationCtrl : MonoBehaviour
 
     private void AdjustStationBasedOnSuitType(PlayerProtectionSuitType m_suitType)
     {
-        Material[] materials = playerModelRenderer.materials;
-        if (m_suitType== PlayerProtectionSuitType.BIO_HAZARD)
+        bool isBioHazard = m_suitType == PlayerProtectionSuitType.BIO_HAZARD;
+        bioHazardModel.SetActive(isBioHazard);
+        radiationModel.SetActive(!isBioHazard);
+        if (isBioHazard)
         {
-            materials[0] = PlayerCtrl.LocalInstance.playerSuitMats.biohazardSuit;
             ChangeStationLightsColor(stationColors.bioHazard);
             uiBg.material.color = stationColors.bioHazard;
             uiBg.material.SetColor("_EmissionColor", stationColors.bioHazard);
@@ -112,13 +117,11 @@ public class EquipStationCtrl : MonoBehaviour
         }
         else
         {
-            materials[0] = PlayerCtrl.LocalInstance.playerSuitMats.radiationSuit;
             ChangeStationLightsColor(stationColors.radiation);
             uiBg.material.color = stationColors.radiation;
             uiBg.material.SetColor("_EmissionColor", stationColors.radiation);
             suitTypeText.text = "Radiation";
         }
-        playerModelRenderer.materials = materials;
     }
 
     private void ChangeStationLightsColor(Color m_color)
