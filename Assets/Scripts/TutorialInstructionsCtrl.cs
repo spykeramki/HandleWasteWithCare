@@ -33,6 +33,7 @@ public class TutorialInstructionsCtrl : MonoBehaviour
     {
         SetActivenessOfUi(false);
         uiData.actionToBeExecutedAfterIntro?.Invoke();
+        GameManager.Instance.PlayClickAudio();
     }
 
     private void SetActivenessOfUi(bool isActive)
@@ -66,6 +67,7 @@ public class TutorialInstructionsCtrl : MonoBehaviour
 
     public void InvokeGoToBaseIntroUiUi()
     {
+        GameManager.Instance.PlayClickAudio();
         timeToRecycleIntro.SetActive(false);
         goToBaseIntroUi.SetActive(true);
     }
@@ -76,3 +78,4 @@ public class TutorialInstructionsCtrl : MonoBehaviour
         goToBaseIntroUi.SetActive(false);
     }
 }
+

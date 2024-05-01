@@ -14,4 +14,8 @@ public class PlayerAnimEvents : MonoBehaviour
             gameManager.SetGameStateInGame(GameManager.GameState.COLLECT_RADIOACTIVE_WASTE);
         }
     }
+
+    public void OnMovingOneStep(){
+        PlayerCtrl.LocalInstance.PlayFootStepsAudio(Utilities.Instance.GetRandomFootStep(), shouldLoop: false, m_volume: 1.0f);
+    }
 }

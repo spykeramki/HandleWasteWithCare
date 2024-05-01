@@ -15,6 +15,8 @@ public class DoorManagerCtrl : MonoBehaviour
     public bool isSuitDoor = false;
     public bool isBaseDoor = false;
 
+    public AudioSource mainAudioSourceRef;
+
     private bool _isFirstTimeOpened = false;
 
     private void OnTriggerEnter(Collider other)
@@ -34,6 +36,12 @@ public class DoorManagerCtrl : MonoBehaviour
                 isDoorOpened = false;
                 //anim.speed = -1;
                 anim.SetTrigger("CloseDoor");
+                if(isBaseDoor){
+                    mainAudioSourceRef.PlayOneShot(Utilities.Instance.gameAudioClips.swingDoorClose);
+                }
+                else{
+                    mainAudioSourceRef.PlayOneShot(Utilities.Instance.gameAudioClips.slidingDoorClose);
+                }
             }
         }
     }
@@ -48,6 +56,12 @@ public class DoorManagerCtrl : MonoBehaviour
                 //anim.speed = -1;
                 anim.SetTrigger("OperateDoor");
                 Invoke("ShowIntro", 1f);
+                if(isBaseDoor){
+                    mainAudioSourceRef.PlayOneShot(Utilities.Instance.gameAudioClips.swingDoorOpen);
+                }
+                else{
+                    mainAudioSourceRef.PlayOneShot(Utilities.Instance.gameAudioClips.slidingDoorOpen);
+                }
             }
 
         }

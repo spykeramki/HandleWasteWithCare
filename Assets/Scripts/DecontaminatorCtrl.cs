@@ -9,6 +9,9 @@ public class DecontaminatorCtrl : MonoBehaviour
     private float _bioHazardLevel = 0f;
 
     public ParticleSystem[] sprayers;
+    public AudioSource[] sprayersAudio;
+    
+    public AudioSource scanAudio;
 
     public Animator scanningMeshAnim;
     
@@ -43,6 +46,7 @@ public class DecontaminatorCtrl : MonoBehaviour
     private void ScanPlayerForContamination()
     {
         scanningMeshAnim.SetTrigger("Scan");
+        scanAudio.Play();
     }
 
     private void OnTriggerExit(Collider other)
@@ -157,6 +161,9 @@ public class DecontaminatorCtrl : MonoBehaviour
         {
             spray.Stop();
         }
+        foreach(AudioSource a_source in sprayersAudio){
+            a_source.Stop();
+        }
     }
 
     private void StartSprayers()
@@ -165,6 +172,9 @@ public class DecontaminatorCtrl : MonoBehaviour
         {
             spray.gameObject.SetActive(true);
             spray.Play();
+        }
+        foreach(AudioSource a_source in sprayersAudio){
+            a_source.Play();
         }
     }
 }

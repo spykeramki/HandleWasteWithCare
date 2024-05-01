@@ -13,12 +13,14 @@ public class FactsCtrl : MonoBehaviour
     }
 
     public TextMeshProUGUI factText;
-    public AudioClip defaultLetterClip;
+    public AudioClip[] defaultLetterClips;
     private PlayerCtrl playerCtrl;
 
     private int totalStringCount;
     private int currentStringCount = 0;
     private UiData uiData;
+
+    private int _currentAudioIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +43,7 @@ public class FactsCtrl : MonoBehaviour
         bool hasAudio = factData.audio != null;
         if (hasAudio)
         {
-            PlayerCtrl.LocalInstance.PlayPlayerAudio(factData.audio, false);
+            PlayerCtrl.LocalInstance.PlayPlayerAudio(factData.audio, false, 1.0f);
         }
         StartCoroutine(TextTypeWritingEffect(factData.text, hasAudio));
     }
@@ -55,7 +57,6 @@ public class FactsCtrl : MonoBehaviour
     private IEnumerator TextTypeWritingEffect(string m_string, bool hasAudio)
     {
         factText.ForceMeshUpdate();
-        PlayerCtrl playerCtrl = PlayerCtrl.LocalInstance;
         int lettersCount = m_string.Length;
         int iterationCount = 0;
         while (iterationCount <lettersCount)
@@ -64,9 +65,9 @@ public class FactsCtrl : MonoBehaviour
             factText.maxVisibleCharacters = iterationCount;
             if (!hasAudio)
             {
-                playerCtrl.PlayPlayerAudio(defaultLetterClip, false);
+                PlayKeyboardClickSoundsRandom();
             }
-            yield return new WaitForSeconds(0.08f);
+            yield return new WaitForSeconds(0.12f);
         }
 
         currentStringCount++;
@@ -80,5 +81,11 @@ public class FactsCtrl : MonoBehaviour
             StopCoroutine("TextTypeWritingEffect");
             ResetUi();
         }
+    }
+
+    private void PlayKeyboardClickSoundsRandom(){
+        int randomIndex = UnityEngine.Random.Range(0, 4);
+        float randomVolume = UnityEngine.Random.Range(0.8f, 1.0f);
+        PlayerCtrl.LocalInstance.PlayPlayerAudio(defaultLetterClips[randomIndex], shouldLoop: false, randomVolume);
     }
 }

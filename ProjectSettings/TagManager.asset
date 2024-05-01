@@ -10,6 +10,8 @@ TagManager:
   - Button
   - Ground
   - MapCamera
+  - Base
+  - Water
   layers:
   - Default
   - TransparentFX

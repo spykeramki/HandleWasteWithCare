@@ -36,6 +36,8 @@ public class MachineUiCtrl : MonoBehaviour
     [SerializeField]
     private Button recycleButton;
 
+    public AudioSource machineAudioSource;
+
     public bool isRecycler = false;
 
     private float _currentRecycleTime = 0;
@@ -78,6 +80,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     public void OnClickTransferToMachineInventoryButton()
     {
+        GameManager.Instance.PlayClickAudio();
         List<InventorySlotUiCtrl> inventorySlotUiCtrls = playerInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
@@ -101,6 +104,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     public void OnClickTransferFromMachineInventoryButton()
     {
+        GameManager.Instance.PlayClickAudio();
         List<InventorySlotUiCtrl> inventorySlotUiCtrls = machineInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
@@ -139,6 +143,9 @@ public class MachineUiCtrl : MonoBehaviour
 
     private IEnumerator StartRecycling()
     {
+        GameManager.Instance.PlayClickAudio();
+        machineAudioSource.clip = Utilities.Instance.gameAudioClips.machineRunning;
+        machineAudioSource.Play();
         while (_currentRecycleTime > 0)
         {
             yield return new WaitForSeconds(1f);
@@ -177,6 +184,8 @@ public class MachineUiCtrl : MonoBehaviour
         {
             recyclingMaterial.SetColor("_EmissionColor", recyclingColor * 0);
             recycleButton.interactable = false;
+            machineAudioSource.clip = Utilities.Instance.gameAudioClips.machineIdle;
+            machineAudioSource.Play();
         }
     }
 

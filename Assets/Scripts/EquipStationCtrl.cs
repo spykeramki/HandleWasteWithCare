@@ -41,6 +41,8 @@ public class EquipStationCtrl : MonoBehaviour
 
     public TextMeshProUGUI suitTypeText;
 
+    public AudioSource uiAudioSource;
+
     private void Awake()
     {
         PlayerCtrl.SetEquipmentData += OnPlayerSpawn;
@@ -73,6 +75,8 @@ public class EquipStationCtrl : MonoBehaviour
 
     private void OnClickEquipmentChangeBtn()
     {
+        PlayerCtrl.LocalInstance.PlayPlayerAudio(Utilities.Instance.GetRandomEquipClip(), shouldLoop: false, m_volume: 1.0f);
+        uiAudioSource.Play();
         if(playerProtectionSuitType == PlayerProtectionSuitType.BIO_HAZARD)
         {
             playerProtectionSuitType = PlayerProtectionSuitType.RADIATION;

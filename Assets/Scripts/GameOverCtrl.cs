@@ -19,17 +19,20 @@ public class GameOverCtrl : MonoBehaviour
 
     private void OnClickRestartBtn()
     {
+        GameManager.Instance.PlayClickAudio();
         SceneManager.LoadScene("01Main");
     }
 
     private void OnClickMenuBtn()
     {
+        GameManager.Instance.PlayClickAudio();
         DestroyImmediate(DataManager.Instance.gameObject);
         SceneManager.LoadScene("00Start");
     }
 
     private void OnClickQuitBtn()
     {
+        GameManager.Instance.PlayClickAudio();
         Application.Quit();
     }
 }

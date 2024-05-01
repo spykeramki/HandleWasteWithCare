@@ -12,6 +12,8 @@ public class MainMenuUICtrl : MonoBehaviour
 
     public LoadGameProfilesListUiCtrl loadGameProfilesUiCtrl;
 
+    public AudioSource clickAudioSource;
+
     void Start()
     {
         YesBtnToQuit.onClick.AddListener(QuitGame);
@@ -40,5 +42,9 @@ public class MainMenuUICtrl : MonoBehaviour
     private void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void PlayClickAudio(){
+        clickAudioSource.Play();
     }
 }

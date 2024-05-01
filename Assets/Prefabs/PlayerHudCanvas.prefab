@@ -4992,7 +4992,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   factText: {fileID: 4828710683729792881}
-  defaultLetterClip: {fileID: 8300000, guid: d2d5fd73109489a4a96144e2ca761ad5, type: 3}
+  defaultLetterClips:
+  - {fileID: 8300000, guid: ba3be1c76e1ee1f499a3a1ba97d494f3, type: 3}
+  - {fileID: 8300000, guid: 2fda462178ddb2f468af32060aa94425, type: 3}
+  - {fileID: 8300000, guid: c2f5f8540e02cee46922c4d9fe01039e, type: 3}
+  - {fileID: 8300000, guid: f9551bc0de9d04e43bdf231d804b8d50, type: 3}
 --- !u!1 &4828710684638304329
 GameObject:
   m_ObjectHideFlags: 0
@@ -5177,7 +5181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   factText: {fileID: 4828710685133160893}
-  defaultLetterClip: {fileID: 8300000, guid: d2d5fd73109489a4a96144e2ca761ad5, type: 3}
+  defaultLetterClips: []
 --- !u!1 &4828710684741755452
 GameObject:
   m_ObjectHideFlags: 0

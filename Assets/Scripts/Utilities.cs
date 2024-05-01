@@ -7,6 +7,12 @@ public class Utilities : MonoBehaviour
 {
     public static Utilities Instance;
 
+    public enum PlayerMovePlace{
+        SAND,
+        WATER,
+        BASE
+    }
+
     private void Awake()
     {
         if (Instance == null)
@@ -17,6 +23,7 @@ public class Utilities : MonoBehaviour
         {
             Destroy(this);
         }
+        selectedPlayerFootStep = gameAudioClips.playerSandFootSteps;
     }
 
     [Serializable]
@@ -60,6 +67,28 @@ public class Utilities : MonoBehaviour
     }
 
     public TimeToRecycleWastages recycleTimes;
+
+    
+    [Serializable]
+    public struct GameAudioClips{
+        public AudioClip outWorldWind;
+        public AudioClip inBaseWind;
+        public AudioClip uiBtnClick;
+        public AudioClip slidingDoorOpen;
+        public AudioClip slidingDoorClose;
+        public AudioClip swingDoorOpen;
+        public AudioClip swingDoorClose;
+        public AudioClip[] playerSandFootSteps;
+        public AudioClip[] playerBaseFootSteps;
+        public AudioClip[] playerWaterFootSteps;
+        public AudioClip[] playerEquipClips;
+        public AudioClip machineIdle;
+        public AudioClip machineRunning;
+    }
+
+    public GameAudioClips gameAudioClips;
+
+    private AudioClip[] selectedPlayerFootStep;
 
     public InventoryUiContainerCtrl.UiData PrepareDataForInventoryUi(Dictionary<string, InventorySystem.InventoryItemData> inventoryItemsData)
     {
@@ -189,6 +218,33 @@ public class Utilities : MonoBehaviour
             Cursor.visible = false;
             Time.timeScale = 1f;
         }
+    }
+
+    public void AudioToBePlayedAsFootStep(PlayerMovePlace m_playerMovePlace){
+        switch(m_playerMovePlace){
+            case PlayerMovePlace.SAND:
+                selectedPlayerFootStep = gameAudioClips.playerSandFootSteps;
+                break;
+            case PlayerMovePlace.WATER:
+                selectedPlayerFootStep = gameAudioClips.playerWaterFootSteps;
+                break;
+            case PlayerMovePlace.BASE:
+                selectedPlayerFootStep = gameAudioClips.playerBaseFootSteps;
+                break;
+            default:
+                selectedPlayerFootStep = gameAudioClips.playerSandFootSteps;
+                break;
+        }
+    }
+
+    public AudioClip GetRandomFootStep(){
+        int index = UnityEngine.Random.Range(0, selectedPlayerFootStep.Length);
+        return selectedPlayerFootStep[index];
+    }
+
+    public AudioClip GetRandomEquipClip(){
+        int index = UnityEngine.Random.Range(0, gameAudioClips.playerEquipClips.Length);
+        return gameAudioClips.playerEquipClips[index];
     }
 
 }

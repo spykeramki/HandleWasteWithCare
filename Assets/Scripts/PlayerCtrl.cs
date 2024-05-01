@@ -38,9 +38,6 @@ public class PlayerCtrl : MonoBehaviour
     private Transform cameraTransform;
 
     [SerializeField]
-    private AudioListener audioListener;
-
-    [SerializeField]
     private CinemachineVirtualCamera cinemachineVitualCam;
 
     [SerializeField]
@@ -81,6 +78,8 @@ public class PlayerCtrl : MonoBehaviour
     public Renderer playerRenderer;
 
     public AudioSource playerAudioSource;
+    public AudioSource worldAudioSource;
+    public AudioSource footStepsAudioSource;
 
     private bool _isPlayerUiActive = false;
 
@@ -141,6 +140,7 @@ public class PlayerCtrl : MonoBehaviour
     private void Start()
     {
         layerMask = ~layerMask;
+        PlayWorldAudio(Utilities.Instance.gameAudioClips.outWorldWind, shouldLoop: true, m_volume: 1f);
     }
 
     private void Update()
@@ -258,6 +258,14 @@ public class PlayerCtrl : MonoBehaviour
                 StartCoroutine("IncreaseBioHazardValueSlowly");
             }
         }
+
+        if(other.tag == "Base"){
+            PlayWorldAudio(Utilities.Instance.gameAudioClips.inBaseWind, shouldLoop: true, m_volume: 1f);
+            Utilities.Instance.AudioToBePlayedAsFootStep(Utilities.PlayerMovePlace.BASE);
+        }
+        if(other.tag == "Water"){
+            Utilities.Instance.AudioToBePlayedAsFootStep(Utilities.PlayerMovePlace.WATER);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -267,6 +275,13 @@ public class PlayerCtrl : MonoBehaviour
         if (infectPlayerCtrl != null)
         {
             StopInfectLevelCoroutines(infectPlayerCtrl.InfectType);
+        }
+        if(other.tag == "Base"){
+            PlayWorldAudio(Utilities.Instance.gameAudioClips.outWorldWind, shouldLoop: true, m_volume: 1f);
+            Utilities.Instance.AudioToBePlayedAsFootStep(Utilities.PlayerMovePlace.SAND);
+        }
+        if(other.tag == "Water"){
+            Utilities.Instance.AudioToBePlayedAsFootStep(Utilities.PlayerMovePlace.SAND);
         }
     }
 
@@ -442,13 +457,36 @@ public class PlayerCtrl : MonoBehaviour
         playerRenderer.materials = materials;
     }
 
-    public void PlayPlayerAudio(AudioClip m_clip, bool shouldLoop)
+    public void PlayFootStepsAudio(AudioClip m_clip, bool shouldLoop, float m_volume)
+    {
+        footStepsAudioSource.loop = shouldLoop;
+        footStepsAudioSource.volume = m_volume;
+        if (m_clip.name != footStepsAudioSource.clip.name)
+        {
+            footStepsAudioSource.clip = m_clip;
+        }
+        footStepsAudioSource.Play();
+    }
+
+    public void PlayPlayerAudio(AudioClip m_clip, bool shouldLoop, float m_volume)
     {
         playerAudioSource.loop = shouldLoop;
+        playerAudioSource.volume = m_volume;
         if (m_clip.name != playerAudioSource.clip.name)
         {
             playerAudioSource.clip = m_clip;
         }
         playerAudioSource.Play();
+    }
+
+    public void PlayWorldAudio(AudioClip m_clip, bool shouldLoop, float m_volume)
+    {
+        worldAudioSource.loop = shouldLoop;
+        worldAudioSource.volume = m_volume;
+        if (m_clip.name != worldAudioSource.clip.name)
+        {
+            worldAudioSource.clip = m_clip;
+        }
+        worldAudioSource.Play();
     }
 }

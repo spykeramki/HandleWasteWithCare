@@ -272,4 +272,8 @@ public class GameManager : MonoBehaviour
     public void SetDataAndActivenessOfGeneralIntructUi(string m_text, bool isActive){
         playInstructionsCtrl.SetDataAndActivenessInUi(m_text, isActive);
     }
+
+    public void PlayClickAudio(){
+        PlayerCtrl.LocalInstance.PlayPlayerAudio(Utilities.Instance.gameAudioClips.uiBtnClick, shouldLoop: false, m_volume: 1.0f);
+    }
 }
