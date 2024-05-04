@@ -18,4 +18,7 @@ public class FactsData : ScriptableObject
 
     public List<FactData> wastageRevolutionFacts;
 
+    
+    public List<FactData> bioWastageFacts;
+
 }

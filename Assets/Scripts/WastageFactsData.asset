@@ -36,4 +36,23 @@ MonoBehaviour:
   - text: Liquid and sludge radioactive waste are normally converted into solids
       with cement and glass to stabilise them
     audio: {fileID: 8300000, guid: 411cb6f485242aa4699e5d6233b7dd3d, type: 3}
-  wastageRevolutionFacts: []
+  wastageRevolutionFacts:
+  - text: In near-surface disposal of radioactive waste, containers are placed in
+      vaults and covered with a membrane and topsoil.
+    audio: {fileID: 8300000, guid: d1b9ee47b7633174e8d902b3b2611344, type: 3}
+  - text: 90% of radioactive waste from nuclear technologies is Low-level waste.
+      They are sent for Near-surface disposal.
+    audio: {fileID: 8300000, guid: 16b44c7392200d34e9a93649197036bc, type: 3}
+  - text: Intermediate-level and High-level radioactive wastes with long-lived radioisotopes
+      are sent for Deep geological disposal.
+    audio: {fileID: 8300000, guid: ed23b24ce599ad843bb0dd3aa1ee6119, type: 3}
+  - text: Deep geological disposal is a multi-barrier disposal involving waste packaging,
+      an engineered repository and a geological barrier together.
+    audio: {fileID: 8300000, guid: a73907e60791775428f22772d7140ba2, type: 3}
+  bioWastageFacts:
+  - text: Biohazardous waste is any biological waste that contains infectious waste
+      like discarded live viruses, pathogens, unsterilized devices etc.
+    audio: {fileID: 8300000, guid: f8b535312e7a89e46bec32000ba9b3f5, type: 3}
+  - text: Biohazardous waste is disposed of by incineration, steam sterilization
+      or other disinfection methods.
+    audio: {fileID: 8300000, guid: 4262ac79828458540a10c4c4d93a4cda, type: 3}

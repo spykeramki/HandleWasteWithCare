@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
                 SetDataInTutorialInstructions(uiData);
                 break;
 
-            case GameState.FREE_ROAM:
+            case GameState.AFTER_EFFECTS:
                 TutorialInstructionsCtrl.UiData uiData2 = new TutorialInstructionsCtrl.UiData()
                 {
                     gameState = currentGameState,
@@ -211,12 +211,23 @@ public class GameManager : MonoBehaviour
                     }
                 };
                 SetDataInTutorialInstructions(uiData2);
-                break;
-            case GameState.AFTER_EFFECTS:
+                break;  
+            case GameState.FREE_ROAM:
+                TutorialInstructionsCtrl.UiData uiData2 = new TutorialInstructionsCtrl.UiData()
+                {
+                    gameState = currentGameState,
+                    actionToBeExecutedAfterIntro = () =>
+                    {
+                        SetPlayerStateToUiMode?.Invoke(false);
+                        Invoke("SetDataForBioHazardWastageFactsInformationUi", 2f);
+                    }
+                };
+                SetDataInTutorialInstructions(uiData2);
+                break;  
+            case GameState.DISPOSE_RADIOACTIVE_WASTE:
             case GameState.DECONTAMINATION_UNIT:
             case GameState.CHANGE_SUIT:
             case GameState.BASE_INTRO:
-            case GameState.DISPOSE_RADIOACTIVE_WASTE:
             default:
                 SetIntroUi();
                 break;
@@ -265,6 +276,15 @@ public class GameManager : MonoBehaviour
         factsCtrl.SetFactsText(new FactsCtrl.UiData()
         {
             factsDataList = factsData.wastageRevolutionFacts,
+            onCompletionOfSettingData = null
+        });
+    }
+
+    private void SetDataForBioHazardWastageFactsInformationUi()
+    {
+        factsCtrl.SetFactsText(new FactsCtrl.UiData()
+        {
+            factsDataList = factsData.bioWastageFacts,
             onCompletionOfSettingData = null
         });
     }
