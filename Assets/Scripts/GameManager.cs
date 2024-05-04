@@ -276,4 +276,8 @@ public class GameManager : MonoBehaviour
     public void PlayClickAudio(){
         PlayerCtrl.LocalInstance.PlayPlayerAudio(Utilities.Instance.gameAudioClips.uiBtnClick, shouldLoop: false, m_volume: 1.0f);
     }
+
+    public void PlayMachineClickAudio(){
+        PlayerCtrl.LocalInstance.PlayPlayerAudio(Utilities.Instance.gameAudioClips.machineBtnClick, shouldLoop: false, m_volume: 1.0f);
+    }
 }

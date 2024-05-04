@@ -74,6 +74,7 @@ public class Utilities : MonoBehaviour
         public AudioClip outWorldWind;
         public AudioClip inBaseWind;
         public AudioClip uiBtnClick;
+        public AudioClip machineBtnClick;
         public AudioClip slidingDoorOpen;
         public AudioClip slidingDoorClose;
         public AudioClip swingDoorOpen;

@@ -34938,6 +34938,7 @@ MonoBehaviour:
     outWorldWind: {fileID: 8300000, guid: 6c90934ce97d2e74d92cd4032fe26ae3, type: 3}
     inBaseWind: {fileID: 8300000, guid: 049661697c77a614289e17c425d92a9d, type: 3}
     uiBtnClick: {fileID: 8300000, guid: 7347e5017275b074c9ef1b133fb3a9f1, type: 3}
+    machineBtnClick: {fileID: 8300000, guid: ffe8ab36f2e5efa4aa38cf37fdd1f676, type: 3}
     slidingDoorOpen: {fileID: 8300000, guid: cc7b4754e649c8148a89268f39070854, type: 3}
     slidingDoorClose: {fileID: 8300000, guid: 4637ec9359aa0b547916dc4297bbbce7, type: 3}
     swingDoorOpen: {fileID: 8300000, guid: 026a10c9b03610d41a93dfa2a37db72f, type: 3}

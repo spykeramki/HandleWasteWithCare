@@ -80,7 +80,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     public void OnClickTransferToMachineInventoryButton()
     {
-        GameManager.Instance.PlayClickAudio();
+        GameManager.Instance.PlayMachineClickAudio();
         List<InventorySlotUiCtrl> inventorySlotUiCtrls = playerInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
@@ -104,7 +104,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     public void OnClickTransferFromMachineInventoryButton()
     {
-        GameManager.Instance.PlayClickAudio();
+        GameManager.Instance.PlayMachineClickAudio();
         List<InventorySlotUiCtrl> inventorySlotUiCtrls = machineInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
@@ -143,7 +143,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     private IEnumerator StartRecycling()
     {
-        GameManager.Instance.PlayClickAudio();
+        GameManager.Instance.PlayMachineClickAudio();
         machineAudioSource.clip = Utilities.Instance.gameAudioClips.machineRunning;
         machineAudioSource.Play();
         while (_currentRecycleTime > 0)
