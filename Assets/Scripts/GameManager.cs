@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
                 SetDataInTutorialInstructions(uiData2);
                 break;  
             case GameState.FREE_ROAM:
-                TutorialInstructionsCtrl.UiData uiData2 = new TutorialInstructionsCtrl.UiData()
+                TutorialInstructionsCtrl.UiData uiData3 = new TutorialInstructionsCtrl.UiData()
                 {
                     gameState = currentGameState,
                     actionToBeExecutedAfterIntro = () =>
@@ -222,7 +222,7 @@ public class GameManager : MonoBehaviour
                         Invoke("SetDataForBioHazardWastageFactsInformationUi", 2f);
                     }
                 };
-                SetDataInTutorialInstructions(uiData2);
+                SetDataInTutorialInstructions(uiData3);
                 break;  
             case GameState.DISPOSE_RADIOACTIVE_WASTE:
             case GameState.DECONTAMINATION_UNIT:
