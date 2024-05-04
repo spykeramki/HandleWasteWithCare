@@ -6873,7 +6873,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: d2d5fd73109489a4a96144e2ca761ad5, type: 3}
+      objectReference: {fileID: 8300000, guid: ba3be1c76e1ee1f499a3a1ba97d494f3, type: 3}
     - target: {fileID: 5958342190196045999, guid: c8143c8d08c54cd4ab774e333d502e9d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -24536,7 +24536,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 026a10c9b03610d41a93dfa2a37db72f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -24546,10 +24546,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3.5771947
-  MaxDistance: 500
+  MinDistance: 0
+  MaxDistance: 3
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -24582,7 +24582,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -45326,8 +45326,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3.7928848
-  MaxDistance: 500
+  MinDistance: 0
+  MaxDistance: 3
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -45362,7 +45362,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -48463,7 +48463,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: cc7b4754e649c8148a89268f39070854, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -48473,10 +48473,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3.4319534
-  MaxDistance: 500
+  MinDistance: 0
+  MaxDistance: 3
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -48509,7 +48509,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -54888,6 +54888,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 812686843}
     m_Modifications:
+    - target: {fileID: 1424160839416041629, guid: 34c2ea0c617d22242bc84343a52bc114,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1592696438753117340, guid: 34c2ea0c617d22242bc84343a52bc114,
         type: 3}
       propertyPath: m_RootOrder

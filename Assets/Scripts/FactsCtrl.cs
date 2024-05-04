@@ -85,7 +85,7 @@ public class FactsCtrl : MonoBehaviour
 
     private void PlayKeyboardClickSoundsRandom(){
         int randomIndex = UnityEngine.Random.Range(0, 4);
-        float randomVolume = UnityEngine.Random.Range(0.8f, 1.0f);
+        float randomVolume = UnityEngine.Random.Range(0.6f, 0.8f);
         PlayerCtrl.LocalInstance.PlayPlayerAudio(defaultLetterClips[randomIndex], shouldLoop: false, randomVolume);
     }
 }
