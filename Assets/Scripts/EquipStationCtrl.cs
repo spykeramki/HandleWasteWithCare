@@ -35,8 +35,10 @@ public class EquipStationCtrl : MonoBehaviour
 
     public Renderer playerModelRenderer;
 
-
+    [SerializeField]
     public GameObject bioHazardModel;
+
+    [SerializeField]
     public GameObject radiationModel;
 
     public TextMeshProUGUI suitTypeText;
@@ -110,8 +112,8 @@ public class EquipStationCtrl : MonoBehaviour
     private void AdjustStationBasedOnSuitType(PlayerProtectionSuitType m_suitType)
     {
         bool isBioHazard = m_suitType == PlayerProtectionSuitType.BIO_HAZARD;
-        bioHazardModel.SetActive(isBioHazard);
-        radiationModel.SetActive(!isBioHazard);
+        bioHazardModel?.SetActive(isBioHazard);
+        radiationModel?.SetActive(!isBioHazard);
         if (isBioHazard)
         {
             ChangeStationLightsColor(stationColors.bioHazard);
@@ -134,5 +136,11 @@ public class EquipStationCtrl : MonoBehaviour
         {
             light.color = m_color;
         }
+    }
+
+    private void OnDestroy()
+    {
+        suit.ToggleBtn.onClick.RemoveAllListeners();
+        PlayerCtrl.SetEquipmentData -= OnPlayerSpawn;
     }
 }

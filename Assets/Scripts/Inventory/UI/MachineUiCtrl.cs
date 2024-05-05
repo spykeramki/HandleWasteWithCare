@@ -186,6 +186,7 @@ public class MachineUiCtrl : MonoBehaviour
             recycleButton.interactable = false;
             machineAudioSource.clip = Utilities.Instance.gameAudioClips.machineIdle;
             machineAudioSource.Play();
+            GameManager.Instance.CheckAndSetPlayerWin();
         }
     }
 

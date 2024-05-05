@@ -9,8 +9,6 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
 
-    private string _sceneName;
-
 
     [Serializable]
     public struct PlayerDetails
@@ -89,7 +87,6 @@ public class DataManager : MonoBehaviour
             Destroy(this);
         }
         savedData = new SaveData() { playerDataList = new List<UserGameData>() };
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -182,11 +179,6 @@ public class DataManager : MonoBehaviour
             }
 
         return new LoadGameProfilesListUiCtrl.UiData() { LoadGameProfilesData = uiData };
-    }
-
-    private void OnSceneLoaded(Scene m_scene, LoadSceneMode m_loadSceneMode)
-    {
-        _sceneName = m_scene.name;
     }
 
     public void SaveDataOfCurrentUser()

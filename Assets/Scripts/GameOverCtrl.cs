@@ -27,6 +27,7 @@ public class GameOverCtrl : MonoBehaviour
     {
         GameManager.Instance.PlayClickAudio();
         DestroyImmediate(DataManager.Instance.gameObject);
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("00Start");
     }
 

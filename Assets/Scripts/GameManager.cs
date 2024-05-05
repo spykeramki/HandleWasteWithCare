@@ -76,12 +76,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerCtrl.LocalInstance.SetPlayerGameData();
         SetMachinesData();
         SetGarbageData();
         SetActivenessOfPlayerHudUi(false);
         SetPlayerGameStateFromData();
         SetPlayerStateToUiMode.AddListener(Utilities.Instance.SetSettingsForUi);
+        PlayerCtrl.LocalInstance.SetPlayerGameData();
     }
 
     public void SetGameOver()
@@ -173,6 +173,24 @@ public class GameManager : MonoBehaviour
             playerInventoryGarbage.Add(garbageDetails);
         }
         return playerInventoryGarbage;
+    }
+
+    public void CheckAndSetPlayerWin()
+    {
+        bool isGameOver = true;
+        foreach (GarbageCtrl item in garbageList)
+        {
+            if(item.CurrentGarbageState == GarbageCtrl.GarbageState.YET_TO_COLLECT)
+            {
+                isGameOver = false ; 
+                break;
+            }
+        }
+
+        if (isGameOver)
+        {
+            SetGameOver();
+        }
     }
 
     public void SetGameStateInGame(GameState m_gameState)

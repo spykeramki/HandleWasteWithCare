@@ -16,6 +16,6 @@ public class PlayerAnimEvents : MonoBehaviour
     }
 
     public void OnMovingOneStep(){
-        PlayerCtrl.LocalInstance.PlayFootStepsAudio(Utilities.Instance.GetRandomFootStep(), shouldLoop: false, m_volume: 0.8f);
+        PlayerCtrl.LocalInstance.PlayFootStepsAudio(Utilities.Instance.GetRandomFootStep(), shouldLoop: false, m_volume: 0.7f);
     }
 }

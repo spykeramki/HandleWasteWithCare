@@ -66,18 +66,6 @@ public class GarbageCtrl : MonoBehaviour
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void HideObjectServerRpc()
-    {
-        HideObjectClientRpc();
-    }
-
-    [ClientRpc]
-    public void HideObjectClientRpc()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void SetActiveness(bool active)
     {
         gameObject.SetActive(active);

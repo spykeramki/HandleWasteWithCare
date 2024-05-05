@@ -20,8 +20,6 @@ public class FactsCtrl : MonoBehaviour
     private int currentStringCount = 0;
     private UiData uiData;
 
-    private int _currentAudioIndex = 0;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +28,7 @@ public class FactsCtrl : MonoBehaviour
 
     public void SetFactsText(UiData m_uiData)
     {
+        currentStringCount = 0;
         uiData = m_uiData;
         gameObject.SetActive(true);
         totalStringCount = m_uiData.factsDataList.Count;
