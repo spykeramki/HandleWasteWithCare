@@ -20,6 +20,8 @@ public class FactsCtrl : MonoBehaviour
     private int currentStringCount = 0;
     private UiData uiData;
 
+    private float _timeForEachLetter = 0.08f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,7 @@ public class FactsCtrl : MonoBehaviour
 
     public void SetFactsText(UiData m_uiData)
     {
+        StopAllCoroutines();
         currentStringCount = 0;
         uiData = m_uiData;
         gameObject.SetActive(true);
@@ -42,7 +45,12 @@ public class FactsCtrl : MonoBehaviour
         bool hasAudio = factData.audio != null;
         if (hasAudio)
         {
+            _timeForEachLetter = 0.07f;
             PlayerCtrl.LocalInstance.PlayPlayerAudio(factData.audio, false, 1.0f);
+        }
+        else
+        {
+            _timeForEachLetter = 0.12f;
         }
         StartCoroutine(TextTypeWritingEffect(factData.text, hasAudio));
     }
@@ -66,7 +74,8 @@ public class FactsCtrl : MonoBehaviour
             {
                 PlayKeyboardClickSoundsRandom();
             }
-            yield return new WaitForSeconds(0.12f);
+            Debug.Log(_timeForEachLetter + " _timeForEachLetter");
+            yield return new WaitForSeconds(_timeForEachLetter);
         }
 
         currentStringCount++;

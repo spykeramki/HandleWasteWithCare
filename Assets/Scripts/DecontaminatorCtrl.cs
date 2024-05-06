@@ -145,8 +145,8 @@ public class DecontaminatorCtrl : MonoBehaviour
     {
         contaminationUiCtrl.SetContamination(new ContaminationUiCtrl.UiData()
         {
-            biohazard = (int)_bioHazardLevel,
-            radiation = (int)_radiationLevel
+            biohazard = _bioHazardLevel,
+            radiation = _radiationLevel
         });
     }
 

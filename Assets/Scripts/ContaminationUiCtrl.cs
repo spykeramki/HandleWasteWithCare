@@ -10,8 +10,8 @@ public class ContaminationUiCtrl : MonoBehaviour
     [Serializable]
     public struct UiData
     {
-        public int radiation;
-        public int biohazard;
+        public float radiation;
+        public float biohazard;
     }
 
     public TextMeshProUGUI radiationText;
@@ -25,8 +25,8 @@ public class ContaminationUiCtrl : MonoBehaviour
 
     public void SetContamination(UiData uiData)
     {
-        radiationText.text = uiData.radiation.ToString();
-        bioHazardText.text = uiData.biohazard.ToString();
+        radiationText.text = (uiData.radiation).ToString("0.00");
+        bioHazardText.text = uiData.biohazard.ToString("0.00");
 
         if(uiData.radiation <= 0 && uiData.biohazard <= 0)
         {
