@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -39,6 +40,9 @@ public class MachineUiCtrl : MonoBehaviour
     public AudioSource machineAudioSource;
 
     public bool isRecycler = false;
+
+    public GameObject timerTextCanvasGo;
+    public TextMeshProUGUI timerText;
 
     private float _currentRecycleTime = 0;
 
@@ -143,6 +147,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     private IEnumerator StartRecycling()
     {
+        timerTextCanvasGo.SetActive(true);
         GameManager.Instance.PlayMachineClickAudio();
         machineAudioSource.clip = Utilities.Instance.gameAudioClips.machineRunning;
         machineAudioSource.Play();
@@ -150,11 +155,12 @@ public class MachineUiCtrl : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             _currentRecycleTime -= 1f;
+            timerText.text = _currentRecycleTime.ToString();
         }
         if (_currentRecycleTime <= 0)
         {
             _currentRecyclingSlotData.inventoryItemUiData.count -= 1;
-            
+            timerText.text = "0";
             inventorySystem.RemoveSingleItemOfType(_currentRecyclingSlotData.garbageType);
             if (_currentRecyclingSlotData.inventoryItemUiData.count <= 0)
             {
@@ -186,6 +192,7 @@ public class MachineUiCtrl : MonoBehaviour
             recycleButton.interactable = false;
             machineAudioSource.clip = Utilities.Instance.gameAudioClips.machineIdle;
             machineAudioSource.Play();
+            timerTextCanvasGo.SetActive(false);
             GameManager.Instance.CheckAndSetPlayerWin();
         }
     }
