@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
+//Controls the Garbage behaviour when spawn on the ground and player collected
 public class GarbageCtrl : MonoBehaviour
 {
     public enum GarbageState

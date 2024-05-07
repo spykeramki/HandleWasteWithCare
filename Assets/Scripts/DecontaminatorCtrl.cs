@@ -29,6 +29,7 @@ public class DecontaminatorCtrl : MonoBehaviour
         _bioHazardLevel = level;
     }
 
+    //When player enter the decontamination unit, reading hazard levels and invoking scan animation
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
@@ -66,6 +67,8 @@ public class DecontaminatorCtrl : MonoBehaviour
         Invoke("StartDecontamination", 1f);
     }
 
+
+    //starts decontamination by starting sprayers and reducing hazard levels
     public void StartDecontamination()
     {
         StartSprayers();

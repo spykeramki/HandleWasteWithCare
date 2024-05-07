@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Controls Decontamination Unit UI 
 public class ContaminationUiCtrl : MonoBehaviour
 {
     [Serializable]
@@ -22,7 +23,7 @@ public class ContaminationUiCtrl : MonoBehaviour
 
     public GameObject ParentGo;
 
-
+    //Sets the contamination data on the screen
     public void SetContamination(UiData uiData)
     {
         radiationText.text = (uiData.radiation).ToString("0.00");

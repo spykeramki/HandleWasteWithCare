@@ -5,11 +5,12 @@ using System;
 using System.IO;
 using UnityEngine.SceneManagement;
 
+//This class manages the save data and data flow through out the game
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
 
-
+    //following structs are data types to categorize data in the game
     [Serializable]
     public struct PlayerDetails
     {
@@ -77,6 +78,7 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
+        //the instance is not destroyed when the scene changes
         if(Instance == null)
         {
             Instance = this;
@@ -91,10 +93,12 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
+        //gets the app data save path in different platforms
         savePath = Application.persistentDataPath + @"\hwcSaveData.txt";
         GetSavedData();
     }
 
+    //sets the new player data with default values
     public void SetNewPlayerData(PlayerDetails m_playerData)
     {
         PlayerGameData newPlayerGameData = new PlayerGameData();
@@ -118,12 +122,14 @@ public class DataManager : MonoBehaviour
         SetSaveData();
     }
 
+    //Sets data to file 
     public void SetSaveData()
     {
         saveDataJsonString = JsonUtility.ToJson(savedData);
         File.WriteAllText(savePath, saveDataJsonString);
     }
 
+    //Gets data from saved file 
     private void GetSavedData()
     {
         if(!File.Exists(savePath))
@@ -132,12 +138,13 @@ public class DataManager : MonoBehaviour
         }
         saveDataJsonString = File.ReadAllText(savePath);
 
-        savedData = JsonUtility.FromJson<SaveData>(saveDataJsonString);
+        savedData = JsonUtility.FromJson<SaveData>(saveDataJsonString);//Parsing text file to variables
     } 
 
     public bool PlayerNameAlreadyExists(string m_name)
     {
         int playerIndex = -1;
+        //checking if player name already exists
         playerIndex = GetPlayerDataList().FindIndex(each => each.playerDetails.name == m_name);
         return playerIndex >= 0;
     }
@@ -164,7 +171,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-
+    //Data preparation for lading saved profiles
     public LoadGameProfilesListUiCtrl.UiData PrepareDataForLoadGameProfiles()
     {
 

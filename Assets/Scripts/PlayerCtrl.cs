@@ -12,6 +12,7 @@ public class PlayerCtrl : MonoBehaviour
 {
     public static Action<EquipStationCtrl.PlayerProtectionSuitType> SetEquipmentData;
 
+    //Player state of movement
     public enum PlayerState
     {
         IS_IDLE,
@@ -170,12 +171,8 @@ public class PlayerCtrl : MonoBehaviour
 
     private void LateUpdate()
     {
-        /*if (!IsOwner)
-        {
-            return;
-        }*/
+        //When Player Click on the garbage or the Ui, then the actions were called to interact using Ray
         RaycastHit hit;
-        Debug.DrawRay(cameraTransform.position, cameraTransform.forward * 5f, Color.green);
         if (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(cameraTransform.position, cameraTransform.forward, out hit, 5f, layerMask))
@@ -210,6 +207,7 @@ public class PlayerCtrl : MonoBehaviour
         StartCoroutine("ReduceHealthSlowly");
     }
 
+    //Reducing health slowly when the hazard level increase
     private IEnumerator ReduceHealthSlowly()
     {
         while (health > 0)
@@ -337,6 +335,7 @@ public class PlayerCtrl : MonoBehaviour
         StopAllCoroutines();
     }
 
+    //Getting player data to save
     public DataManager.PlayerGameData GetPlayerGameData()
     {
         DataManager.PlayerGameData playerGameData = new DataManager.PlayerGameData();
@@ -363,6 +362,7 @@ public class PlayerCtrl : MonoBehaviour
         return playerGameData;
     }
 
+    //Setting player data at the start
     public void SetPlayerGameData()
     {
         DataManager.UserGameData m_userGameData = DataManager.Instance.GetCurrentUserData();
@@ -414,6 +414,7 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
+    //Setting animation state of the player
     public void SetAnimation(PlayerState m_state)
     {
         switch (m_state)
@@ -457,6 +458,7 @@ public class PlayerCtrl : MonoBehaviour
         playerRenderer.materials = materials;
     }
 
+#region PLAYER AUDIO
     public void PlayFootStepsAudio(AudioClip m_clip, bool shouldLoop, float m_volume)
     {
         footStepsAudioSource.loop = shouldLoop;
@@ -489,4 +491,5 @@ public class PlayerCtrl : MonoBehaviour
         }
         worldAudioSource.Play();
     }
+    #endregion
 }

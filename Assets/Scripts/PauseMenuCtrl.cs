@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//Controls the pause menu actions
 public class PauseMenuCtrl : MonoBehaviour
 {
     public Button resumeBtn;

@@ -7,6 +7,7 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    //Game states in the tutorial
     public enum GameState
     {
         NEW_ARRIVAL,
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //Setting data from saved file at the start of the game
         SetMachinesData();
         SetGarbageData();
         SetActivenessOfPlayerHudUi(false);
@@ -98,7 +100,7 @@ public class GameManager : MonoBehaviour
         machinesData.radiationWaste = radiationRecyclerInventory.GetInventoryItemsData().Count;
         return machinesData;
     }
-
+#region DATA SETTERS
     private void SetMachinesData()
     {
         DataManager.UserGameData m_userGameData = DataManager.Instance.GetCurrentUserData();
@@ -160,6 +162,7 @@ public class GameManager : MonoBehaviour
         }
         SetGameStateInGame(gameState);
     }
+#endregion
 
     public List<DataManager.GarbageDetails> GetGarbageDetails()
     {
@@ -193,6 +196,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Sets the Game state while going through tutorial
     public void SetGameStateInGame(GameState m_gameState)
     {
         currentGameState = m_gameState;

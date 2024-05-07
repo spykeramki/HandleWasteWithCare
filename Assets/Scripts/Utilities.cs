@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controls common function and common assets through out the game
 public class Utilities : MonoBehaviour 
 {
     public static Utilities Instance;

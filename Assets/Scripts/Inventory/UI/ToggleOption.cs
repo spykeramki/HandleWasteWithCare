@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+//This gets components and controls each item of the inventory.
 public class ToggleOption : MonoBehaviour
 {
     private Button _button;

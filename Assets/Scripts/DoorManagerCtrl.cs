@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Controls door when triggered
 public class DoorManagerCtrl : MonoBehaviour
 {
 
@@ -67,6 +68,7 @@ public class DoorManagerCtrl : MonoBehaviour
         }
     }
 
+    //Method to set the game status when the doors were opened first time
     private void ShowIntro()
     {
         GameManager gameManager = GameManager.Instance;

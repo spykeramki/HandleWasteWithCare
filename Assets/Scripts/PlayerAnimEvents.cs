@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//These are the Animation events called in a specific state of animation
 public class PlayerAnimEvents : MonoBehaviour
 {
     public void ChangeParentToWake()

@@ -24,6 +24,7 @@ public class MapCameraCtrl : MonoBehaviour
         RenderPipelineManager.beginCameraRendering -= BeginOfThisCamRender;
     }
 
+    //camera settings for map camera to not show fog
     private void BeginOfThisCamRender(ScriptableRenderContext context, Camera cam)
     {
         if(cam.CompareTag("MapCamera"))

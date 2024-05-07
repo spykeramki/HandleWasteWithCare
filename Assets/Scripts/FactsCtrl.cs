@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+//Controls the voice over and hazardous material disposal data in UI
 public class FactsCtrl : MonoBehaviour
 {
     public struct UiData
@@ -43,6 +44,7 @@ public class FactsCtrl : MonoBehaviour
         FactsData.FactData factData = uiData.factsDataList[currentStringCount];
         factText.text = factData.text;
         bool hasAudio = factData.audio != null;
+        //adjusting audio and speed as per the scenario
         if (hasAudio)
         {
             _timeForEachLetter = 0.07f;
@@ -61,6 +63,7 @@ public class FactsCtrl : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    //Method to get typing effect in the game.
     private IEnumerator TextTypeWritingEffect(string m_string, bool hasAudio)
     {
         factText.ForceMeshUpdate();
@@ -69,7 +72,7 @@ public class FactsCtrl : MonoBehaviour
         while (iterationCount <lettersCount)
         {
             iterationCount++;
-            factText.maxVisibleCharacters = iterationCount;
+            factText.maxVisibleCharacters = iterationCount; //number of letters to be displayed in a sentence
             if (!hasAudio)
             {
                 PlayKeyboardClickSoundsRandom();

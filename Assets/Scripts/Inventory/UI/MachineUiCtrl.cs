@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+//controls total machine methods and UI
 public class MachineUiCtrl : MonoBehaviour
 {
     [SerializeField]
@@ -52,6 +53,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     private void Start()
     {
+        //assigning events for each button click in machine UI
         playerTransferButton.onClick.AddListener(OnClickTransferToMachineInventoryButton);
         machineTransferButton.onClick.AddListener(OnClickTransferFromMachineInventoryButton);
         recycleButton.onClick.AddListener(SetRecyclingProcess);
@@ -61,6 +63,7 @@ public class MachineUiCtrl : MonoBehaviour
 
     }
 
+    //When Item is transferred between player and machine, all the items in the UI are updated to avoid edge cases
     public void UpdateTotalUi()
     {
         playerInventoryUiCtrl.RemoveAllItemsFromSlots();
@@ -85,22 +88,24 @@ public class MachineUiCtrl : MonoBehaviour
     public void OnClickTransferToMachineInventoryButton()
     {
         GameManager.Instance.PlayMachineClickAudio();
+        //Getting selected items
         List<InventorySlotUiCtrl> inventorySlotUiCtrls = playerInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
             InventorySlotUiCtrl inventorySlotUiCtrl = inventorySlotUiCtrls[i];
             InventorySystem.InventoryItemData playerItemData = PlayerCtrl.LocalInstance.PlayerInventory.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
-            //inventorySlotUiCtrl.RemoveItemFromSlot();
+            //Removing Item in the inventory of player and adding it to machine inventory.
             if(inventorySlotUiCtrl.CurrentSlotData.garbageType == GarbageManager.GarbageType.NONE || inventorySlotUiCtrl.CurrentSlotData.garbageType == machineRecycleType)
             {
                 PlayerCtrl.LocalInstance.PlayerInventory.RemoveItem(playerItemData);
                 inventorySystem.AddItem(playerItemData);
             }
         }
-
+    
         if (inventorySlotUiCtrls.Count != 0) 
         {
             recycleButton.interactable = true;
+            //Updating UI of the inventory
             UpdateTotalUi();
             PlayerCtrl.LocalInstance.PlayerInventory.UpdateDataInInvetoryUi();
         }
@@ -109,26 +114,27 @@ public class MachineUiCtrl : MonoBehaviour
     public void OnClickTransferFromMachineInventoryButton()
     {
         GameManager.Instance.PlayMachineClickAudio();
+        //getting selected items
         List<InventorySlotUiCtrl> inventorySlotUiCtrls = machineInventoryUiCtrl.InventorySlotList.FindAll(each => each.IsSelected);
         for (int i = 0; i < inventorySlotUiCtrls.Count; i++)
         {
             InventorySlotUiCtrl inventorySlotUiCtrl = inventorySlotUiCtrls[i];
             InventorySystem.InventoryItemData machineItemData = inventorySystem.GetInventoryItemsData()[inventorySlotUiCtrl.CurrentSlotData.garbageType.ToString()];
-            //inventorySlotUiCtrl.RemoveItemFromSlot();
-
+            
+            //Removing Item in the inventory of machine and adding it to player inventory.
             inventorySystem.RemoveItem(machineItemData);
             PlayerCtrl.LocalInstance.PlayerInventory.AddItem(machineItemData);
         }
 
         if (inventorySlotUiCtrls.Count != 0)
         {
+            //updating total UI
             UpdateTotalUi();
             PlayerCtrl.LocalInstance.PlayerInventory.UpdateDataInInvetoryUi();
         }
     }
 
-
-
+    //Controls the recycling process and machine emission material
     private void SetRecyclingProcess()
     {
         StopAllCoroutines();
@@ -140,11 +146,13 @@ public class MachineUiCtrl : MonoBehaviour
         }
         if (machineInventoryUiCtrl.InventorySlotList[0].IsFilled)
         {
+            //Setting emission to material in URP
             recyclingMaterial.SetColor("_EmissionColor", recyclingColor * 1f);
             StartCoroutine("StartRecycling");
         }
     }
 
+    //Controls the recycling timer
     private IEnumerator StartRecycling()
     {
         timerTextCanvasGo.SetActive(true);
@@ -175,6 +183,7 @@ public class MachineUiCtrl : MonoBehaviour
         }
     }
 
+    //if we have more than one items in the machine, then the recycling continues untill the end
     private void ContinueRecycling()
     {
         if (!_isFirstTimeRecyclingDone && machineRecycleType == GarbageManager.GarbageType.RADIOACTIVE && 
@@ -188,6 +197,7 @@ public class MachineUiCtrl : MonoBehaviour
         }
         else
         {
+            //This is end of Recycling process
             recyclingMaterial.SetColor("_EmissionColor", recyclingColor * 0);
             recycleButton.interactable = false;
             machineAudioSource.clip = Utilities.Instance.gameAudioClips.machineIdle;
@@ -197,6 +207,7 @@ public class MachineUiCtrl : MonoBehaviour
         }
     }
 
+    //If the game was stopped in between them the emission material will be reset for next game
     private void OnDestroy()
     {
         recyclingMaterial.SetColor("_EmissionColor", recyclingColor * 0);

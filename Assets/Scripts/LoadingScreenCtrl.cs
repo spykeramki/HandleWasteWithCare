@@ -23,6 +23,7 @@ public class LoadingScreenCtrl : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
+    //Changing images in the loading screen
     private IEnumerator LoadSceneAndChangeImages()
     {
         while (true)
@@ -38,6 +39,7 @@ public class LoadingScreenCtrl : MonoBehaviour
         }
     }
 
+    //Controlling load effect of slider as per scene load progress
     private IEnumerator LoadSceneAsync(string sceneName)
     {
         yield return new WaitForSeconds(2f);

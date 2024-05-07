@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//When player enter premises of hazardous material this gives material hazard type
 [RequireComponent(typeof(Collider))]
 public class InfectPlayerCtrl : MonoBehaviour
 {

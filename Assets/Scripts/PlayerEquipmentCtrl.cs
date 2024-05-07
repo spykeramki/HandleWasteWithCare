@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Sets player material as per the suit type
 public class PlayerEquipmentCtrl : MonoBehaviour
 {
 

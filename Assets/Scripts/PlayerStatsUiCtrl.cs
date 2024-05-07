@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Controls UI of health, hazard levels in the player hud
 public class PlayerStatsUiCtrl : MonoBehaviour
 {
     public Image[] healthImages;

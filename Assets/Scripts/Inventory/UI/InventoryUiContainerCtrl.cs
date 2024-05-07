@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controls the parent object with a set of inventory slots
 public class InventoryUiContainerCtrl : MonoBehaviour
 {
-
+    //class data
     public struct UiData
     {
         public List<InventorySlotUiCtrl.UiData> inventorySlotsUiData;
@@ -18,6 +19,7 @@ public class InventoryUiContainerCtrl : MonoBehaviour
         get { return inventorySlotList; }
     }
 
+    //data setter
     public void SetDataInUi(UiData uiData)
     {
         List<InventorySlotUiCtrl.UiData> inventoryData = uiData.inventorySlotsUiData;
@@ -34,6 +36,7 @@ public class InventoryUiContainerCtrl : MonoBehaviour
         }
     }
 
+    //removes all items from slots by iterating and removing each slot at a time
     public void RemoveAllItemsFromSlots()
     {
         for (int i = 0; i < InventorySlotList.Count; i++)

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Controls the parent of each inventory item.
 public class InventorySlotUiCtrl : MonoBehaviour
 {
+    //class data
     public struct UiData{
         public InventoryItemUiCtrl.UiData inventoryItemUiData;
         public GarbageManager.GarbageType garbageType;
@@ -42,8 +44,11 @@ public class InventorySlotUiCtrl : MonoBehaviour
         slotBg.color = _currentColor;
     }
 
+    //setter function
     public bool SetDataInUi(UiData uiData)
     {
+        //if the slot is already filled with the same garbage type we just increase number
+        //else we create new element with count.
         if (!_isFilled){
             _currentSlotData = uiData;
             _currentInventoryItemUiCtrl= Instantiate(inventoryItemPrefab, transform);
@@ -65,6 +70,7 @@ public class InventorySlotUiCtrl : MonoBehaviour
         return false;
     }
 
+    //Removes Item in Inventory UI slot
     public void RemoveItemFromSlot()
     {
         _isFilled = false;
@@ -76,6 +82,7 @@ public class InventorySlotUiCtrl : MonoBehaviour
         SlotSelection(false);
     }
 
+    //In Machine UI we can select the item with this method
     public void OnMouseDown()
     {
         if (_isFilled && _currentSlotData .garbageType!= GarbageManager.GarbageType.NONE)
@@ -84,6 +91,7 @@ public class InventorySlotUiCtrl : MonoBehaviour
         }
     }
 
+    //when slot is selected, it turns green. Else it will be default color
     private void SlotSelection(bool isSelected) {
         _isSelected = isSelected;
         if (isSelected)

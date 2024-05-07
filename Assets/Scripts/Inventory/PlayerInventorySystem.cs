@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Player inventory class inherited from parent inventory class
 public class PlayerInventorySystem : InventorySystem
 {
     [SerializeField]
@@ -16,8 +17,11 @@ public class PlayerInventorySystem : InventorySystem
         playerInventoryUiCtrl.SetDataInUi(Utilities.Instance.PrepareDataForInventoryUi(itemsData));
     }
 
+    //extension method to add item to inventory 
     public void AddItemToInventory(GarbageManager.GarbageType m_garbageType, int m_count)
     {
+        //controls the state of the game and sets new state 
+        //when the following action is done for the first time
         if(!_isFirstRadioActiveItemCollected  && m_garbageType == GarbageManager.GarbageType.RADIOACTIVE && 
             GameManager.Instance.CurrentGameState== GameManager.GameState.COLLECT_RADIOACTIVE_WASTE)
         {

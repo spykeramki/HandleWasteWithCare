@@ -18,6 +18,7 @@ public class MachineInteractionCtrl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //setting game state when player enters machine premises first time
         if(other.tag == "Player")
         {
             GameManager.Instance.SetDataAndActivenessOfGeneralIntructUi(instructionText, true);

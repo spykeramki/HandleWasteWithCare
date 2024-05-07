@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controls UI at different stages of the game
 public class TutorialInstructionsCtrl : MonoBehaviour
 {
     public struct UiData

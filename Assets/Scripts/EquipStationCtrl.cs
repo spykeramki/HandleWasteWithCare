@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+//Class to control the behaviour of player suit
 public class EquipStationCtrl : MonoBehaviour
 {
 
@@ -75,6 +76,7 @@ public class EquipStationCtrl : MonoBehaviour
         suit.ToggleImage.sprite = Utilities.Instance.GetSuitSpriteFromSuitType(m_suitType);
     }
 
+    //When Clicked on the UI screen button, player can equip the suit
     private void OnClickEquipmentChangeBtn()
     {
         PlayerCtrl.LocalInstance.PlayPlayerAudio(Utilities.Instance.GetRandomEquipClip(), shouldLoop: false, m_volume: 1.0f);
@@ -109,6 +111,7 @@ public class EquipStationCtrl : MonoBehaviour
         }
     }
 
+    //Controlling the station appearance as per the suit selected
     private void AdjustStationBasedOnSuitType(PlayerProtectionSuitType m_suitType)
     {
         bool isBioHazard = m_suitType == PlayerProtectionSuitType.BIO_HAZARD;

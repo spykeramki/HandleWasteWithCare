@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Scriptable object to add the data of hazardous material and voice overs
 [CreateAssetMenu]
 public class FactsData : ScriptableObject
 {

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This is the parent class of inventory systems in the game.
+//All the machine and player inventory systems inherit this class.
 public class InventorySystem : MonoBehaviour
 {
 
@@ -13,6 +15,7 @@ public class InventorySystem : MonoBehaviour
 
     protected Dictionary<string, InventoryItemData> itemsData = new Dictionary<string, InventoryItemData>();
 
+    //Adds Item to dictionary
     public virtual void AddItem(InventoryItemData itemData)
     {
             string enumString = itemData.garbageType.ToString();
@@ -22,6 +25,7 @@ public class InventorySystem : MonoBehaviour
 
     private void ManageItemAdditionToInventory(string enumString, InventoryItemData itemData)
     {
+        //If the inventory already has item, then the count will be increased.
         if (!itemsData.ContainsKey(enumString))
         {
             itemsData[enumString] = itemData;
@@ -34,6 +38,7 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    //removes item from the dictionary
     public virtual void RemoveItem(InventoryItemData itemData)
     {
         string enumString = itemData.garbageType.ToString();
@@ -42,6 +47,7 @@ public class InventorySystem : MonoBehaviour
 
     private void ManageItemRemovalToInventory(string enumString, InventoryItemData itemData)
     {
+        //if item count is greater than 1 then the count will be reduced, else item will be removed
         if (itemsData.ContainsKey(enumString))
         {
             InventoryItemData inventoryItemData = itemsData[enumString];
@@ -55,6 +61,7 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    //method to remove 1 item of single type at once.
     public void RemoveSingleItemOfType(GarbageManager.GarbageType garbageType)
     {
         string garbageTypeString = garbageType.ToString();
@@ -71,7 +78,7 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-
+    //gets total items data from dictionary
     public Dictionary<string, InventoryItemData> GetInventoryItemsData()
     {
         return itemsData;

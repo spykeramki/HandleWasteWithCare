@@ -32,6 +32,7 @@ public class MapCameraUiCtrl : MonoBehaviour
         playerHead.localRotation =  Quaternion.Euler(0f, 0f, 360-playerTransform.eulerAngles.y);
     }
 
+    //Controls the position of base icon with respect to player position
     private void ManageIcon(Transform objectTransform, RectTransform iconTransform)
     {
         Vector3 baseDirectionFromPlayer = objectTransform.position - playerTransform.position;

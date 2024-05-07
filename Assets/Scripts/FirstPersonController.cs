@@ -4,6 +4,7 @@ using Unity.Netcode;
 using UnityEngine.InputSystem;
 #endif
 
+//This was provided by First Person Template of Unity hub 
 namespace StarterAssets
 {
 	[RequireComponent(typeof(CharacterController))]
@@ -177,6 +178,7 @@ namespace StarterAssets
 			float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 			PlayerCtrl playerCtrl = PlayerCtrl.LocalInstance;
 
+			//animations were set as per the speed of the player
             if (_input.move.magnitude>0.1)
 			{
 

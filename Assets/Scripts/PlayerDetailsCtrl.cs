@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//Controls new player validations when player enters name
 public class PlayerDetailsCtrl : MonoBehaviour
 {
     public TextMeshProUGUI nameInstruction;
@@ -25,6 +26,7 @@ public class PlayerDetailsCtrl : MonoBehaviour
         startBtn.onClick.AddListener(OnClickStartBtn);
     }
 
+    //Called when OnValueChanged method of input field is called
     public void OnChangeName(string m_name)
     {
         playerData.name = m_name;
